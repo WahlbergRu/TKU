@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b7a70d1c-58d6-4c52-9d8d-a4d298e78538" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
     </list>
     <ignored path="TKutils.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,32 +28,76 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="442">
               <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding>
+                <marker date="1486541133923" expanded="true" signature="21:52" ph="/** Module dependencies. ...*/" />
+                <marker date="1486541133923" expanded="true" signature="160:218" ph="/** Get port from environment and store in Express. ...*/" />
+                <marker date="1486541133923" expanded="true" signature="298:328" ph="/** Create HTTP server. ...*/" />
+                <marker date="1486541133923" expanded="true" signature="368:430" ph="/** Listen on provided port, on all network interfaces. ...*/" />
+                <marker date="1486541133923" expanded="true" signature="520:580" ph="/** Normalize a port into a number, string, or false. ...*/" />
+                <marker date="1486541133923" expanded="true" signature="610:782" ph="{...}" />
+                <marker date="1486541133923" expanded="true" signature="664:703" ph="{...}" />
+                <marker date="1486541133923" expanded="true" signature="722:763" ph="{...}" />
+                <marker date="1486541133923" expanded="true" signature="784:840" ph="/** Event listener for HTTP server &quot;error&quot; event. ...*/" />
+                <marker date="1486541133923" expanded="true" signature="866:1352" ph="{...}" />
+                <marker date="1486541133923" expanded="true" signature="902:924" ph="{...}" />
+                <marker date="1486541133923" expanded="true" signature="1088:1350" ph="{...}" />
+                <marker date="1486541133923" expanded="true" signature="1354:1414" ph="/** Event listener for HTTP server &quot;listening&quot; event. ...*/" />
+                <marker date="1486541133923" expanded="true" signature="1439:1592" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="10" column="46" lean-forward="true" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
+              <folding>
+                <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+                <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+                <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+                <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+                <element signature="n#!!block;n#httpRequest#0" expanded="false" />
+                <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+                <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+                <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+                <element signature="n#!!block;n#searchEnemy#0" expanded="false" />
+                <element signature="n#!!block;n#autoFarmFinder#0" expanded="false" />
+                <element signature="e#47375#47921#0" expanded="false" />
+                <element signature="e#47941#48713#0" expanded="false" />
+                <element signature="e#49664#49778#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <file leaf-file-name="config.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rp.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_modules/request-promise/lib/rp.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="739" column="97" lean-forward="true" selection-start-line="739" selection-start-column="97" selection-end-line="739" selection-end-column="97" />
-              <folding>
-                <element signature="e#330#876#0" expanded="false" />
-                <element signature="e#1494#1581#0" expanded="false" />
-                <element signature="e#1908#3196#0" expanded="false" />
-                <element signature="e#3384#3670#0" expanded="false" />
-                <element signature="e#3680#3682#0" expanded="false" />
-                <element signature="e#3981#5302#0" expanded="false" />
-                <element signature="e#7725#9058#0" expanded="false" />
-                <element signature="e#9120#10547#0" expanded="false" />
-                <element signature="e#10608#11311#0" expanded="false" />
-                <element signature="e#13403#14574#0" expanded="false" />
-                <element signature="e#14643#24494#0" expanded="false" />
-                <element signature="e#15914#23050#0" expanded="false" />
-                <element signature="e#43206#43243#0" expanded="false" />
-                <element signature="e#43533#46310#0" expanded="false" />
-              </folding>
+              <caret line="14" column="4" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -61,9 +105,36 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/node_modules/request/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="61" column="26" lean-forward="true" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
-              <folding />
+            <state relative-caret-position="833">
+              <caret line="61" column="26" lean-forward="false" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
+              <folding>
+                <marker date="1486541138236" expanded="false" signature="0:621" ph="//..." />
+                <marker date="1486541138236" expanded="true" signature="992:1332" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="1031:1059" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="1114:1159" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="1194:1230" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="1236:1265" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="1376:1726" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="1412:1488" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="1606:1686" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="1753:1962" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="1832:1960" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="2284:2315" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="2349:2380" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="2444:2826" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="2487:2824" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="2663:2711" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="2744:2776" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="2877:3424" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="2962:3008" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="3179:3262" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="3480:3685" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="3519:3556" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="3577:3622" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="3881:4028" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="3923:3961" ph="{...}" />
+                <marker date="1486541138236" expanded="true" signature="3987:4026" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -101,9 +172,19 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="901">
+            <state relative-caret-position="765">
               <caret line="53" column="25" lean-forward="false" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
-              <folding />
+              <folding>
+                <marker date="1486541133921" expanded="true" signature="387:504" ph="//..." />
+                <marker date="1486541133921" expanded="true" signature="899:971" ph="{...}" />
+                <marker date="1486541133921" expanded="true" signature="994:1047" ph="//..." />
+                <marker date="1486541133921" expanded="true" signature="1086:1251" ph="{...}" />
+                <marker date="1486541133921" expanded="true" signature="1128:1247" ph="{...}" />
+                <marker date="1486541133921" expanded="true" signature="1189:1241" ph="{&quot;message&quot;: err.message...}" />
+                <marker date="1486541133921" expanded="true" signature="1253:1313" ph="//..." />
+                <marker date="1486541133921" expanded="true" signature="1352:1458" ph="{...}" />
+                <marker date="1486541133921" expanded="true" signature="1409:1454" ph="{&quot;message&quot;: err.message...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -120,18 +201,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>фармл</find>
-      <find>lastDataFromList</find>
-      <find>httpRequest</find>
-      <find>console.log</find>
-      <find>travian.com</find>
-      <find>romeTroops</find>
-      <find>listTimer</find>
-      <find>listTimerObj</find>
-      <find>newObjUnits</find>
-      <find>rowInListChanger</find>
-      <find>sobol</find>
-      <find>headers</find>
       <find>Host</find>
       <find>serverDomain</find>
       <find>listPayload</find>
@@ -150,14 +219,30 @@
       <find>randomTimeGenerator</find>
       <find>fixedTime</find>
       <find>body</find>
+      <find>lastDataFromList</find>
+      <find>listTimerObj</find>
+      <find>clearTimer</find>
+      <find>cheetah_3</find>
+      <find>var</find>
+      <find>apiKey</find>
+      <find>headers</find>
+      <find>attackRequest</find>
+      <find>request</find>
+      <find>setHttpHeaders</find>
+      <find>rp</find>
+      <find>httpRequest</find>
     </findStrings>
     <replaceStrings>
       <replace>kingdoms.com</replace>
       <replace>allSortedVillages</replace>
+      <replace>const</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -171,13 +256,21 @@
         <option value="$PROJECT_DIR$/views/crop.jade" />
         <option value="$PROJECT_DIR$/bin/www" />
         <option value="$PROJECT_DIR$/views/animal.jade" />
+        <option value="$PROJECT_DIR$/config.json" />
         <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
     <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>false</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>false</other-services-enabled>
   </component>
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
@@ -187,10 +280,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="54" />
-    <option name="y" value="-8" />
-    <option name="width" value="2514" />
-    <option name="height" value="1096" />
+    <option name="x" value="1358" />
+    <option name="y" value="-722" />
+    <option name="width" value="1936" />
+    <option name="height" value="1176" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -207,8 +300,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -283,6 +374,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -299,10 +392,122 @@
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="settings.editor.selected.configurable" value="editing.templates" />
-    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="js.eslint.eslintPackage" value="" />
+    <property name="eu.ydp.idea.ts.spec.generator.settings.spec.template" value="import {$ClassName$} from '$TestsRelativePath$../src/$classRelativePath$/$ClassName$';&#10;&#10;describe('$ClassName$', () =&gt; {&#10;  let $ObjName$:$ClassName$;&#10;&#10;  beforeEach(() =&gt; {&#10;    $ObjName$ = new $ClassName$();&#10;  });&#10;&#10;  describe('', () =&gt; {&#10;    it('', () =&gt; {&#10;      // given&#10;&#10;      // when&#10;&#10;      // then&#10;    });&#10;  });&#10;});&#10;" />
+    <property name="JavaScriptPreferStrict" value="false" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/routes/index.js</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunManager" selected="Node.js.bin\www">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -346,7 +551,7 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run-script" />
+      <command value="run" />
       <scripts />
       <node-interpreter value="project" />
       <envs />
@@ -390,6 +595,7 @@
       <workItem from="1485657171270" duration="7344000" />
       <workItem from="1485896014548" duration="4714000" />
       <workItem from="1486071404552" duration="5511000" />
+      <workItem from="1486541149806" duration="3894000" />
     </task>
     <task id="LOCAL-00001" summary="Ебашим скрипты, что бы аменочка дрочила">
       <created>1486074191367</created>
@@ -398,25 +604,32 @@
       <option name="project" value="LOCAL" />
       <updated>1486074191367</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Рефакторинг, что бы пацы не чмырили.">
+      <created>1486544986812</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1486544986812</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52080000" />
+    <option name="totallyTimeSpent" value="55974000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="-8" width="2514" height="1096" extended-state="6" />
+    <frame x="1358" y="-722" width="1936" height="1176" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921588" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20146818" sideWeight="0.4887556" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14392324" sideWeight="0.4887556" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3095488" sideWeight="0.51345843" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5021322" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19255929" sideWeight="0.51124436" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3095488" sideWeight="0.4865416" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18120806" sideWeight="0.48454157" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3991131" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -446,56 +659,43 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Ебашим скрипты, что бы аменочка дрочила" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ебашим скрипты, что бы аменочка дрочила" />
+    <MESSAGE value="Рефакторинг, что бы пацы не чмырили." />
+    <option name="LAST_COMMIT_MESSAGE" value="Рефакторинг, что бы пацы не чмырили." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/routes/index.js</url>
-          <line>796</line>
+          <line>729</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routes/index.js</url>
-          <line>134</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="26" />
+      <option name="time" value="28" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/animal.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="45" column="13" lean-forward="false" selection-start-line="45" selection-start-column="13" selection-end-line="46" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="19" column="52" lean-forward="false" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bin/www">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="28" column="28" lean-forward="false" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
-          <folding />
+          <folding>
+            <marker date="1486541133923" expanded="true" signature="21:52" ph="/** Module dependencies. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="160:218" ph="/** Get port from environment and store in Express. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="298:328" ph="/** Create HTTP server. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="368:430" ph="/** Listen on provided port, on all network interfaces. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="520:580" ph="/** Normalize a port into a number, string, or false. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="610:782" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="664:703" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="722:763" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="784:840" ph="/** Event listener for HTTP server &quot;error&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="866:1352" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="902:924" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1088:1350" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1354:1414" ph="/** Event listener for HTTP server &quot;listening&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="1439:1592" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -504,20 +704,19 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
+            <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+            <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+            <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#httpRequest#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+            <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+            <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+            <element signature="n#!!block;n#searchEnemy#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmFinder#0" expanded="false" />
+            <element signature="e#47375#47921#0" expanded="false" />
+            <element signature="e#47941#48713#0" expanded="false" />
+            <element signature="e#49664#49778#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -542,7 +741,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="32" column="3" lean-forward="false" selection-start-line="32" selection-start-column="3" selection-end-line="32" selection-end-column="3" />
-          <folding />
+          <folding>
+            <marker date="1486541133921" expanded="true" signature="387:504" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="899:971" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="994:1047" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="1086:1251" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1128:1247" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1189:1241" ph="{&quot;message&quot;: err.message...}" />
+            <marker date="1486541133921" expanded="true" signature="1253:1313" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="1352:1458" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1409:1454" ph="{&quot;message&quot;: err.message...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -550,7 +759,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="46" column="3" lean-forward="false" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
-          <folding />
+          <folding>
+            <marker date="1486541133923" expanded="true" signature="21:52" ph="/** Module dependencies. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="160:218" ph="/** Get port from environment and store in Express. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="298:328" ph="/** Create HTTP server. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="368:430" ph="/** Listen on provided port, on all network interfaces. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="520:580" ph="/** Normalize a port into a number, string, or false. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="610:782" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="664:703" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="722:763" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="784:840" ph="/** Event listener for HTTP server &quot;error&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="866:1352" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="902:924" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1088:1350" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1354:1414" ph="/** Event listener for HTTP server &quot;listening&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="1439:1592" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -559,20 +783,19 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
+            <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+            <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+            <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#httpRequest#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+            <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+            <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+            <element signature="n#!!block;n#searchEnemy#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmFinder#0" expanded="false" />
+            <element signature="e#47375#47921#0" expanded="false" />
+            <element signature="e#47941#48713#0" expanded="false" />
+            <element signature="e#49664#49778#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -597,7 +820,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="21" column="56" lean-forward="false" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="56" />
-          <folding />
+          <folding>
+            <marker date="1486541133921" expanded="true" signature="387:504" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="899:971" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="994:1047" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="1086:1251" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1128:1247" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1189:1241" ph="{&quot;message&quot;: err.message...}" />
+            <marker date="1486541133921" expanded="true" signature="1253:1313" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="1352:1458" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1409:1454" ph="{&quot;message&quot;: err.message...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -606,20 +839,19 @@
         <state relative-caret-position="0">
           <caret line="651" column="0" lean-forward="false" selection-start-line="651" selection-start-column="0" selection-end-line="651" selection-end-column="0" />
           <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
+            <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+            <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+            <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#httpRequest#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+            <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+            <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+            <element signature="n#!!block;n#searchEnemy#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmFinder#0" expanded="false" />
+            <element signature="e#47375#47921#0" expanded="false" />
+            <element signature="e#47941#48713#0" expanded="false" />
+            <element signature="e#49664#49778#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -643,7 +875,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1486541133923" expanded="true" signature="21:52" ph="/** Module dependencies. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="160:218" ph="/** Get port from environment and store in Express. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="298:328" ph="/** Create HTTP server. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="368:430" ph="/** Listen on provided port, on all network interfaces. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="520:580" ph="/** Normalize a port into a number, string, or false. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="610:782" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="664:703" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="722:763" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="784:840" ph="/** Event listener for HTTP server &quot;error&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="866:1352" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="902:924" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1088:1350" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1354:1414" ph="/** Event listener for HTTP server &quot;listening&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="1439:1592" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -659,7 +906,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="21" column="56" lean-forward="false" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="56" />
-          <folding />
+          <folding>
+            <marker date="1486541133921" expanded="true" signature="387:504" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="899:971" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="994:1047" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="1086:1251" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1128:1247" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1189:1241" ph="{&quot;message&quot;: err.message...}" />
+            <marker date="1486541133921" expanded="true" signature="1253:1313" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="1352:1458" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1409:1454" ph="{&quot;message&quot;: err.message...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -668,20 +925,19 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
+            <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+            <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+            <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#httpRequest#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+            <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+            <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+            <element signature="n#!!block;n#searchEnemy#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmFinder#0" expanded="false" />
+            <element signature="e#47375#47921#0" expanded="false" />
+            <element signature="e#47941#48713#0" expanded="false" />
+            <element signature="e#49664#49778#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -705,7 +961,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="6" column="28" lean-forward="false" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-          <folding />
+          <folding>
+            <marker date="1486541133923" expanded="true" signature="21:52" ph="/** Module dependencies. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="160:218" ph="/** Get port from environment and store in Express. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="298:328" ph="/** Create HTTP server. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="368:430" ph="/** Listen on provided port, on all network interfaces. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="520:580" ph="/** Normalize a port into a number, string, or false. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="610:782" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="664:703" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="722:763" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="784:840" ph="/** Event listener for HTTP server &quot;error&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="866:1352" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="902:924" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1088:1350" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1354:1414" ph="/** Event listener for HTTP server &quot;listening&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="1439:1592" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -721,7 +992,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="21" column="56" lean-forward="false" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="56" />
-          <folding />
+          <folding>
+            <marker date="1486541133921" expanded="true" signature="387:504" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="899:971" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="994:1047" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="1086:1251" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1128:1247" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1189:1241" ph="{&quot;message&quot;: err.message...}" />
+            <marker date="1486541133921" expanded="true" signature="1253:1313" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="1352:1458" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1409:1454" ph="{&quot;message&quot;: err.message...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -730,20 +1011,19 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
+            <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+            <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+            <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#httpRequest#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+            <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+            <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+            <element signature="n#!!block;n#searchEnemy#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmFinder#0" expanded="false" />
+            <element signature="e#47375#47921#0" expanded="false" />
+            <element signature="e#47941#48713#0" expanded="false" />
+            <element signature="e#49664#49778#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -767,7 +1047,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="6" column="28" lean-forward="false" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-          <folding />
+          <folding>
+            <marker date="1486541133923" expanded="true" signature="21:52" ph="/** Module dependencies. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="160:218" ph="/** Get port from environment and store in Express. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="298:328" ph="/** Create HTTP server. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="368:430" ph="/** Listen on provided port, on all network interfaces. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="520:580" ph="/** Normalize a port into a number, string, or false. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="610:782" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="664:703" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="722:763" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="784:840" ph="/** Event listener for HTTP server &quot;error&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="866:1352" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="902:924" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1088:1350" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1354:1414" ph="/** Event listener for HTTP server &quot;listening&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="1439:1592" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -783,7 +1078,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="21" column="56" lean-forward="false" selection-start-line="21" selection-start-column="56" selection-end-line="21" selection-end-column="56" />
-          <folding />
+          <folding>
+            <marker date="1486541133921" expanded="true" signature="387:504" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="899:971" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="994:1047" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="1086:1251" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1128:1247" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1189:1241" ph="{&quot;message&quot;: err.message...}" />
+            <marker date="1486541133921" expanded="true" signature="1253:1313" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="1352:1458" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1409:1454" ph="{&quot;message&quot;: err.message...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -792,20 +1097,19 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
+            <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+            <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+            <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#httpRequest#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+            <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+            <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+            <element signature="n#!!block;n#searchEnemy#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmFinder#0" expanded="false" />
+            <element signature="e#47375#47921#0" expanded="false" />
+            <element signature="e#47941#48713#0" expanded="false" />
+            <element signature="e#49664#49778#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -829,7 +1133,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="6" column="28" lean-forward="false" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-          <folding />
+          <folding>
+            <marker date="1486541133923" expanded="true" signature="21:52" ph="/** Module dependencies. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="160:218" ph="/** Get port from environment and store in Express. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="298:328" ph="/** Create HTTP server. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="368:430" ph="/** Listen on provided port, on all network interfaces. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="520:580" ph="/** Normalize a port into a number, string, or false. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="610:782" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="664:703" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="722:763" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="784:840" ph="/** Event listener for HTTP server &quot;error&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="866:1352" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="902:924" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1088:1350" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1354:1414" ph="/** Event listener for HTTP server &quot;listening&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="1439:1592" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -903,7 +1222,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1486541133923" expanded="true" signature="21:52" ph="/** Module dependencies. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="160:218" ph="/** Get port from environment and store in Express. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="298:328" ph="/** Create HTTP server. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="368:430" ph="/** Listen on provided port, on all network interfaces. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="520:580" ph="/** Normalize a port into a number, string, or false. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="610:782" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="664:703" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="722:763" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="784:840" ph="/** Event listener for HTTP server &quot;error&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="866:1352" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="902:924" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1088:1350" ph="{...}" />
+            <marker date="1486541133923" expanded="true" signature="1354:1414" ph="/** Event listener for HTTP server &quot;listening&quot; event. ...*/" />
+            <marker date="1486541133923" expanded="true" signature="1439:1592" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -923,42 +1257,102 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/request/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="61" column="26" lean-forward="false" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
+          <folding>
+            <marker date="1486541138236" expanded="false" signature="0:621" ph="//..." />
+            <marker date="1486541138236" expanded="true" signature="992:1332" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="1031:1059" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="1114:1159" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="1194:1230" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="1236:1265" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="1376:1726" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="1412:1488" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="1606:1686" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="1753:1962" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="1832:1960" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="2284:2315" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="2349:2380" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="2444:2826" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="2487:2824" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="2663:2711" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="2744:2776" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="2877:3424" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="2962:3008" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="3179:3262" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="3480:3685" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="3519:3556" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="3577:3622" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="3881:4028" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="3923:3961" ph="{...}" />
+            <marker date="1486541138236" expanded="true" signature="3987:4026" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
+        <state relative-caret-position="765">
           <caret line="53" column="25" lean-forward="false" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
+          <folding>
+            <marker date="1486541133921" expanded="true" signature="387:504" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="899:971" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="994:1047" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="1086:1251" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1128:1247" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1189:1241" ph="{&quot;message&quot;: err.message...}" />
+            <marker date="1486541133921" expanded="true" signature="1253:1313" ph="//..." />
+            <marker date="1486541133921" expanded="true" signature="1352:1458" ph="{...}" />
+            <marker date="1486541133921" expanded="true" signature="1409:1454" ph="{&quot;message&quot;: err.message...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/request-promise/lib/rp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="4" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/request/index.js">
+    <entry file="file://$PROJECT_DIR$/config.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="61" column="26" lean-forward="true" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
+        <state relative-caret-position="34">
+          <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="739" column="97" lean-forward="true" selection-start-line="739" selection-start-column="97" selection-end-line="739" selection-end-column="97" />
+        <state relative-caret-position="68">
+          <caret line="10" column="46" lean-forward="true" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
           <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
+            <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+            <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+            <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#httpRequest#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+            <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+            <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+            <element signature="n#!!block;n#searchEnemy#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmFinder#0" expanded="false" />
+            <element signature="e#47375#47921#0" expanded="false" />
+            <element signature="e#47941#48713#0" expanded="false" />
+            <element signature="e#49664#49778#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

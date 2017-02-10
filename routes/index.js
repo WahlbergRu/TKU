@@ -1,100 +1,56 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const request = require('request');
+const _ = require('underscore');
+const rp = require('request-promise');
 
-var apiData = {
-    gameworld: null,
-    players: null,
-    alliances: null,
-    map: null,
-    fromGame: null,
-    crop: null
-};
+//user data
+const userDate = require('./../config.json');
 
-var apiKey = {};
-var request = require('request');
-var _ = require('underscore');
-var rp = require('request-promise');
 
-var troops = {
-    "controller": "troops",
-    "action": "send",
-    "params": {
-        "catapultTargets": [99],
-        "destVillageId": "537247789",
-        "villageId": 537346086,
-        "movementType": 3,
-        "redeployHero": false,
-        "units": {
-            "1": 340,
-            "2": 0,
-            "3": 0,
-            "4": 0,
-            "5": 0,
-            "6": 0,
-            "7": 0,
-            "8": 10,
-            "9": 0,
-            "10": 0,
-            "11": 0
-        },
-        "spyMission": "resources"
-    },
-    "session": token
-};
+//TODO: переписать на класс, добавить es6 , ts
+function setHttpHeaders(serverDomain, cookie){
 
-var listPayload = {
-    Wahlberg:  {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[1929],"villageId":536920052},"session":"596ac03e8e8a1699301a"},
-    Wahlberg2: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[1929],"villageId":536723453},"session":"596ac03e8e8a1699301a"},
-    cheetah_1: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2184,2185,2186],"villageId":536887285},"session":"add658b5ae0f9aa35a11"},
-    cheetah_2: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2185],"villageId":536887285},"session":"add658b5ae0f9aa35a11"},
-    cheetah_3: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2186],"villageId":536887285},"session":"add658b5ae0f9aa35a11"}
-    // Sobol: {
-    //     "controller":"troops",
-    //     "action":"startFarmListRaid",
-    //     "params":{
-    //       "listIds":[1081],
-    //       "villageId":536854540
-    //     },
-    //     "session":"5376586559585de2679a"
-    // }
-};
+    return {
+        'content-type' : 'application/x-www-form-urlencoded',
+        'Cookie' : cookie,
+        'Host': serverDomain+'.kingdoms.com',
+        'Origin': 'http://'+serverDomain+'.kingdoms.com',
+        'Pragma':'no-cache',
+        'Referer': 'http://'+serverDomain+'.kingdoms.com',
+        'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
+    }
+}
+function fixedTimeGenerator(seconds) {
+    //Точное кол-во seconds секунд
+    return parseInt(1000 * seconds);
+}
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function randomTimeGenerator(seconds) {
+    //Рандом число в пределах seconds секунд
+    return parseInt(getRandomInt(-1000, 1000) * seconds);
+}
+function httpRequest(obj, serverDomain){
+    console.log('http://' + serverDomain + '.kingdoms.com/api/?c='+ obj.controller +'&a='+ obj.action +'&' + timeForGame)
+    console.log(JSON.stringify(obj));
+    // rp();
 
-var fixedTimeGenerator = function (seconds) {
-        //Точное кол-во seconds секунд
-        return parseInt(1000 * seconds);
-    },
 
-    getRandomInt = function (min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    },
+    let options = {
+        headers: setHttpHeaders(serverDomain),
+        method: obj.method || 'GET',
+        uri: 'http://' + serverDomain + '.kingdoms.com/api/?c='+ obj.controller +'&a='+ obj.action +'&' + timeForGame,
+        body: JSON.stringify(obj),
+        json: true // Automatically stringifies the body to JSON
+    };
 
-    randomTimeGenerator = function (seconds) {
-        //Рандом число в пределах seconds секунд
-        return parseInt(getRandomInt(-1000, 1000) * seconds);
-    },
-
-    httpRequest = function (obj, serverDomain){
-        console.log('http://' + serverDomain + '.kingdoms.com/api/?c='+ obj.controller +'&a='+ obj.action +'&' + timeForGame)
-        console.log(JSON.stringify(obj));
-        return rp({
-            headers: {
-                'content-type' : 'application/x-www-form-urlencoded',
-                'Cookie' : 'optimizelyEndUserId=oeu1483022429340r0.5058971660807878; zarget_user_id=1484139929928r0.5542546391271013; t5mu=4skeC5WZnVlW1hUM; desktopNotifications=%7B%22action%22%3A%22accept%22%2C%22timestamp%22%3A1484144302234%7D; optimizelySegments=%7B%227502571397%22%3A%22referral%22%2C%227527560310%22%3A%22false%22%2C%227527342140%22%3A%22true%22%2C%227504900734%22%3A%22none%22%2C%227502401695%22%3A%220%22%2C%227524975010%22%3A%220%22%2C%227535741642%22%3A%223%22%2C%227529072853%22%3A%22ru%22%7D; optimizelyBuckets=%7B%7D; gl5SessionKey=%7B%22key%22%3A%229a51521ec8a3a3151742%22%2C%22id%22%3A%221229510%22%7D; gl5PlayerId=1229510; t5SessionKey=%7B%22key%22%3A%2264084c89e9f70688cb2e%22%2C%22id%22%3A%22138%22%7D; _gat=1; _ga=GA1.2.207116386.1483022340; t5socket=%22client589a5629a6629%22; zarget_visitor_info=%7B%224251525756514A415B575C55454C5E585F565F59%22%3A245058%7D; village=536887285; msid=np1r3k0f4883j40drm03t395i1',
-                'Host': serverDomain+'.kingdoms.com',
-                'Origin': 'http://'+serverDomain+'.kingdoms.com',
-                'Pragma':'no-cache',
-                'Referer': 'http://'+serverDomain+'.kingdoms.com',
-                'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
-            },
-            uri: 'http://' + serverDomain + '.kingdoms.com/api/?c='+ obj.controller +'&a='+ obj.action +'&' + timeForGame,
-            body: JSON.stringify(obj),
-            json: true // Automatically parses the JSON string in the response
-        })
-    },
-
-    //fixedTime - фиксированное время
-    //randomTime - разброс
-    autoFarmList = function (fixedTime, randomTime, listPayload, serverDomain, init) {
+    return rp(options);
+}
+//fixedTime - фиксированное время
+//randomTime - разброс
+function autoFarmList(fixedTime, randomTime, listPayload, serverDomain, init) {
 
         var lastDataFromList = {
             "action": "get",
@@ -118,23 +74,14 @@ var fixedTimeGenerator = function (seconds) {
         var startFarmListRaid = function () {
 
             request
-                .post({
-
-                    headers: {
-                        'content-type' : 'application/x-www-form-urlencoded',
-                        'Cookie' : 'optimizelyEndUserId=oeu1483022429340r0.5058971660807878; zarget_user_id=1484139929928r0.5542546391271013; t5mu=4skeC5WZnVlW1hUM; desktopNotifications=%7B%22action%22%3A%22accept%22%2C%22timestamp%22%3A1484144302234%7D; optimizelySegments=%7B%227502571397%22%3A%22referral%22%2C%227527560310%22%3A%22false%22%2C%227527342140%22%3A%22true%22%2C%227504900734%22%3A%22none%22%2C%227502401695%22%3A%220%22%2C%227524975010%22%3A%220%22%2C%227535741642%22%3A%223%22%2C%227529072853%22%3A%22ru%22%7D; optimizelyBuckets=%7B%7D; gl5SessionKey=%7B%22key%22%3A%229a51521ec8a3a3151742%22%2C%22id%22%3A%221229510%22%7D; gl5PlayerId=1229510; t5SessionKey=%7B%22key%22%3A%2264084c89e9f70688cb2e%22%2C%22id%22%3A%22138%22%7D; _gat=1; _ga=GA1.2.207116386.1483022340; t5socket=%22client589a5629a6629%22; zarget_visitor_info=%7B%224251525756514A415B575C55454C5E585F565F59%22%3A245058%7D; village=536887285; msid=np1r3k0f4883j40drm03t395i1',
-                        'Host': serverDomain+'.kingdoms.com',
-                        'Origin': 'http://'+serverDomain+'.kingdoms.com',
-                        'Pragma':'no-cache',
-                        'Referer': 'http://'+serverDomain+'.kingdoms.com',
-                        'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
-                    },
-                    url: 'http://' + serverDomain + '.kingdoms.com/api/?c=troops&a=send&' + timeForGame,
-                    body: JSON.stringify(listPayload)
-                }, function (error, response, body) {
-                    console.info('Фарм лист listIds[' + listPayload.params.listIds + '], villageId[' + listPayload.params.villageId + '], session[' + listPayload.session +'] отправлен');
-                    //console.info(body);
-                })
+            .post({
+                headers: setHttpHeaders(),
+                url: 'http://' + serverDomain + '.kingdoms.com/api/?c=troops&a=send&' + timeForGame,
+                body: JSON.stringify(listPayload)
+            }, function (error, response, body) {
+                console.info('Фарм лист listIds[' + listPayload.params.listIds + '], villageId[' + listPayload.params.villageId + '], session[' + listPayload.session +'] отправлен');
+                //console.info(body);
+            })
         };
 
 
@@ -362,26 +309,8 @@ var fixedTimeGenerator = function (seconds) {
         checkList();
 
 
-    },
-    attackRequest = function () {
-        request
-            .post({
-                headers: {
-                    'content-type' : 'application/x-www-form-urlencoded',
-                    'Cookie' : 't5mu=YBnM550V5tEbE9UM; gl5SessionKey=%7B%22key%22%3A%221a936d1acfe5bac9f4a5%22%2C%22id%22%3A%22166540%22%7D; gl5PlayerId=166540; t5SessionKey=%7B%22key%22%3A%22e0a9610f253ef9814ada%22%2C%22id%22%3A%22124%22%7D; _ga=GA1.2.1502737351.1484125044; _gat=1; t5socket=%22client588d54d17b8f4%22; village=536723453; msid=ci7d1tr76t4br93dqodgu4c3h5',
-                    'Host': serverDomain+'.kingdoms.com',
-                    'Origin': 'http://'+serverDomain+'.kingdoms.com',
-                    'Pragma':'no-cache',
-                    'Referer': 'http://'+serverDomain+'.kingdoms.com',
-                    'User-Agent':'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
-                },
-                url: 'http://' + serverDomain + '.kingdoms.com/api/?c=troops&a=send&' + timeForGame,
-                body: JSON.stringify(troops)
-            }, function (error, response, body) {
-                console.log(response);
-            });
-    },
-    getMapInfo = function (type, token, serverDomain, timeForGame) {
+    };
+function getMapInfo(type, token, serverDomain, timeForGame) {
         type = type || 'animal';
         request
             .get({
@@ -561,7 +490,6 @@ var fixedTimeGenerator = function (seconds) {
                     });
             });
     };
-
 function asyncLoop(iterations, func, callback) {
     var index = 0;
     var done = false;
@@ -593,7 +521,6 @@ function asyncLoop(iterations, func, callback) {
     loop.next();
     return loop;
 }
-
 function searchEnemy(xCor, yCor) {
 
     //http://rux3.kingdoms.com/api/?c=troops&a=send&t1486071488668
@@ -798,7 +725,6 @@ function searchEnemy(xCor, yCor) {
             }
         )
 }
-
 function autoFarmFinder(xCor, yCor, name){
     request
         .get({
@@ -984,14 +910,59 @@ function autoFarmFinder(xCor, yCor, name){
         )
 }
 
-var timeForGame = 't' + Date.now();
-var token = "add658b5ae0f9aa35a11";
-var serverDomain = 'rux3';
+
+let troops = {
+    "controller": "troops",
+    "action": "send",
+    "params": {
+        "catapultTargets": [99],
+        "destVillageId": "537247789",
+        "villageId": 537346086,
+        "movementType": 3,
+        "redeployHero": false,
+        "units": {
+            "1": 340,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "6": 0,
+            "7": 0,
+            "8": 10,
+            "9": 0,
+            "10": 0,
+            "11": 0
+        },
+        "spyMission": "resources"
+    },
+    "session": token
+};
+let listPayload = {
+    Wahlberg:  {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[1929],"villageId":536920052},"session":"596ac03e8e8a1699301a"},
+    Wahlberg2: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[1929],"villageId":536723453},"session":"596ac03e8e8a1699301a"},
+    cheetah_1: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2184,2185,2186],"villageId":536887285},"session":"add658b5ae0f9aa35a11"},
+    cheetah_2: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2185],"villageId":536887285},"session":"add658b5ae0f9aa35a11"},
+    cheetah_3: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2186],"villageId":536887285},"session":"add658b5ae0f9aa35a11"}
+};
+let cookie = 'optimizelyEndUserId=oeu1483022429340r0.5058971660807878; zarget_user_id=1484139929928r0.5542546391271013; t5mu=4skeC5WZnVlW1hUM; desktopNotifications=%7B%22action%22%3A%22accept%22%2C%22timestamp%22%3A1484144302234%7D; optimizelySegments=%7B%227502571397%22%3A%22referral%22%2C%227527560310%22%3A%22false%22%2C%227527342140%22%3A%22true%22%2C%227504900734%22%3A%22none%22%2C%227502401695%22%3A%220%22%2C%227524975010%22%3A%220%22%2C%227535741642%22%3A%223%22%2C%227529072853%22%3A%22ru%22%7D; optimizelyBuckets=%7B%7D; gl5SessionKey=%7B%22key%22%3A%229a51521ec8a3a3151742%22%2C%22id%22%3A%221229510%22%7D; gl5PlayerId=1229510; t5SessionKey=%7B%22key%22%3A%2264084c89e9f70688cb2e%22%2C%22id%22%3A%22138%22%7D; _gat=1; _ga=GA1.2.207116386.1483022340; t5socket=%22client589a5629a6629%22; zarget_visitor_info=%7B%224251525756514A415B575C55454C5E585F565F59%22%3A245058%7D; village=536887285; msid=np1r3k0f4883j40drm03t395i1';
+let apiData = {
+    gameworld: null,
+    players: null,
+    alliances: null,
+    map: null,
+    fromGame: null,
+    crop: null
+};
+let apiKey = {};
+let timeForGame = 't' + Date.now();
+let token = "add658b5ae0f9aa35a11";
+let serverDomain = 'rux3';
 
 //autoFarmFinder('-11', '0', 'Мертвые');
 // searchEnemy('-2', '-5');
 
 
+//Вынести это в файл инцирования
 // autoFarmList(3600, 300, listPayload.Sobol, 'rux3', false);
 // autoFarmList(1500, 300, listPayload.GreedyKs1, 'ks1-com', true);
 // autoFarmList(1500, 600, listPayload.GROM, 'ks1-com', true);
