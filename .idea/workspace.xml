@@ -26,8 +26,8 @@
       <file leaf-file-name="www" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/www">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state relative-caret-position="34">
+              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -36,33 +36,51 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="739" column="97" lean-forward="true" selection-start-line="739" selection-start-column="97" selection-end-line="739" selection-end-column="97" />
+            <state relative-caret-position="554">
+              <caret line="99" column="22" lean-forward="true" selection-start-line="99" selection-start-column="22" selection-end-line="99" selection-end-column="22" />
               <folding>
-                <element signature="e#330#876#0" expanded="false" />
-                <element signature="e#1494#1581#0" expanded="false" />
-                <element signature="e#1908#3196#0" expanded="false" />
-                <element signature="e#3384#3670#0" expanded="false" />
-                <element signature="e#3680#3682#0" expanded="false" />
-                <element signature="e#3981#5302#0" expanded="false" />
-                <element signature="e#7725#9058#0" expanded="false" />
-                <element signature="e#9120#10547#0" expanded="false" />
-                <element signature="e#10608#11311#0" expanded="false" />
-                <element signature="e#13403#14574#0" expanded="false" />
-                <element signature="e#14643#24494#0" expanded="false" />
-                <element signature="e#15914#23050#0" expanded="false" />
-                <element signature="e#43206#43243#0" expanded="false" />
-                <element signature="e#43533#46310#0" expanded="false" />
+                <element signature="e#2239#2353#0" expanded="false" />
+                <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+                <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+                <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+                <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+                <element signature="e#3720#3769#0" expanded="false" />
+                <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+                <element signature="e#4933#5670#0" expanded="false" />
+                <element signature="n#!!block;n#getToken#0" expanded="false" />
+                <element signature="n#!!block;n#getMap#0" expanded="false" />
+                <element signature="n#!!block;n#getPlayers#0" expanded="false" />
+                <element signature="e#15375#15433#0" expanded="false" />
+                <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+                <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+                <element signature="n#!!doc;n#searchEnemy#0" expanded="false" />
+                <element signature="e#28198#28993#0" expanded="false" />
+                <element signature="e#29022#29107#0" expanded="false" />
+                <element signature="e#29163#30334#0" expanded="false" />
+                <element signature="e#30418#30575#0" expanded="false" />
+                <element signature="e#30687#30689#0" expanded="false" />
+                <element signature="e#38989#39047#0" expanded="false" />
+                <element signature="e#41021#41038#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/request/index.js">
+      <file leaf-file-name="config.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="61" column="26" lean-forward="true" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
+            <state relative-caret-position="17">
+              <caret line="1" column="32" lean-forward="false" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rp.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_modules/request-promise/lib/rp.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="373">
+              <caret line="25" column="36" lean-forward="true" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -83,7 +101,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1486660208442" expanded="true" signature="132:372" ph="{&quot;body-parser&quot;: &quot;~1.13.2&quot;...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -101,7 +121,7 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="901">
+            <state relative-caret-position="767">
               <caret line="53" column="25" lean-forward="false" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
               <folding />
             </state>
@@ -120,44 +140,55 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>фармл</find>
+      <find>var</find>
+      <find>let options = {         serverDomain: serverDomain     };</find>
+      <find>request</find>
+      <find>startFarmListRaid</find>
+      <find>7e723c7f652b8d21e314</find>
+      <find>checklis</find>
+      <find>checkList</find>
+      <find>httpReq</find>
+      <find>autp</find>
+      <find>response</find>
+      <find>listIndex</find>
+      <find>getMapInfo</find>
+      <find>async</find>
+      <find>console.log</find>
+      <find>getToken</find>
+      <find>co</find>
+      <find>getMap</find>
+      <find>jsonBody</find>
+      <find>str.re</find>
+      <find>getPlayers</find>
+      <find>here</find>
+      <find>deathFilters</find>
+      <find>searchEnemy</find>
+      <find>sortedAllGreyVillages</find>
+      <find>farmList</find>
+      <find>serverDomain</find>
+      <find>options</find>
+      <find>farmListPayload</find>
       <find>lastDataFromList</find>
       <find>httpRequest</find>
-      <find>console.log</find>
-      <find>travian.com</find>
-      <find>romeTroops</find>
-      <find>listTimer</find>
-      <find>listTimerObj</find>
-      <find>newObjUnits</find>
-      <find>rowInListChanger</find>
-      <find>sobol</find>
-      <find>headers</find>
-      <find>Host</find>
-      <find>serverDomain</find>
-      <find>listPayload</find>
-      <find>536920052</find>
-      <find>Wahlberg</find>
-      <find>Wahlberg2</find>
-      <find>536723453</find>
-      <find>kingdomId</find>
-      <find>allGreyVillages</find>
-      <find>sortedAllGreyVillages</find>
-      <find>asyncLoop</find>
-      <find>loop.iteration</find>
-      <find>searchEnemy</find>
-      <find>sorted</find>
-      <find>response</find>
-      <find>randomTimeGenerator</find>
-      <find>fixedTime</find>
-      <find>body</find>
     </findStrings>
     <replaceStrings>
       <replace>kingdoms.com</replace>
       <replace>allSortedVillages</replace>
+      <replace>const</replace>
+      <replace>let</replace>
+      <replace>bodyReq</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -171,6 +202,8 @@
         <option value="$PROJECT_DIR$/views/crop.jade" />
         <option value="$PROJECT_DIR$/bin/www" />
         <option value="$PROJECT_DIR$/views/animal.jade" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/config.json" />
         <option value="$PROJECT_DIR$/routes/index.js" />
       </list>
     </option>
@@ -178,6 +211,12 @@
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
     <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>false</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>false</other-services-enabled>
   </component>
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
@@ -187,10 +226,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="54" />
-    <option name="y" value="-8" />
-    <option name="width" value="2514" />
-    <option name="height" value="1096" />
+    <option name="x" value="1358" />
+    <option name="y" value="-722" />
+    <option name="width" value="1936" />
+    <option name="height" value="1176" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -208,7 +247,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -283,6 +321,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -299,10 +338,12 @@
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="settings.editor.selected.configurable" value="editing.templates" />
-    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="js.eslint.eslintPackage" value="" />
+    <property name="eu.ydp.idea.ts.spec.generator.settings.spec.template" value="import {$ClassName$} from '$TestsRelativePath$../src/$classRelativePath$/$ClassName$';&#10;&#10;describe('$ClassName$', () =&gt; {&#10;  let $ObjName$:$ClassName$;&#10;&#10;  beforeEach(() =&gt; {&#10;    $ObjName$ = new $ClassName$();&#10;  });&#10;&#10;  describe('', () =&gt; {&#10;    it('', () =&gt; {&#10;      // given&#10;&#10;      // when&#10;&#10;      // then&#10;    });&#10;  });&#10;});&#10;" />
+    <property name="JavaScriptPreferStrict" value="false" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
   </component>
   <component name="RunManager" selected="Node.js.bin\www">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -346,7 +387,7 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run-script" />
+      <command value="run" />
       <scripts />
       <node-interpreter value="project" />
       <envs />
@@ -390,6 +431,8 @@
       <workItem from="1485657171270" duration="7344000" />
       <workItem from="1485896014548" duration="4714000" />
       <workItem from="1486071404552" duration="5511000" />
+      <workItem from="1486541149806" duration="12093000" />
+      <workItem from="1486643261823" duration="27228000" />
     </task>
     <task id="LOCAL-00001" summary="Ебашим скрипты, что бы аменочка дрочила">
       <created>1486074191367</created>
@@ -398,25 +441,61 @@
       <option name="project" value="LOCAL" />
       <updated>1486074191367</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Рефакторинг, что бы пацы не чмырили.">
+      <created>1486544986812</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1486544986812</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Рефакторинг, что бы пацы не чмырили.">
+      <created>1486545067312</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1486545067312</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Рефакторинг, что бы пацы не чмырили.">
+      <created>1486639441455</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1486639441455</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Убиваю колбекхелл">
+      <created>1486662515393</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1486662515393</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Убиваю колбекхелл">
+      <created>1486726541085</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1486726541085</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52080000" />
+    <option name="totallyTimeSpent" value="91401000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="-8" width="2514" height="1096" extended-state="6" />
-    <editor active="true" />
+    <frame x="1358" y="-722" width="1936" height="1176" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921588" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20146818" sideWeight="0.4887556" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14605543" sideWeight="0.4887556" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3095488" sideWeight="0.51345843" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5021322" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19255929" sideWeight="0.51124436" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3095488" sideWeight="0.4865416" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23873442" sideWeight="0.48454157" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3991131" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -446,90 +525,17 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Ебашим скрипты, что бы аменочка дрочила" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ебашим скрипты, что бы аменочка дрочила" />
+    <MESSAGE value="Рефакторинг, что бы пацы не чмырили." />
+    <MESSAGE value="Убиваю колбекхелл" />
+    <option name="LAST_COMMIT_MESSAGE" value="Убиваю колбекхелл" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routes/index.js</url>
-          <line>796</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routes/index.js</url>
-          <line>134</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="26" />
+      <option name="time" value="30" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/animal.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="45" column="13" lean-forward="false" selection-start-line="45" selection-start-column="13" selection-end-line="46" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="19" column="52" lean-forward="false" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="28" column="28" lean-forward="false" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/animal.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -559,20 +565,28 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
+            <element signature="e#2239#2353#0" expanded="false" />
+            <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+            <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+            <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+            <element signature="e#3720#3769#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+            <element signature="e#4933#5670#0" expanded="false" />
+            <element signature="n#!!block;n#getToken#0" expanded="false" />
+            <element signature="n#!!block;n#getMap#0" expanded="false" />
+            <element signature="n#!!block;n#getPlayers#0" expanded="false" />
+            <element signature="e#15375#15433#0" expanded="false" />
+            <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+            <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+            <element signature="n#!!doc;n#searchEnemy#0" expanded="false" />
+            <element signature="e#28198#28993#0" expanded="false" />
+            <element signature="e#29022#29107#0" expanded="false" />
+            <element signature="e#29163#30334#0" expanded="false" />
+            <element signature="e#30418#30575#0" expanded="false" />
+            <element signature="e#30687#30689#0" expanded="false" />
+            <element signature="e#38989#39047#0" expanded="false" />
+            <element signature="e#41021#41038#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -589,7 +603,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1486660208442" expanded="true" signature="132:372" ph="{&quot;body-parser&quot;: &quot;~1.13.2&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -606,20 +622,28 @@
         <state relative-caret-position="0">
           <caret line="651" column="0" lean-forward="false" selection-start-line="651" selection-start-column="0" selection-end-line="651" selection-end-column="0" />
           <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
+            <element signature="e#2239#2353#0" expanded="false" />
+            <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+            <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+            <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+            <element signature="e#3720#3769#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+            <element signature="e#4933#5670#0" expanded="false" />
+            <element signature="n#!!block;n#getToken#0" expanded="false" />
+            <element signature="n#!!block;n#getMap#0" expanded="false" />
+            <element signature="n#!!block;n#getPlayers#0" expanded="false" />
+            <element signature="e#15375#15433#0" expanded="false" />
+            <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+            <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+            <element signature="n#!!doc;n#searchEnemy#0" expanded="false" />
+            <element signature="e#28198#28993#0" expanded="false" />
+            <element signature="e#29022#29107#0" expanded="false" />
+            <element signature="e#29163#30334#0" expanded="false" />
+            <element signature="e#30418#30575#0" expanded="false" />
+            <element signature="e#30687#30689#0" expanded="false" />
+            <element signature="e#38989#39047#0" expanded="false" />
+            <element signature="e#41021#41038#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -651,7 +675,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1486660208442" expanded="true" signature="132:372" ph="{&quot;body-parser&quot;: &quot;~1.13.2&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -668,20 +694,28 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
+            <element signature="e#2239#2353#0" expanded="false" />
+            <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+            <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+            <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+            <element signature="e#3720#3769#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+            <element signature="e#4933#5670#0" expanded="false" />
+            <element signature="n#!!block;n#getToken#0" expanded="false" />
+            <element signature="n#!!block;n#getMap#0" expanded="false" />
+            <element signature="n#!!block;n#getPlayers#0" expanded="false" />
+            <element signature="e#15375#15433#0" expanded="false" />
+            <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+            <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+            <element signature="n#!!doc;n#searchEnemy#0" expanded="false" />
+            <element signature="e#28198#28993#0" expanded="false" />
+            <element signature="e#29022#29107#0" expanded="false" />
+            <element signature="e#29163#30334#0" expanded="false" />
+            <element signature="e#30418#30575#0" expanded="false" />
+            <element signature="e#30687#30689#0" expanded="false" />
+            <element signature="e#38989#39047#0" expanded="false" />
+            <element signature="e#41021#41038#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -713,7 +747,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1486660208442" expanded="true" signature="132:372" ph="{&quot;body-parser&quot;: &quot;~1.13.2&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -730,20 +766,28 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
+            <element signature="e#2239#2353#0" expanded="false" />
+            <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+            <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+            <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+            <element signature="e#3720#3769#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+            <element signature="e#4933#5670#0" expanded="false" />
+            <element signature="n#!!block;n#getToken#0" expanded="false" />
+            <element signature="n#!!block;n#getMap#0" expanded="false" />
+            <element signature="n#!!block;n#getPlayers#0" expanded="false" />
+            <element signature="e#15375#15433#0" expanded="false" />
+            <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+            <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+            <element signature="n#!!doc;n#searchEnemy#0" expanded="false" />
+            <element signature="e#28198#28993#0" expanded="false" />
+            <element signature="e#29022#29107#0" expanded="false" />
+            <element signature="e#29163#30334#0" expanded="false" />
+            <element signature="e#30418#30575#0" expanded="false" />
+            <element signature="e#30687#30689#0" expanded="false" />
+            <element signature="e#38989#39047#0" expanded="false" />
+            <element signature="e#41021#41038#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -775,7 +819,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1486660208442" expanded="true" signature="132:372" ph="{&quot;body-parser&quot;: &quot;~1.13.2&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -792,20 +838,28 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
+            <element signature="e#2239#2353#0" expanded="false" />
+            <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+            <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+            <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+            <element signature="e#3720#3769#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+            <element signature="e#4933#5670#0" expanded="false" />
+            <element signature="n#!!block;n#getToken#0" expanded="false" />
+            <element signature="n#!!block;n#getMap#0" expanded="false" />
+            <element signature="n#!!block;n#getPlayers#0" expanded="false" />
+            <element signature="e#15375#15433#0" expanded="false" />
+            <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+            <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+            <element signature="n#!!doc;n#searchEnemy#0" expanded="false" />
+            <element signature="e#28198#28993#0" expanded="false" />
+            <element signature="e#29022#29107#0" expanded="false" />
+            <element signature="e#29163#30334#0" expanded="false" />
+            <element signature="e#30418#30575#0" expanded="false" />
+            <element signature="e#30687#30689#0" expanded="false" />
+            <element signature="e#38989#39047#0" expanded="false" />
+            <element signature="e#41021#41038#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -837,7 +891,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1486660208442" expanded="true" signature="132:372" ph="{&quot;body-parser&quot;: &quot;~1.13.2&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -895,15 +951,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1486660208442" expanded="true" signature="132:372" ph="{&quot;body-parser&quot;: &quot;~1.13.2&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -923,41 +973,105 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
+        <state relative-caret-position="767">
           <caret line="53" column="25" lean-forward="false" selection-start-line="53" selection-start-column="25" selection-end-line="53" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/asyncawait/await.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="35" lean-forward="false" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/asyncawait/src/types.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/request-promise/lib/rp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="25" column="36" lean-forward="true" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/request/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="61" column="26" lean-forward="true" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
+        <state relative-caret-position="140">
+          <caret line="61" column="26" lean-forward="false" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/jade/bin/jade.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="19" column="4" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="32" lean-forward="false" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="739" column="97" lean-forward="true" selection-start-line="739" selection-start-column="97" selection-end-line="739" selection-end-column="97" />
+        <state relative-caret-position="554">
+          <caret line="99" column="22" lean-forward="true" selection-start-line="99" selection-start-column="22" selection-end-line="99" selection-end-column="22" />
           <folding>
-            <element signature="e#330#876#0" expanded="false" />
-            <element signature="e#1494#1581#0" expanded="false" />
-            <element signature="e#1908#3196#0" expanded="false" />
-            <element signature="e#3384#3670#0" expanded="false" />
-            <element signature="e#3680#3682#0" expanded="false" />
-            <element signature="e#3981#5302#0" expanded="false" />
-            <element signature="e#7725#9058#0" expanded="false" />
-            <element signature="e#9120#10547#0" expanded="false" />
-            <element signature="e#10608#11311#0" expanded="false" />
-            <element signature="e#13403#14574#0" expanded="false" />
-            <element signature="e#14643#24494#0" expanded="false" />
-            <element signature="e#15914#23050#0" expanded="false" />
-            <element signature="e#43206#43243#0" expanded="false" />
-            <element signature="e#43533#46310#0" expanded="false" />
+            <element signature="e#2239#2353#0" expanded="false" />
+            <element signature="n#!!block;n#setHttpHeaders#0" expanded="false" />
+            <element signature="n#!!block;n#fixedTimeGenerator#0" expanded="false" />
+            <element signature="n#!!block;n#getRandomInt#0" expanded="false" />
+            <element signature="n#!!block;n#randomTimeGenerator#0" expanded="false" />
+            <element signature="e#3720#3769#0" expanded="false" />
+            <element signature="n#!!block;n#autoFarmList#0" expanded="false" />
+            <element signature="e#4933#5670#0" expanded="false" />
+            <element signature="n#!!block;n#getToken#0" expanded="false" />
+            <element signature="n#!!block;n#getMap#0" expanded="false" />
+            <element signature="n#!!block;n#getPlayers#0" expanded="false" />
+            <element signature="e#15375#15433#0" expanded="false" />
+            <element signature="n#!!block;n#getMapInfo#0" expanded="false" />
+            <element signature="n#!!block;n#asyncLoop#0" expanded="false" />
+            <element signature="n#!!doc;n#searchEnemy#0" expanded="false" />
+            <element signature="e#28198#28993#0" expanded="false" />
+            <element signature="e#29022#29107#0" expanded="false" />
+            <element signature="e#29163#30334#0" expanded="false" />
+            <element signature="e#30418#30575#0" expanded="false" />
+            <element signature="e#30687#30689#0" expanded="false" />
+            <element signature="e#38989#39047#0" expanded="false" />
+            <element signature="e#41021#41038#0" expanded="false" />
           </folding>
         </state>
       </provider>
