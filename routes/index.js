@@ -7,6 +7,7 @@ const colors = require('colors');
 
 const fs = require('fs');
 const fetch = require('node-fetch');
+const moment = require('moment');
 
 colors.setTheme({
   silly: 'rainbow',
@@ -56,14 +57,18 @@ function randomTimeGenerator(seconds) {
 function setHttpHeaders(serverDomain, cookie, contentLength) {
 
   return {
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
     'Content-Type': 'application/json;charset=UTF-8',
+    'Content-Length': contentLength,
     'Cookie': cookie,
     'Host': serverDomain + '.kingdoms.com',
-    'Origin': 'http://' + serverDomain + '.kingdoms.com',
-    'Content-Length': contentLength,
+    'Origin': 'https://' + serverDomain + '.kingdoms.com',
     'Pragma': 'no-cache',
-    'Referer': 'http://' + serverDomain + '.kingdoms.com',
-    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
+    'Referer': 'https://' + serverDomain + '.kingdoms.com',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36'
   }
 }
 
@@ -87,27 +92,33 @@ function httpRequest(opt) {
   //TODO: разобраться с тем нужно ли body или как
   let options = {
     headers: setHttpHeaders(opt.serverDomain, opt.cookie || cookie, JSON.stringify(opt.body).length),
-    method: opt.method || 'GET',
+    method: opt.method || 'POST',
     uri: `http://${opt.serverDomain}.kingdoms.com/api/?c=${opt.body.controller}&a=${opt.body.action}&${timeForGame}`,
     body: opt.body,
-    json: true // Automatically stringifies the body to JSON
+    json: true, // Automatically stringifies the body to JSON,
   };
 
   // console.log(options)
 
   //RP - request promise, return deffered object.
+
+
+  // console.log(JSON.stringify(options));
+
   return rp(options)
     .then(
       (data) => data,
       (error) => {
         console.log('Ошибка в HTTPRequest')
         console.log(error.debug)
+        console.log(error)
         console.log(opt)
       }
     )
     .catch((error) => {
       console.log('Ошибка в HTTPRequest')
       console.log(error.debug)
+      console.log(error)
       console.log(opt)
     });
 }
@@ -200,9 +211,6 @@ function autoExtendLists(playerFarmList, filter, coor) {
 
                   let options = {
                     method: 'POST',
-                    headers: {
-                      'content-type': 'application/x-www-form-urlencoded'
-                    },
                     json: true,
                     body: toggleBody,
                     serverDomain: serverDomain
@@ -291,7 +299,7 @@ function autoExtendLists(playerFarmList, filter, coor) {
                     //         let options = {
                     //             method: 'POST',
                     //             headers: {
-                    //                 'content-type' : 'application/x-www-form-urlencoded'
+                    //                 'content-type' : 'application/json;charset=UTF-8'
                     //             },
                     //             json: true,
                     //             body: toggleBody,
@@ -351,7 +359,7 @@ function autoExtendLists(playerFarmList, filter, coor) {
                               let options = {
                                 method: 'POST',
                                 headers: {
-                                  'content-type': 'application/x-www-form-urlencoded'
+                                  'content-type': 'application/json;charset=UTF-8'
                                 },
                                 serverDomain: serverDomain,
                                 json: true,
@@ -462,7 +470,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, serverDomain) {
             let options = {
               method: 'POST',
               headers: {
-                'content-type': 'application/x-www-form-urlencoded'
+                'content-type': 'application/json;charset=UTF-8'
               },
               json: true,
               body: toggleBody,
@@ -495,7 +503,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, serverDomain) {
                         let unit = villageLog.data.units[unitKey];
                         if (unit == 0) {
                           //nothing?
-                        } else if (unit < 15) {
+                        } else if (unit < 30) {
                           villageLog.data.units[unitKey] = parseInt(villageLog.data.units[unitKey]) + 1;
                         } else {
                           //nothing?
@@ -526,7 +534,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, serverDomain) {
                           loop.next();
                         },
                         reject => {
-                          console.log(JSON.stringify(reject).warn);
+                          // console.log(JSON.stringify(reject).warn);
                           loop.next();
                         }
                       )
@@ -562,7 +570,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, serverDomain) {
                           loop.next();
                         },
                         reject => {
-                          console.log(JSON.stringify(reject).warn);
+                          // console.log(JSON.stringify(reject).warn);
                           loop.next();
                         }
                       )
@@ -604,7 +612,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, serverDomain) {
             let options = {
               method: 'POST',
               headers: {
-                'content-type': 'application/x-www-form-urlencoded'
+                'content-type': 'application/json;charset=UTF-8'
               },
               json: true,
               body: toggleBody,
@@ -630,7 +638,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, serverDomain) {
                   if (debug === 3) {
                     console.log(body);
                   }
-                  console.log('Жёлтый лог обработан.'.silly)
+                  // console.log('Жёлтый лог обработан.'.silly)
                   loop.next();
                 },
                 (error) => {
@@ -642,8 +650,8 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, serverDomain) {
               })
           } else if (villageLog.data.lastReport.notificationType == 3) {
             if (debug === 2 || debug === 3) {
-            }
-            console.log('red log'.debug)
+              console.log('red log'.debug)
+            };
             //TODO: вынести в отдельную функцию
             let toggleBody = {
               "controller": "farmList",
@@ -658,7 +666,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, serverDomain) {
             let options = {
               method: 'POST',
               headers: {
-                'content-type': 'application/x-www-form-urlencoded'
+                'content-type': 'application/json;charset=UTF-8'
               },
               json: true,
               body: toggleBody,
@@ -671,7 +679,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, serverDomain) {
             httpRequest(options)
               .then(
                 (body) => {
-                  console.log(body);
+                  // console.log(body);
                   return httpRequest(options);
                 },
                 (error) => {
@@ -680,9 +688,9 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, serverDomain) {
               )
               .then(
                 (body) => {
-                  console.log(body);
+                  // console.log(body);
                   if (debug === 3) {
-                    console.log(body);
+                    // console.log(body);
                   }
                   console.log('Красный лог обработан.'.silly)
                   loop.next();
@@ -718,7 +726,13 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, serverDomain) {
  * @param serverDomain - домен сервера, требуется рефакторинг и вынос этого гавна
  * @param init - инцилизировать сразу, или запустить через fixedTime+randomTime
  */
-function autoFarmList(fixedTime, randomTime, listPayload, serverDomain, init) {
+function autoFarmList(fixedTime, randomTime, listPayload, serverDomain, init, optionsParams) {
+
+  let workTime = 0;
+
+  console.info('Фарм лист listIds[' + listPayload.params.listIds + '], ' +
+    'villageId[' + listPayload.params.villageId + '], ' +
+    'session[' + listPayload.session +'] начат');
 
   let startFarmListRaid = (listPayload) => {
     //console.log(listPayload);
@@ -730,9 +744,6 @@ function autoFarmList(fixedTime, randomTime, listPayload, serverDomain, init) {
 
     return httpRequest(options).then(
       (body) => {
-        console.info('Фарм лист listIds[' + listPayload.params.listIds + '], ' +
-          'villageId[' + listPayload.params.villageId + '], ' +
-          'session[' + listPayload.session +'] отправлен');
 
         if (body && body.response && body.response.errors){
           /**
@@ -740,9 +751,10 @@ function autoFarmList(fixedTime, randomTime, listPayload, serverDomain, init) {
            * 1) деревня перенесена
            * 2) список удалён
            * 3) отправлено больше 1000
+           * 4) отпуск у чела
            */
           console.log('ОШИБКА'.error);
-          console.log(options.body);
+          // console.log(options.body);
           console.log(body.response.errors);
         }
 
@@ -760,7 +772,7 @@ function autoFarmList(fixedTime, randomTime, listPayload, serverDomain, init) {
 
   };
 
-  let checkList = (listPayload) => {
+  let checkList = (listPayload, optionsParams) => {
     // console.log('Фарм лист listIds[' + listPayload.params.listIds + '], villageId[' + listPayload.params.villageId + '], session[' + listPayload.session +'] проверка');
 
     function start() {
@@ -790,7 +802,7 @@ function autoFarmList(fixedTime, randomTime, listPayload, serverDomain, init) {
         };
 
 
-        console.log(listPayload.params.listIds)
+        // console.log(listPayload.params.listIds);
         for (let i = 0; i < listPayload.params.listIds.length; i++) {
           let list = listPayload.params.listIds[i];
           checkBodyObj.params.names.push("Collection:FarmListEntry:" + list);
@@ -799,7 +811,7 @@ function autoFarmList(fixedTime, randomTime, listPayload, serverDomain, init) {
         let options = {
           method: 'POST',
           headers: {
-            'content-type': 'application/x-www-form-urlencoded'
+            'content-type': 'application/json;charset=UTF-8'
           },
           json: true,
           body: checkBodyObj,
@@ -811,21 +823,39 @@ function autoFarmList(fixedTime, randomTime, listPayload, serverDomain, init) {
         httpRequest(options)
           .then(
             (body) => {
-              console.log(listPayload);
+              // console.log(listPayload);
               if (!body.cache) {
-                console.log(body);
+                // console.log(body);
               } else {
                 //TODO: add callback on checkOnStatus
                 // callback(body);
-                checkOnStatus(body, listPayload, now, startFarmListRaid.bind(null, listPayload), serverDomain);
 
-                setTimeout(() => {
+                if (optionsParams.checkList === true){
+                  checkOnStatus(body, listPayload, now, startFarmListRaid.bind(null, listPayload), serverDomain);
+                } else {
+                  startFarmListRaid(listPayload);
+                }
 
-                  console.log(rand);
-                  
-                  start();
+                workTime += rand;
 
-                }, rand);
+                console.log(workTime);
+
+                if (workTime > 3600 * 1000 * 8) {
+                  let stopTime = 10 * rand;
+                  console.log(`Остановочка ${stopTime}`);
+                  setTimeout(() => {
+                    // console.log(rand);
+                    start();
+                  }, stopTime);
+                  workTime = 0;
+                } else {
+                  setTimeout(() => {
+                    // console.log(rand);
+                    start();
+                  }, rand);
+                }
+
+
 
               }
 
@@ -839,20 +869,19 @@ function autoFarmList(fixedTime, randomTime, listPayload, serverDomain, init) {
           })
       }
 
-      console.log('Фарм лист listIds[' + listPayload.params.listIds + '], ' +
-        'villageId[' + listPayload.params.villageId + '], ' +
-        'session[' + listPayload.session + '] ' +
-        'следующий запуск: [' + dateNext.toString() + ']');
       init = true;
       
 
     };
 
-    start(); 
+    start();
 
+    console.log('Фарм лист listIds[' + listPayload.params.listIds + '], ' +
+      'villageId[' + listPayload.params.villageId + '], ' +
+      'session[' + listPayload.session + '] ' );
   };
 
-  checkList(listPayload);
+  checkList(listPayload, optionsParams);
 };
 
 /**
@@ -887,7 +916,7 @@ function getMap(callback) {
       let options = {
         method: 'GET',
         headers: {
-          'content-type': 'application/x-www-form-urlencoded'
+          'content-type': 'application/json;charset=UTF-8'
         },
         uri: `http://${serverDomain}.kingdoms.com/api/external.php?action=getMapData&privateApiKey=${token.response.privateApiKey}`,
         json: true // Automatically stringifies the body to JSON
@@ -1020,7 +1049,7 @@ function getMapInfo(type, token, serverDomain, timeForGame, ownerId) {
   type = type || 'animal';
   request
     .get({
-      headers: {'content-type': 'application/x-www-form-urlencoded'},
+      headers: {'content-type': 'application/json;charset=UTF-8'},
       url: 'http://' + serverDomain + '.kingdoms.com/api/external.php?action=requestApiKey&email=allin.nikita@yandex.ru&siteName=borsch&siteUrl=http://borsch-label.com&public=true'
     }, (error, response, body) => {
 
@@ -1030,7 +1059,7 @@ function getMapInfo(type, token, serverDomain, timeForGame, ownerId) {
 
       request
         .get({
-          headers: {'content-type': 'application/x-www-form-urlencoded'},
+          headers: {'content-type': 'application/json;charset=UTF-8'},
           url: 'http://' + serverDomain + '.kingdoms.com/api/external.php?action=getMapData&privateApiKey=' + apiKey.response.privateApiKey
         },  (error, response, body) => {
           //TODO: холишит блять
@@ -1070,7 +1099,7 @@ function getMapInfo(type, token, serverDomain, timeForGame, ownerId) {
                 url: 'http://' + serverDomain + '.kingdoms.com/api/?c=cache&a=get&' + timeForGame,
                 body: JSON.stringify(session)
               },  (error, response, body) => {
-                //console.log(body);
+                console.log(body);
                 let jsonBody = JSON.parse(body);
 
                 let map = [];
@@ -1380,8 +1409,6 @@ function autoUnitsBuild(villageId, unitsBarack, unitsStable, fixedTime, randomTi
           }
         });
 
-        console.log(location)
-
         let barackOptions = {
           method: 'POST',
           headers: {
@@ -1417,8 +1444,11 @@ function autoUnitsBuild(villageId, unitsBarack, unitsStable, fixedTime, randomTi
             httpRequest(barackOptions)
               .then(
                 (body) => {
-                  console.log('barack')
-                  // console.log(body)
+                  if (body.response && body.response.errors) {
+                    console.log(body.response.errors)
+                  } else {
+                    console.log(`Бараки успешно загружены`)
+                  }
                 },
                 (error) => {
                   console.log(error);
@@ -1430,9 +1460,12 @@ function autoUnitsBuild(villageId, unitsBarack, unitsStable, fixedTime, randomTi
             httpRequest(stableOptions)
               .then(
                 (body) => {
+                  if (body.response && body.response.errors) {
+                    console.log(body.response.errors)
+                  } else {
+                    console.log(`Конюшни успешно загружены`)
+                  }
 
-                  console.log('stable')
-                  // console.log(body)
                 },
                 (error) => {
                   console.log(error);
@@ -1531,7 +1564,7 @@ function addToFarmList(listMassive, villages) {
       let options = {
         method: 'POST',
         headers: {
-          'content-type': 'application/x-www-form-urlencoded'
+          'content-type': 'application/json;charset=UTF-8'
         },
         serverDomain: serverDomain,
         json: true,
@@ -2080,7 +2113,7 @@ function attackList(filter, xCor, yCor, paramsAttack) {
               httpRequest(options).then(
                 (log) => {
                   setTimeout(function () {
-                    console.log('Рандомное время ' + i + ': ' + rand);
+                    // console.log('Рандомное время ' + i + ': ' + rand);
                     loop.next();
                   }, rand);
                 },
@@ -2088,14 +2121,14 @@ function attackList(filter, xCor, yCor, paramsAttack) {
                   console.log(err)
                 }
               );
-              console.log('body.response.reports > 0');
-              console.log(body.response.reports[0]);
+              // console.log('body.response.reports > 0');
+              // console.log(body.response.reports[0]);
             } else if (body.response && body.response.reports && body.response.reports.length === 0) {
-              console.log('body.response.reports === 0')
+              // console.log('body.response.reports === 0')
               httpRequest(options).then(
                 (log) => {
                   setTimeout(function () {
-                    console.log('Рандомное время ' + i + ': ' + rand);
+                    // console.log('Рандомное время ' + i + ': ' + rand);
                     loop.next();
                   }, rand);
                 },
@@ -2216,7 +2249,7 @@ function merchants(merchantPlayers) {
                 autoMerchants(merchantPlayers[player].params, merchantPlayers[player].cred);
             }, i * 1000 * 20)
         }
-    }, 3600 * 1000);
+    }, 777 * 1000);
 }
 
 /**
@@ -2235,9 +2268,6 @@ function merchants(merchantPlayers) {
 function autoMerchants(params, cred) {
     let options = {
         method: 'POST',
-        headers: {
-            'content-type': 'application/json;charset=UTF-8'
-        },
         json: true,
         body: {
             "controller": "cache",
@@ -2255,6 +2285,7 @@ function autoMerchants(params, cred) {
           (body) => {
               if(body.error) {
                 console.log(options)
+                console.log(body);
                 console.log(body.error.message.help);
               }
 
@@ -2277,12 +2308,16 @@ function autoMerchants(params, cred) {
               params.minResource = findMinResourseId(params.wood, params.clay, params.iron);
               // console.log(params)
               // console.log(params);
-              if (params.maxResource != 0 && params.minResource != 0)
+              if (params.maxResource != 0 && params.minResource != 0){
+
                   if (params.cropPercent <= params.percent) {
                       sendTradesForCrop(params, cred);
-                  } else {
-                      sendTradesForResources(params, cred);
                   }
+              }
+
+            // else {
+                  //     sendTradesForResources(params, cred);
+                  // }
           },
           (error) => {
               // TODO: debug if have error
@@ -2359,7 +2394,7 @@ function sendTradesForResources(params, cred) {
                   (body) => {
                       let max = tradeOptions.body.params.offeredResource == 1 ? 'wood' : tradeOptions.body.params.offeredResource == 2 ? 'clay' : 'iron';
                       let min = tradeOptions.body.params.searchedResource == 1 ? 'wood' : tradeOptions.body.params.searchedResource == 2 ? 'clay' : 'iron';
-                      console.log('Posted ' + params.merchants + ' ' + max + ' for ' + parseInt(params.merchants * 1.33) + ' ' + min);
+                      // console.log('Posted ' + params.merchants + ' ' + max + ' for ' + parseInt(params.merchants * 1.33) + ' ' + min);
                   }, (error) => {
                       console.log(error);
                   }
@@ -2372,6 +2407,8 @@ function sendTradesForResources(params, cred) {
 
 function sendTradesForCrop(params, cred) {
     for (let i = 0; i < params.countOfMerchants; i++) {
+
+        //1.77778
 
         if (params.maxResource == 1 && params.wood < params.merchants){ break; }
         if (params.maxResource == 2 && params.clay < params.merchants){ break; }
@@ -2391,7 +2428,7 @@ function sendTradesForCrop(params, cred) {
                     "offeredResource": params.maxResource,
                     "offeredAmount": params.merchants,
                     "searchedResource": 4,
-                    "searchedAmount": params.merchants * 1.9,
+                    "searchedAmount": params.merchants * 2,
                     "kingdomOnly": false
                 },
                 "session": cred.session
@@ -2419,8 +2456,8 @@ function sendTradesForCrop(params, cred) {
                 (body) => {
                   // console.log(body)
                     let max = tradeOptions.body.params.offeredResource == 1 ? 'wood' : tradeOptions.body.params.offeredResource == 2 ? 'clay' : 'iron';
-                    console.log('Posted ' + params.merchants + ' ' + max + ' for ' + (params.merchants * 1.8) + ' crop');                }, (error) => {
-                  console.log(error);
+                    console.log('Posted ' + params.merchants + ' ' + max + ' for ' + (params.merchants * 2) + ' crop');                }, (error) => {
+                  // console.log(error);
                 }
             )
           .catch((error) => {
@@ -2485,7 +2522,7 @@ async function copyLists(donor, to, listName) {
                 let entriesCache = body.cache[0].data.cache;
                 for (let i = 0; i < entriesCache.length; i++) {
                     let entry = entriesCache[i];
-                    if (!entry.data.lastReport || entry.data.lastReport && entry.data.lastReport.notificationType == 1) {
+                    if (entry.data.lastReport && entry.data.lastReport.notificationType == 1) {
                         greenAttacks.push(entry.data);
                         // console.log(entry.data.villageName + " - green")
                     }
@@ -2531,7 +2568,7 @@ async function copyLists(donor, to, listName) {
 
         await httpRequestAsync(options).then(
             (body) => {
-                createdListIds.push(body.cache[0].data.cache[0].data.listId);
+                // createdListIds.push(body.cache[0].data.cache[0].data.listId);
                 // console.log("Created list:");
                 // console.log(body.cache[0].data.cache[0].data);
                 let name = listName + " " + body.cache[0].data.cache[0].data.listId;
@@ -2582,7 +2619,7 @@ async function copyLists(donor, to, listName) {
         let options = {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json;charset=UTF-8'
             },
             json: true,
             body: toggleBody,
@@ -3311,6 +3348,7 @@ async function shareScans(payloadData) {
         "session": payloadData.session
       }
     };
+
     await httpRequest(options).then(async (body) => {
       let enemyTroops = body.response.body.modules.find((x) => x.name == "troops/tribeSum").body.originalTroops;
       let countOfTroops = 0;
@@ -3373,7 +3411,7 @@ async function shareScans(payloadData) {
           };
 
           await httpRequest(options).then((body) => {
-            console.log(JSON.stringify(body));
+            // console.log(JSON.stringify(body));
             sharedReports.push(currentReport._id.$id);
           });
           await sleep(2 * 1000);
@@ -3386,15 +3424,84 @@ async function shareScans(payloadData) {
   shareScans(payloadData);
 }
 
+/**
+ * Скан для шара скан
+ * @param payloadData
+ * @returns {Promise<void>}
+ */
+async function shareLogScans(payloadData, options) {
+  let reportsToShare = [];
+  let isLastPage = false;
+  let reportsCounter = 0;
+  let sharedReports = [];
+  do {
+    let httpOptions = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json;charset=UTF-8'
+      },
+      serverDomain: payloadData.serverDomain,
+      json: true,
+      body: {
+        "controller": "reports",
+        "action": "getLastReports",
+        "params": {
+          alsoGetTotalNumber: true,
+          collection: "own",
+          count: 50,
+          filters: [15],
+          start: reportsCounter
+        },
+        "session": payloadData.session
+      }
+    };
+    reportsCounter += 50;
+    await httpRequest(httpOptions).then((body) => {
+      let time = Math.trunc(body.time / 1000);
+      let reports = body.response.reports;
+      for (let i = 0; i < reports.length; i++) {
+        if (time - reports[i].time <= payloadData.minutes * 60 && !sharedReports.includes(reports[i]._id.$id)) {
+          reportsToShare.push(reports[i]);
+        } else {
+          isLastPage = true;
+          break;
+        }
+      }
+    });
+  } while (!isLastPage);
+  // console.log("Reports to share without check of troops and capacity: " + reportsToShare.length);
+  let massiveLogs = [];
+  for (let i = 0; i < reportsToShare.length; i++) {
+    let currentReport = reportsToShare[i];
+    if (currentReport.destKingdomId === options.destKingdomId){
+massiveLogs.push(`[report:${currentReport._id.$id}00${currentReport.notificationType}${currentReport.securityCode}]
+`);
+    }
+  }
+  console.log("");
+  console.log(massiveLogs.join(''))
+  await sleep(10 * 60 * 1000);
+  shareLogScans(payloadData, options);
+}
+
 
 /**
  *
  * @param fn
  * @param time
  */
-function repeatDelay(fn,  time) {
-  fn();
-  setInterval(() => {fn()}, time || 2 * 3600 * 1000)
+function repeatDelay(fn,  time, disp = 0) {
+
+  if (Math.random() > disp) {
+    fn();
+  }
+
+  let randTime = fixedTimeGenerator(3600) + randomTimeGenerator(800);
+  setInterval(() => {
+    if (Math.random() > disp) {
+      fn();
+    }
+  }, time || randTime);
 }
 
 /**
@@ -3408,7 +3515,11 @@ function sleep(ms) {
 }
 
 let users = {
-  wahlberg: {"session":"7d283db04adf62784f55"},
+  wahlberg: {"session":"55d8d325a246dfe532e9"},
+  ars: {"session":"4d9105fa92838f92a7bf"},
+  rin: {"session":"bbe7b62de5c893d28cc7"},
+  ruslan: {"session":"5029ed251b86766c9a49"},
+  desertir: {"session":"b2cf755adf5c6f4e0d70"},
   quasi: {"session": "ca73b64392c2e87ea4e9"},
   hysteria: {"session": "cfadf678a179523b612b"},
   morpeh: {"session": "28121b2640e7c8966636"},
@@ -3417,19 +3528,31 @@ let users = {
 let sharePayload = {
   wahlberg: {
     "session":users.wahlberg.session,
-    "serverDomain": "mltest",
+    "serverDomain": "ru2x3",
     "minutes": 60,
-    "shareParam": 69,
+    "shareParam": 82,//SS id
     "minimumResources": 3000
   }
-}
+};
 
 let listPayload = {
-  wahlberg: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[3196, 3197, 3054, 2870, 2559, 2648],"villageId":536526850},"session": users.wahlberg.session, "server": "mltest"},
-  wahlberg2:{"controller":"troops","action":"startFarmListRaid","params":{"listIds":[3196, 3197],"villageId":536690693},"session": users.wahlberg.session, "server": "mltest"},
-  // wahlberg3:{"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2922, 2943, 2944],"villageId":536887300},"session": users.wahlberg.session, "server": "mltest"},
-  hysteria: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2977, 2978],"villageId":536494081},"session":users.hysteria.session, "server": "mltest"},
-  morpeh:   {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[3057, 3058, 3059],"villageId":536559666},"session":users.morpeh.session, "server": "mltest"},
+  wahlberg:  {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[1945, 2349, 2350, 2351, 2352],"villageId":536526851},"session": users.wahlberg.session, "server": "ru1x3"},
+  wahlberg2: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[1945, 2349, 2350, 2351, 2352],"villageId":536559616},"session": users.wahlberg.session, "server": "ru2x3"},
+  wahlberg3: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2480,2481,2482,2483,2484],"villageId":535609328},"session": users.wahlberg.session, "server": "ru1x3"},
+  wahlberg4: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2480,2481,2482,2483,2484],"villageId":535576552},"session": users.wahlberg.session, "server": "ru1x3"},
+  wahlberg5: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2480,2481,2482,2483,2484],"villageId":536166355},"session": users.wahlberg.session, "server": "ru1x3"},
+  wahlberg6: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2480,2481,2482,2483,2484],"villageId":535412748},"session": users.wahlberg.session, "server": "ru1x3"},
+  wahlberg7: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2480,2481,2482,2483,2484],"villageId":535740417},"session": users.wahlberg.session, "server": "ru1x3"},
+  wahlberg8: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2480,2481,2482,2483,2484],"villageId":535216111},"session": users.wahlberg.session, "server": "ru1x3"},
+  wahlberg9: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2480,2481,2482,2483,2484],"villageId":535412762},"session": users.wahlberg.session, "server": "ru1x3"},
+  wahlberg10:{"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2480,2481,2482,2483,2484],"villageId":535379975},"session": users.wahlberg.session, "server": "ru1x3"},
+  wahlberg11:{"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2480,2481,2482,2483,2484],"villageId":535609365},"session": users.wahlberg.session, "server": "ru1x3"},
+  wahlberg12:{"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2480,2481,2482,2483,2484],"villageId":535478251},"session": users.wahlberg.session, "server": "ru1x3"},
+  wahlberg13:{"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2480,2481,2482,2483,2484],"villageId":535281698},"session": users.wahlberg.session, "server": "ru1x3"},
+  ruslan:    {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":536625112},"session": users.ruslan.session, "server": "ru1x3"},
+  ars:       {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[1900, 1901],"villageId":535478272},"session": users.ars.session, "server": "ru1x3"},
+  desertir:  {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[1902, 1903],"villageId":536166362},"session": users.desertir.session, "server": "ru1x3"},
+  rin:       {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2075, 2076, 2077],"villageId":535216107},"session": users.rin.session, "server": "ru1x3"},
 };
 
 
@@ -3578,7 +3701,7 @@ let withoutKingdomsFilter2 = {
     },
     kingdomId: {
       different: "equal",
-      value: "0"
+      value: "111"
     },
     active: {
       different: "equal",
@@ -3616,17 +3739,107 @@ let checkAll = {
   }
 };
 
-//368 - Царство!
-//75 - hydra
-//24 - Emperor
-//21 - влияние
-//9  - green
+//8 - нублэнд
+//3 - ermak
 
 let kingdomsFilters = {
   players: {
     kingdomId: {
       different: "equal",
-      value: "21"
+      value: "3"
+    },
+    active: {
+      different: "equal",
+      value: "1"
+    }
+  },
+  villages: {
+    population: {
+      different: "more",
+      value: "1"
+    }
+  }
+};
+let kingdomsFilters2 = {
+  players: {
+    kingdomId: {
+      different: "equal",
+      value: "8"
+    },
+    active: {
+      different: "equal",
+      value: "1"
+    }
+  },
+  villages: {
+    population: {
+      different: "more",
+      value: "1"
+    }
+  }
+};
+let kingdomsFilters3 = {
+  players: {
+    kingdomId: {
+      different: "equal",
+      value: "105"
+    },
+    active: {
+      different: "equal",
+      value: "1"
+    }
+  },
+  villages: {
+    population: {
+      different: "more",
+      value: "1"
+    }
+  }
+};
+
+let kingdomsFilters4 = {
+  players: {
+    kingdomId: {
+      different: "equal",
+      value: "142"
+    },
+    active: {
+      different: "equal",
+      value: "1"
+    }
+  },
+  villages: {
+    population: {
+      different: "more",
+      value: "1"
+    }
+  }
+};
+
+let kingdomsFilters5 = {
+  players: {
+    kingdomId: {
+      different: "equal",
+      value: "142"
+    },
+    active: {
+      different: "equal",
+      value: "1"
+    }
+  },
+  villages: {
+    population: {
+      different: "more",
+      value: "1"
+    }
+  }
+};
+
+let kingdomsFilters6 = {
+  players: {
+    kingdomId: {
+      different: "equal",
+      value: "144"
     },
     active: {
       different: "equal",
@@ -3712,7 +3925,7 @@ let optionsFL = {
       "redeployHero":false,
       "units":{"1":0,"2":735,"3":0,"4":0,"5":0,"6":0,"7":0,"8":0,"9":0,"10":0,"11":1},"spyMission":"resources"
     },
-    "session":"99b14b129a86e5114812"
+    "session":"490dd9471747ac65e1d8"
   },
   serverDomain: 'test'
 };
@@ -3725,11 +3938,16 @@ let optionsFL = {
 /**
  * Скан по условию
  */
-// attackList(soratnik, -17, 13, {villageId: 537018360, session: 'a375cc48a46501224190', units: {
+
+//68 - хроникс
+//105 - овощи
+//142 - раскал
+// setTimeout(() => {
+//   attackList(kingdomsFilters3, -17, 13, {villageId: 536330192, session: "5329e84be6a22baac5b2", units: {
 //       "1": 0,
 //       "2": 0,
 //       "3": 0,
-//       "4": 1,
+//       "4": 2,
 //       "5": 0,
 //       "6": 0,
 //       "7": 0,
@@ -3737,24 +3955,12 @@ let optionsFL = {
 //       "9": 0,
 //       "10": 0,
 //       "11": 0
-//   }});
-// repeatDelay(attackList.bind(this, welleam, -17, 13, {villageId: 537313263, session: '53d6232efaeb7b3b9f0a', units: {
+//     }});
+// }, 1000 * 180);
+// attackList(kingdomsFilters6, -17, 13, {villageId: 535674862, session: users.wahlberg.session, units: {
 //       "1": 0,
 //       "2": 0,
-//       "3": 0,
-//       "4": 1,
-//       "5": 0,
-//       "6": 0,
-//       "7": 0,
-//       "8": 0,
-//       "9": 0,
-//       "10": 0,
-//       "11": 0
-//   }}));
-// repeatDelay(attackList.bind(this, neutrals, 1, -12, {villageId: 536690693, session: users.wahlberg.session, units: {
-//       "1": 0,
-//       "2": 0,
-//       "3": 1,
+//       "3": 2,
 //       "4": 0,
 //       "5": 0,
 //       "6": 0,
@@ -3763,13 +3969,24 @@ let optionsFL = {
 //       "9": 0,
 //       "10": 0,
 //       "11": 0
-//   }}));
-// shareScans(sharePayload.wahlberg);
+//   }});
+// attackList(kingdomsFilters3, -17, -37, {villageId: 535674862, session: users.wahlberg.session, units: {
+//       "1": 0,
+//       "2": 0,
+//       "3": 4,
+//       "4": 0,
+//       "5": 0,
+//       "6": 0,
+//       "7": 0,
+//       "8": 0,
+//       "9": 0,
+//       "10": 0,
+//       "11": 0
+//   }});
 
 /**
  * Билд войнов
  */
-// autoUnitsBuild('537444343', {11: 30}, {16: 3}, 2400, 1200, '320fc3a8c39d4edd7bdb');
 // autoUnitsBuild('537051121', {3: 14}, {5: 12}, 3600, 200, 'd8efc425263d11d0f4a3');
 // autoUnitsBuild('536756212', {3: 14}, {5: 12}, 3600, 200, 'd8efc425263d11d0f4a3');
 // autoUnitsBuild('536821756', {3: 14}, {5: 12}, 3600, 200, 'ef403b0afd590accf790');
@@ -3780,64 +3997,263 @@ let optionsFL = {
 
 let merchantPlayers = {
   wahlberg1: {
-    params: {percent: 85, villageId: 536526850, playerId: '714'},
-    cred: {session: users.wahlberg.session, serverDomain: 'mltest'}
-  },
-  wahlberg2: {
-    params: {percent: 85, villageId: 536690693, playerId: '714'},
-    cred: {session: users.wahlberg.session, serverDomain: 'mltest'}
+    params: {percent: 95, villageId: 536559616, playerId: '140'},
+    cred: {session: users.wahlberg.session, serverDomain: 'ru2x3'}
   },
 };
-
-merchants(merchantPlayers);
-
 /**
  * Копирование списков
  */
-
-setTimeout(() => {
+//
+// setTimeout(() => {
 //  copyListsToAll(
-  //  listPayload.wahlberg,
-    //[
-    //  listPayload.morpeh,
-    //],
-    //"16Nov_");
-}, 100 * 1000)
+//    listPayload.wahlberg,
+//     [
+//      // listPayload.rin,
+//      // listPayload.caca,
+//      // listPayload.ars,
+//      // listPayload.desertir,
+//      listPayload.ruslan,
+//     ],
+//     "03mar_");
+// }, 100 * 1000)
 
 
 /**
  * Добавления юнитов по улсовиям
  */
 
+farmListCreator('60-149/', '0', '-10', deathsFilterFrom60To150);
+setTimeout(() => {
+  farmListCreator('150/', '0', '-10', deathsFilterFrom150);
+}, 100 * 1000);
 // setTimeout(() => {
-//   farmListCreator('Vlian/', '2', '-11', kingdomsFilters);
-//   farmListCreator('60-149/', '2', '-11', deathsFilterFrom60To150);
-//   setTimeout(() => {
-//     farmListCreator('150/'  , '2', '-11', deathsFilterFrom150);
-//   }, 100 * 1000);
+//   farmListCreator('neutrals/', '0', '-10', neutrals);
+// //   farmListCreator('dx/', '-18', '-37', kingdomsFilters3);
+// // //   farmListCreator('kaba/', '-18', '-37', kingdomsFilters2);
+// }, 200 * 1000);
 // }, 2400 * 1000)
+
 /**
  * Фармлисты
  */
+// autoFarmList(1200, 300, listPayload.ars ,   'ru1x3', true);
 
-// setTimeout(()=>{
-  autoFarmList(500, 300, listPayload.wahlberg ,    'mltest', true);
-  autoFarmList(500, 300, listPayload.wahlberg2 ,   'mltest', true);
-  // autoFarmList(500, 300, listPayload.wahlberg3 ,   'mltest', true);
-  // autoFarmList(500, 300, listPayload.hysteria ,    'mltest', true);
-  //  autoFarmList(500, 300, listPayload.morpeh ,    'mltest', true);
-// autoFarmList(500, 300, listPayload.wahlberg3 ,   'test', true);
-//   autoFarmList(500, 300, listPayload.wahlberg4 ,   'test', true);
-  // autoFarmList(800, 300, listPayload.greshnik ,    'test', true);
-  // autoFarmList(800, 300, listPayload.greshnik2 ,   'test', true);
-  // autoFarmList(800, 300, listPayload.greshnik3 ,   'test', true);
-  // autoFarmList(800, 300, listPayload.greshnik4 ,   'test', true);
-  // autoFarmList(800, 300, listPayload.greshnik5 ,   'test', true);
-// }, 3600 * 1000);
+/**
+ * Моё
+ */
+// autoUnitsBuild('536559616', {3: 8}, {6: 9}, 1200, 0, users.wahlberg.session);
+//
+// repeatDelay(attackList.bind(this, kingdomsFilters, 0, 0, {villageId: 536526851, session: users.wahlberg.session, units: {
+//     "1": 0,
+//     "2": 0,
+//     "3": 0,
+//     "4": 1,
+//     "5": 0,
+//     "6": 0,
+//     "7": 0,
+//     "8": 0,
+//     "9": 0,
+//     "10": 0,
+//     "11": 0
+//   }}));
+//
+// repeatDelay(attackList.bind(this, kingdomsFilters2, 0, 0, {villageId: 536526851, session: users.wahlberg.session, units: {
+//     "1": 0,
+//     "2": 0,
+//     "3": 0,
+//     "4": 1,
+//     "5": 0,
+//     "6": 0,
+//     "7": 0,
+//     "8": 0,
+//     "9": 0,
+//     "10": 0,
+//     "11": 0
+//   }}));
+//
+// // setTimeout(()=>{
+// autoFarmList(900, 500, listPayload.wahlberg2,   'ru2x3', true, {checkList: true});
+// setTimeout(() => {autoFarmList(900, 500, listPayload.wahlberg,   'ru2x3', true, {checkList: true});}, 1000 * 410);
+// // }, 2 * 3600 * 1000);
+// // autoFarmList(1500, 700, listPayload.wahlberg ,    'ru1x3', true, {checkList: true});
+// // autoFarmList(700, 500, listPayload.wahlberg2 ,   'ru2x3', true, {checkList: true});
+// // setTimeout(() => {autoFarmList(1500, 700, listPayload.wahlberg3 ,   'ru1x3', true, {checkList: false});}, 1000 * 410);
+// // setTimeout(() => {autoFarmList(1500, 700, listPayload.wahlberg4 ,   'ru1x3', true, {checkList: false});}, 1000 * 420);
+// // setTimeout(() => {autoFarmList(1500, 700, listPayload.wahlberg5 ,   'ru1x3', true, {checkList: false});}, 1000 * 430);
+// // setTimeout(() => {autoFarmList(1500, 700, listPayload.wahlberg6 ,   'ru1x3', true, {checkList: false});}, 1000 * 440);
+// // setTimeout(() => {autoFarmList(1500, 700, listPayload.wahlberg7 ,   'ru1x3', true, {checkList: false});}, 1000 * 450);
+// // setTimeout(() => {autoFarmList(1500, 700, listPayload.wahlberg8 ,   'ru1x3', true, {checkList: false});}, 1000 * 460);
+// // setTimeout(() => {autoFarmList(1500, 700, listPayload.wahlberg9 ,   'ru1x3', true, {checkList: false});}, 1000 * 470);
+// // setTimeout(() => {autoFarmList(1500, 700, listPayload.wahlberg10,   'ru1x3', true, {checkList: false});}, 1000 * 480);
+// // setTimeout(() => {autoFarmList(1500, 700, listPayload.wahlberg11,   'ru1x3', true, {checkList: false});}, 1000 * 490);
+// // setTimeout(() => {autoFarmList(1500, 700, listPayload.wahlberg12,   'ru1x3', true, {checkList: false});}, 1000 * 500);
+// // setTimeout(() => {autoFarmList(1500, 700, listPayload.wahlberg13,   'ru1x3', true, {checkList: false});}, 1000 * 500);
+// // shareScans(sharePayload.wahlberg );
+// // shareLogScans(sharePayload.wahlberg, {destKingdomId: '8'});
+// // shareLogScans(sharePayload.wahlberg, {destKingdomId: '111'});
+// // shareLogScans(sharePayload.wahlberg, {destKingdomId: '283'});
+// // merchants(merchantPlayers);
+//
+// repeatDelay(attackList.bind(this, neutrals, 0, 0, {villageId: 536526851, session: users.wahlberg.session, units: {
+//     "1": 0,
+//     "2": 0,
+//     "3": 0,
+//     "4": 1,
+//     "5": 0,
+//     "6": 0,
+//     "7": 0,
+//     "8": 0,
+//     "9": 0,
+//     "10": 0,
+//     "11": 0
+//   }}), fixedTimeGenerator(12000) + randomTimeGenerator(7200), 0.00001);
+// repeatDelay(attackList.bind(this, kingdomsFilters2, -17, -40, {villageId: 535674862, session: users.wahlberg.session, units: {
+//     "1": 0,
+//     "2": 0,
+//     "3": 1,
+//     "4": 0,
+//     "5": 0,
+//     "6": 0,
+//     "7": 0,
+//     "8": 0,
+//     "9": 0,
+//     "10": 0,
+//     "11": 0
+// }}));
+// repeatDelay(attackList.bind(this, kingdomsFilters3, -17, -40, {villageId: 536330192, session: "4230689e704131fd6589", units: {
+//     "1": 0,
+//     "2": 0,
+//     "3": 1,
+//     "4": 0,
+//     "5": 0,
+//     "6": 0,
+//     "7": 0,
+//     "8": 0,
+//     "9": 0,
+//     "10": 0,
+//     "11": 0
+// }}));
 
 /**
   Hero check
  */
+
+async function operationChecker(opt){
+  function timeBetweenVillage(xd, yd, xt, yt, movement, arenalvl) {
+    let distance = getDistance(xd, yd, xt, yt);
+    console.log(xd, yd, xt, yt, distance, arenalvl)
+    if (distance > 20) {
+      return (20/movement + (distance-20)/(movement*(10+arenalvl)/10))
+    } else {
+      return (distance/movement)
+    }
+  }
+
+  function getDistance(xd, yd, xt, yt){
+    return Math.sqrt((xd-xt)*(xd-xt)+(yd-yt)*(yd-yt))
+  }
+
+  async function getVillages(opt){
+
+    let villages = [];
+    opt.villagesAttacks.forEach((item) => {
+      villages.push("Village:" + item.villageId);
+    });
+
+    opt.villagesHasAttacked.forEach((item) => {
+      villages.push("Village:" + item);
+    });
+
+    let body = {
+      "controller":"cache",
+      "action":"get",
+      "params": {
+        "names": villages
+      },
+      "session": opt.villageChecker.session
+    };
+
+
+    let payload = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json;charset=UTF-8'
+      },
+      serverDomain: opt.villageChecker.serverDomain,
+      json: true,
+      body: body
+    };
+
+    console.log(body.params)
+
+    return httpRequestAsync(payload)
+  }
+
+  let villages = await getVillages(opt);
+
+  console.log(`diff time: ${Date.now() - villages.time}`);
+
+
+  opt.villagesAttacks.forEach((villageAttacks) => {
+    for (let i = 0; i < opt.villagesHasAttacked.length; i++) {
+      let villageHasAttacked = opt.villagesHasAttacked[i];
+      let villageAttacksObj = villages.cache.find((village) => {
+        return village.name === `Village:${villageAttacks.villageId}`
+      });
+      let villageHasAttackedObj = villages.cache.find((village) => {
+        return village.name === `Village:${villageHasAttacked}`
+      });
+
+
+      let time = timeBetweenVillage(
+        villageAttacksObj.data.coordinates.x,
+        villageAttacksObj.data.coordinates.y,
+        villageHasAttackedObj.data.coordinates.x,
+        villageHasAttackedObj.data.coordinates.y,
+        8,
+        villageAttacks.arenaLvl
+      )  * 3600 * 1000;
+      let timeFormat = moment(time).utc(0).format('HH:mm:ss');
+      //ОСТАНОВИЛСЯ ТУТ
+      // let diffTime = timeFormat.diff(timeFormat.diff(moment(villageAttacks.arrivalTime, "HH:mm:ss")));
+      // console.log(diffTime);
+    }
+  });
+
+}
+
+// operationChecker({
+//   villagesAttacks: [{
+//     villageId: '536821734',
+//     arenaLvl: 10,
+//     arrivalTime: '2:05:25'
+//   },
+//   {
+//     villageId: '536756217',
+//     arenaLvl: 10,
+//     arrivalTime: '2:05:25'
+//   },
+//   {
+//     villageId: '537051116',
+//     arenaLvl: 10,
+//     arrivalTime: '2:05:25'
+//   },
+//   {
+//     villageId: '536657907',
+//     arenaLvl: 15,
+//     arrivalTime: '2:05:25'
+//   }
+//   ],
+//   villagesHasAttacked: [
+//     '535674862', '535281653', '535871444', '536166362', '536264653', '536625112', '536887254', '536887243', '536461267'
+//   ],
+//   villageChecker: {
+//     villageId: '536166393',
+//     serverDomain: 'ru1x3',
+//     session: users.wahlberg.session,
+//   }
+// });
 // playerFarmList, filter, fixedTime, randomTime, server
 // heroChecker([536526845], 30, "1dded33126f1d99c4a64", 536985583,
 //   {
@@ -3853,8 +4269,7 @@ setTimeout(() => {
 //     "10": 0,
 //     "11": 0
 //   });
-
-// heroChecker([536920052, 536920054], 13, "75f543b65fa424807b92", 537051127,{
+// heroChecker([536166423], 35, users.wahlberg.session, 536166393,{
 //   "1": 0,
 //   "2": 0,
 //   "3": 1,
@@ -3867,7 +4282,7 @@ setTimeout(() => {
 //   "10": 0,
 //   "11": 0
 // });
-// heroChecker([536723461], 100, users.wahlberg.session, 536690693, {
+// heroChecker([535412748], 200, users.wahlberg.session, 535674862, {
 //   "1": 0,
 //   "2": 0,
 //   "3": 1,
@@ -3919,7 +4334,7 @@ let payloadData = {
 /**
  * Кроп
  */
-// getMapInfo('crop', token, serverDomain, timeForGame, 714);
+// getMapInfo('crop', token, serverDomain, timeForGame, 156);
 
 /* GET home page. */
 router.get('/animal2/', function (req, res, next) {
