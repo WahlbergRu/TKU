@@ -453,181 +453,237 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, optionsParams) {
     (loopList) => {
       let i = loopList.iteration();
       let FarmListEntry = farmListsResponse.cache[i].name.split(":")[2];
-      // //console.log(`Подан фармлист с Айди ${FarmListEntry}`.info);
+      console.log(`Подан фармлист с Айди ${FarmListEntry}`.info);
+      // console.log(farmListsResponse.cache[i])
 
-      // console.log(FarmListEntry)
-      asyncLoop(
-        farmListsResponse.cache[i].data.cache.length,
-        (loop) => {
+      if (farmListsResponse.cache[i].data.cache) {
+        asyncLoop(
+          farmListsResponse.cache[i].data.cache.length,
+          (loop) => {
 
-          let j = loop.iteration();
+            let j = loop.iteration();
 
-          let villageLog = farmListsResponse.cache[i].data.cache[j];
+            let villageLog = farmListsResponse.cache[i].data.cache[j];
 
-          // console.log(`Чек этого  ${JSON.stringify(villageLog).green}`);
+            // console.log(`Чек этого  ${JSON.stringify(villageLog).green}`);
 
 
 
-          if (!villageLog || !villageLog.data || !villageLog.data.lastReport) {
-            //console.log(`Чек этого  ${JSON.stringify(villageLog.data).green}`);
-            loop.next();
-          } else if (villageLog.data.lastReport.notificationType == 1) {
-            // console.log(villageLog.data.lastReport.notificationType)
+            if (!villageLog || !villageLog.data || !villageLog.data.lastReport) {
+              //console.log(`Чек этого  ${JSON.stringify(villageLog.data).green}`);
+              loop.next();
+            } else if (villageLog.data.lastReport.notificationType == 1) {
+              // console.log(villageLog.data.lastReport.notificationType)
 
-            // TODO:  проверить почему не работает
-            let toggleBody = {
-              "controller": "reports",
-              "action": "getLastReports",
-              "params": {
-                "collection": "search",
-                "start": 0,
-                "count": 10,
-                "filters": ["124", {"villageId": villageLog.data.villageId}],
-                "alsoGetTotalNumber": true
-              },
-              "session": listPayload.session
-            };
+              // TODO:  проверить почему не работает
+              let toggleBody = {
+                "controller": "reports",
+                "action": "getLastReports",
+                "params": {
+                  "collection": "search",
+                  "start": 0,
+                  "count": 10,
+                  "filters": ["124", {"villageId": villageLog.data.villageId}],
+                  "alsoGetTotalNumber": true
+                },
+                "session": listPayload.session
+              };
 
-            let options = {
-              method: 'POST',
-              headers: {
-                'content-type': 'application/json;charset=UTF-8'
-              },
-              json: true,
-              body: toggleBody,
-              serverDomain: listPayload.serverDomain,
-            };
+              let options = {
+                method: 'POST',
+                headers: {
+                  'content-type': 'application/json;charset=UTF-8'
+                },
+                json: true,
+                body: toggleBody,
+                serverDomain: listPayload.serverDomain,
+              };
 
-            httpRequest(options)
-              .then(
-                (body) => {
+              httpRequest(options)
+                .then(
+                  (body) => {
 
-                  let capacity = 0, bounty = 0;
+                    let capacity = 0, bounty = 0;
 
-                  if (body.errors) {
-                    console.log(body)
-                  }
+                    if (body.errors) {
+                      console.log(body)
+                    }
 
-                  // console.log(body.response)
-                  if (body && body.response && body.response.reports && !optionsParams ||
-                    body && body.response && body.response.reports && optionsParams && optionsParams.greenLogs){
+                    // console.log(body.response)
+                    if (body && body.response && body.response.reports && !optionsParams ||
+                      body && body.response && body.response.reports && optionsParams && optionsParams.greenLogs){
 
-                    body.response.reports.forEach((item, index, array) => {
-                      bounty += item.bounty;
-                      capacity += item.capacity;
-                    });
+                      body.response.reports.forEach((item, index, array) => {
+                        bounty += item.bounty;
+                        capacity += item.capacity;
+                      });
 
-                    let rel = bounty / capacity;
+                      let rel = bounty / capacity;
 
-                    if (rel >= 1) {
+                      if (rel >= 1) {
 
-                      for (let unitKey in villageLog.data.units) {
-                        let unit = villageLog.data.units[unitKey];
-                        if (unit == 0) {
-                          //nothing?
-                        } else if (unit < 30) {
-                          villageLog.data.units[unitKey] = parseInt(villageLog.data.units[unitKey]) + 1;
-                        } else {
-                          //nothing?
+                        for (let unitKey in villageLog.data.units) {
+                          let unit = villageLog.data.units[unitKey];
+                          if (unit == 0) {
+                            //nothing?
+                          } else if (unit < 30) {
+                            villageLog.data.units[unitKey] = parseInt(villageLog.data.units[unitKey]) + 1;
+                          } else {
+                            //nothing?
+                          }
                         }
+
+                        let unitBody = {
+                          "controller": "farmList",
+                          "action": "editTroops",
+                          "params": {
+                            "entryIds": [parseInt(villageLog.data.entryId)],
+                            "units": villageLog.data.units
+                          },
+                          "session": listPayload.session
+                        };
+
+                        let changeUnitOption = {
+                          method: 'POST',
+                          json: true,
+                          body: unitBody,
+                          serverDomain: listPayload.serverDomain
+                        };
+
+
+                        httpRequest(changeUnitOption).then(
+                          resolve => {
+                            // console.log('Кол-во войнов увеличено'.info);
+                            loop.next();
+                          },
+                          reject => {
+                            // console.log(JSON.stringify(reject).warn);
+                            loop.next();
+                          }
+                        )
+                      } else if (rel < 0.5) {
+
+                        for (let unitKey in villageLog.data.units) {
+                          let unit = villageLog.data.units[unitKey];
+                          if (unit > 1) {
+                            villageLog.data.units[unitKey]--;
+                          }
+                        }
+
+                        let unitBody = {
+                          "controller": "farmList",
+                          "action": "editTroops",
+                          "params": {
+                            "entryIds": [parseInt(villageLog.data.entryId)],
+                            "units": villageLog.data.units
+                          },
+                          "session": listPayload.session
+                        };
+
+                        let changeUnitOption = {
+                          method: 'POST',
+                          json: true,
+                          body: unitBody,
+                          serverDomain: listPayload.serverDomain
+                        };
+
+                        httpRequest(changeUnitOption).then(
+                          resolve => {
+                            // console.log('Кол-во войнов уменьшено'.info);
+                            loop.next();
+                          },
+                          reject => {
+                            // console.log(JSON.stringify(reject).warn);
+                            loop.next();
+                          }
+                        )
+                          .catch((error) => {
+                            console.log(error)
+                          })
+                        //    Добавить уменьшение войнов
+                      } else {
+                        //nothing now
+                        loop.next();
                       }
-
-                      let unitBody = {
-                        "controller": "farmList",
-                        "action": "editTroops",
-                        "params": {
-                          "entryIds": [parseInt(villageLog.data.entryId)],
-                          "units": villageLog.data.units
-                        },
-                        "session": listPayload.session
-                      };
-
-                      let changeUnitOption = {
-                        method: 'POST',
-                        json: true,
-                        body: unitBody,
-                        serverDomain: listPayload.serverDomain
-                      };
-
-
-                      httpRequest(changeUnitOption).then(
-                        resolve => {
-                          // console.log('Кол-во войнов увеличено'.info);
-                          loop.next();
-                        },
-                        reject => {
-                          // console.log(JSON.stringify(reject).warn);
-                          loop.next();
-                        }
-                      )
-                    } else if (rel < 0.5) {
-
-                      for (let unitKey in villageLog.data.units) {
-                        let unit = villageLog.data.units[unitKey];
-                        if (unit > 1) {
-                          villageLog.data.units[unitKey]--;
-                        }
-                      }
-
-                      let unitBody = {
-                        "controller": "farmList",
-                        "action": "editTroops",
-                        "params": {
-                          "entryIds": [parseInt(villageLog.data.entryId)],
-                          "units": villageLog.data.units
-                        },
-                        "session": listPayload.session
-                      };
-
-                      let changeUnitOption = {
-                        method: 'POST',
-                        json: true,
-                        body: unitBody,
-                        serverDomain: listPayload.serverDomain
-                      };
-
-                      httpRequest(changeUnitOption).then(
-                        resolve => {
-                          // console.log('Кол-во войнов уменьшено'.info);
-                          loop.next();
-                        },
-                        reject => {
-                          // console.log(JSON.stringify(reject).warn);
-                          loop.next();
-                        }
-                      )
-                      .catch((error) => {
-                        console.log(error)
-                      })
-                      //    Добавить уменьшение войнов
                     } else {
-                      //nothing now
                       loop.next();
                     }
-                  } else {
-                    loop.next();
+
+
+
+                  },
+                  (error) => {
+                    //console.log(error);
                   }
+                )
+                .catch((error) => {
+                  console.log(error)
+                })
 
+            } else if (villageLog.data.lastReport.notificationType == 2) {
+              if (optionsParams && optionsParams.yellowLogs === true) {
+                loop.next();
+              } else {
+                console.log(villageLog.data.lastReport.notificationType)
 
-
-                },
-                (error) => {
-                  //console.log(error);
+                if (debug === 2 || debug === 3) {
+                  //console.log('yellow log')
                 }
-              )
-              .catch((error) => {
-                console.log(error)
-              })
+                let toggleBody = {
+                  "controller": "farmList",
+                  "action": "toggleEntry",
+                  "params": {
+                    "villageId": villageLog.data.villageId,
+                    "listId": FarmListEntry
+                  },
+                  "session": listPayload.session
+                };
 
-          } else if (villageLog.data.lastReport.notificationType == 2) {
-            if (optionsParams && optionsParams.yellowLogs === true) {
-              loop.next();
-            } else {
-              console.log(villageLog.data.lastReport.notificationType)
+                let options = {
+                  method: 'POST',
+                  headers: {
+                    'content-type': 'application/json;charset=UTF-8'
+                  },
+                  json: true,
+                  body: toggleBody,
+                  serverDomain: listPayload.serverDomain
+                };
 
-              if (debug === 2 || debug === 3) {
-                //console.log('yellow log')
+                //console.log(options.info)
+
+
+                httpRequest(options)
+                  .then(
+                    (body) => {
+                      //console.log(body);
+                      return httpRequest(options);
+                    },
+                    (error) => {
+                      //console.log(error);
+                    }
+                  )
+                  .then(
+                    (body) => {
+                      //console.log(body);
+                      if (debug === 3) {
+                        console.log(body);
+                      }
+                      // console.log('Жёлтый лог обработан.'.silly)
+                      loop.next();
+                    },
+                    (error) => {
+                      console.log(error);
+                    }
+                  )
+                  .catch((error) => {
+                    console.log(error)
+                  })
               }
+            } else if (villageLog.data.lastReport.notificationType == 3) {
+              if (debug === 2 || debug === 3) {
+                console.log('red log'.debug)
+              };
+              //TODO: вынести в отдельную функцию
               let toggleBody = {
                 "controller": "farmList",
                 "action": "toggleEntry",
@@ -648,95 +704,41 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, optionsParams) {
                 serverDomain: listPayload.serverDomain
               };
 
-              //console.log(options.info)
+              console.log(options.info)
 
 
               httpRequest(options)
                 .then(
                   (body) => {
-                    //console.log(body);
+                    // console.log(body);
                     return httpRequest(options);
                   },
                   (error) => {
-                    //console.log(error);
+                    console.log(error);
                   }
                 )
                 .then(
                   (body) => {
-                    //console.log(body);
+                    // console.log(body);
                     if (debug === 3) {
-                      console.log(body);
+                      // console.log(body);
                     }
-                    // console.log('Жёлтый лог обработан.'.silly)
+                    console.log('Красный лог обработан.'.silly)
                     loop.next();
                   },
                   (error) => {
                     console.log(error);
                   }
                 )
-                .catch((error) => {
-                  console.log(error)
-                })
+            } else {
+              console.log(`Странный лог ${villageLog.lastReport.notificationType}`);
             }
-          } else if (villageLog.data.lastReport.notificationType == 3) {
-            if (debug === 2 || debug === 3) {
-              console.log('red log'.debug)
-            };
-            //TODO: вынести в отдельную функцию
-            let toggleBody = {
-              "controller": "farmList",
-              "action": "toggleEntry",
-              "params": {
-                "villageId": villageLog.data.villageId,
-                "listId": FarmListEntry
-              },
-              "session": listPayload.session
-            };
-
-            let options = {
-              method: 'POST',
-              headers: {
-                'content-type': 'application/json;charset=UTF-8'
-              },
-              json: true,
-              body: toggleBody,
-              serverDomain: listPayload.serverDomain
-            };
-
-            console.log(options.info)
-
-
-            httpRequest(options)
-              .then(
-                (body) => {
-                  // console.log(body);
-                  return httpRequest(options);
-                },
-                (error) => {
-                  console.log(error);
-                }
-              )
-              .then(
-                (body) => {
-                  // console.log(body);
-                  if (debug === 3) {
-                    // console.log(body);
-                  }
-                  console.log('Красный лог обработан.'.silly)
-                  loop.next();
-                },
-                (error) => {
-                  console.log(error);
-                }
-              )
-          } else {
-            console.log(`Странный лог ${villageLog.lastReport.notificationType}`);
+          },
+          () => {
+            loopList.next();
           }
-        },
-        () => {
-          loopList.next();
-        }
-      );
+        );
+      }
 
     },
     () => {
@@ -804,18 +806,13 @@ function autoFarmList(fixedTime, randomTime, listPayload, init, optionsParams) {
   };
 
   let checkList = (listPayload, optionsParams) => {
-    // console.log('Фарм лист listIds[' + listPayload.params.listIds + '], villageId[' + listPayload.params.villageId + '], session[' + listPayload.session +'] проверка');
+    console.log('Фарм лист listIds[' + listPayload.params.listIds + '], villageId[' + listPayload.params.villageId + '], session[' + listPayload.session +'] проверка');
 
     function start() {
-
-
       let now = new Date();
       let rand = fixedTimeGenerator(fixedTime) + randomTimeGenerator(randomTime);
 
-      //console.log(now+rand);
-
       let tempTime = now.valueOf() + rand;
-      let dateNext = new Date(tempTime);
       //запуск сразу
       if (init) {
 
@@ -1484,8 +1481,12 @@ function autoUnitsBuild(user, fixedTime, randomTime) {
           let village = user.villages[i];
 
           let location = {},
-            unitsBarack,
-            unitsStable;
+            units = {
+              stable: {},
+              barack: {},
+              workshop: {}
+            };
+
           body.cache.forEach((item, i, arr) => {
             if (item.name === `Collection:Building:${village.villageId}`) {
               item.data.cache.forEach( (building, i, arr) => {
@@ -1496,6 +1497,10 @@ function autoUnitsBuild(user, fixedTime, randomTime) {
                 //Казарма
                 if (building.data.buildingType == "19") {
                   location.barack = building.data.locationId;
+                }
+                //Мастерская
+                if (building.data.buildingType == "21") {
+                  location.workshop = building.data.locationId;
                 }
               })
             }
@@ -1523,10 +1528,12 @@ function autoUnitsBuild(user, fixedTime, randomTime) {
             httpRequest(getRecruitListOptions).then((body) => {
               for (let unit in body.response.buildable) {
                 let unitOptions = body.response.buildable[unit];
-                if (village.type === 'off' && unit === '11') {
-                  unitsBarack = {11: fixedTime / unitOptions.time};
-                } else if (village.type === 'def' && unit === '12') {
-                  unitsBarack = {12: fixedTime / unitOptions.time};
+                if (village.type === 'off' && (unit === '11' || unit === '3')) {
+                  units.barack[unit] = fixedTime / unitOptions.time;
+                } else if (village.type === 'def' &&
+                  (unit === '12' || unit === '21' || unit === '2')
+                ) {
+                  units.barack[unit] = fixedTime / unitOptions.time;
                 } else {
                   // console.log('check barack', village.type, unit, body.response)
                 }
@@ -1556,48 +1563,65 @@ function autoUnitsBuild(user, fixedTime, randomTime) {
             httpRequest(getRecruitListOptions).then((body) => {
               for (let unit in body.response.buildable) {
                 let unitOptions = body.response.buildable[unit];
-                if (village.type === 'off' && unit === '16'){
-                  unitsStable = {16: fixedTime / unitOptions.time}
-                } else if (village.type === 'def' && unit === '15') {
-                  unitsStable = {15: fixedTime / unitOptions.time}
+                if (village.type === 'off' && (unit === '16' || unit === '6')){
+                  units.stable[unit] = fixedTime / unitOptions.time
+                } else if (village.type === 'def' && (unit === '15' || unit === '25' || unit === '5')) {
+                  units.stable[unit] = fixedTime / unitOptions.time
                 } else {
                   // console.log('check stable', body.response)
                 }
               }
             });
           }
+          if (location.workshop) {
+            let getRecruitListOptions = {
+              method: 'POST',
+              headers: {
+                'content-type': 'application/json;charset=UTF-8'
+              },
+              json: true,
+              body: {
+                "controller":"building",
+                "action":"getRecruitList",
+                "params": {
+                  "villageId":village.villageId,
+                  "locationId":location.workshop
+                },
+                "session":user.session
+              },
+              serverDomain: user.server
+            };
+
+            httpRequest(getRecruitListOptions).then((body) => {
+              console.log(body);
+              for (let unit in body.response.buildable) {
+                let unitOptions = body.response.buildable[unit];
+                //rams
+                if (village.type === 'off' && (!village.catas && unit === '17' || village.catas && unit === '18')){
+                  units.workshop[unit] = fixedTime / unitOptions.time
+                }
+              }
+            });
+          }
 
           setTimeout(() => {
-            let barackOptions = {
-              method: 'POST',
-              headers: {
-                'content-type': 'application/json;charset=UTF-8'
-              },
-              json: true,
-              body: {
-                "controller": "building",
-                "action": "recruitUnits",
-                "params": {"villageId": village.villageId, "locationId": location.barack, "buildingType": 19, "units": unitsBarack},
-                "session": user.session
-              },
-              serverDomain: user.server
-            };
-            let stableOptions = {
-              method: 'POST',
-              headers: {
-                'content-type': 'application/json;charset=UTF-8'
-              },
-              json: true,
-              body: {
-                "controller": "building",
-                "action": "recruitUnits",
-                "params": {"villageId": village.villageId, "locationId": location.stable, "buildingType": 20, "units": unitsStable},
-                "session": user.session
-              },
-              serverDomain: user.server
-            };
+
             function build() {
-              if (location.barack && unitsBarack) {
+              if (location.barack && units.barack) {
+                let barackOptions = {
+                  method: 'POST',
+                  headers: {
+                    'content-type': 'application/json;charset=UTF-8'
+                  },
+                  json: true,
+                  body: {
+                    "controller": "building",
+                    "action": "recruitUnits",
+                    "params": {"villageId": village.villageId, "locationId": location.barack, "units": units.barack},
+                    "session": user.session
+                  },
+                  serverDomain: user.server
+                };
                 httpRequest(barackOptions)
                   .then(
                     (body) => {
@@ -1613,18 +1637,64 @@ function autoUnitsBuild(user, fixedTime, randomTime) {
                   );
               }
 
-              if (location.stable && unitsStable) {
+              if (location.stable && units.stable) {
+                let stableOptions = {
+                  method: 'POST',
+                  headers: {
+                    'content-type': 'application/json;charset=UTF-8'
+                  },
+                  json: true,
+                  body: {
+                    "controller": "building",
+                    "action": "recruitUnits",
+                    "params": {"villageId": village.villageId, "locationId": location.stable, "units": units.stable},
+                    "session": user.session
+                  },
+                  serverDomain: user.server
+                };
                 httpRequest(stableOptions)
                   .then(
                     (body) => {
                       if (body.response && body.response.errors) {
                         console.log(body.response.errors)
                       } else {
-                        console.log(`${village.villageId} Конюшни успешно загружены`)
+                        console.log(`${village.villageId} Конюшня успешно загружена`)
                       }
 
                     },
                     (error) => {
+                      console.log(error);
+                    }
+                  );
+              }
+
+              if (location.workshop && units.workshop) {
+                let workshopOptions = {
+                  method: 'POST',
+                  headers: {
+                    'content-type': 'application/json;charset=UTF-8'
+                  },
+                  json: true,
+                  body: {
+                    "controller": "building",
+                    "action": "recruitUnits",
+                    "params": {"villageId": village.villageId, "locationId": location.workshop, "units": units.workshop},
+                    "session": user.session
+                  },
+                  serverDomain: user.server
+                };
+                httpRequest(workshopOptions)
+                  .then(
+                    (body) => {
+                      if (body.response && body.response.errors) {
+                        console.log('мастерская', body.response.errors);
+                      } else {
+                        console.log(`${village.villageId} мастерская успешно загружена`);
+                      }
+
+                    },
+                    (error) => {
+                      console.log('мастерская', error)
                       console.log(error);
                     }
                   );
@@ -1647,6 +1717,72 @@ function autoUnitsBuild(user, fixedTime, randomTime) {
     .catch((error) => {
       console.log(error)
     });
+}
+
+function autoUpgradeUnits(user) {
+
+
+  for (let i = 0; i < user.villages.length; i++) {
+    let village = user.villages[i];
+
+    let smithOptions = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json;charset=UTF-8'
+      },
+      json: true,
+      body: {"controller": "get", "action": "cache", "params": {names: [`Research:${village}`, `UnitResearchQueue:${village}`]}, "session": user.session},
+      serverDomain: user.server
+    };
+
+
+    httpRequest(smithOptions).then((body) => {
+      let villageSmith = body.cache[0].data;
+      if (!villageSmith.upgradeQueueFull) {
+
+        for (let j = 0; j < villageSmith.units.length; j++) {
+          let unit = villageSmith.units[j];
+          if (unit.level > 1 && unit.canUpgrade){
+
+
+            let location = {},
+              units = {};
+
+            body.cache.forEach((item, i, arr) => {
+              if (item.name === `Collection:Building:${village.villageId}`) {
+                item.data.cache.forEach( (building, i, arr) => {
+                  //Кузница
+                  if (building.data.buildingType == "13") {
+                    location.blacksmith = building.data.locationId;
+                  }
+                })
+              }
+            });
+
+            let researchUnit = {
+              "controller":"building",
+              "action":"researchUnit",
+              "params":{
+                "villageId": village,
+                "locationId": location.blacksmith,
+                "buildingType": 13,
+                "unitType": unit.type
+              },
+              "session":user.server
+            };
+
+            httpRequest(researchUnit).then(() => {
+
+            });
+
+            break;
+
+          }
+        }
+      }
+
+    });
+  }
 }
 
 /**
@@ -2473,7 +2609,7 @@ function merchants(merchantPlayers) {
                 autoMerchants(merchantPlayers[player].params, merchantPlayers[player].cred);
             }, i * 1000 * 20)
         }
-    }, 777 * 1000);
+    }, 1777 * 1000);
 }
 
 /**
@@ -3823,20 +3959,74 @@ function sleep(ms) {
 let users = {
   wahlberg: {
     "server": "test",
-    "session":"2c48820ac1d8773716ac",
+    "session":"8991cbf787e91e0098c9",
     "villages": [
       {
         "villageId":537018343,
         "type": 'off'
       },
       {
-        "villageId":537018348,
+        "villageId":537083870,
         "type": 'off'
       },
       {
-        "villageId":537083870,
+        "villageId":537280498,
         "type": 'off'
       }
+    ],
+    scan: {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0
+    }
+  },
+  ruslan: {
+    "server": "test",
+    "session":"fa4030de4d9e898e087e",
+    "villages": [
+      {
+        "villageId":537051111,
+        "type": 'off'
+      }
+    ],
+    scan: {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0
+    }
+  },
+  klimona: {
+    "server": "test",
+    "session":"4a80989646a7faacb73e",
+    "villages": [
+      {
+        "villageId":537083873,
+        "type": 'def'
+      },
+      {
+        "villageId":537051103,
+        "type": 'def'
+      },
+      {
+        "villageId":537182176,
+        "type": 'def'
+      },
     ],
     scan: {
       "1": 0,
@@ -3870,42 +4060,18 @@ let users = {
     ]
   },
   jjungle: {"session":"4c7e29bbc1042cbe9d9a"},
-  rin: {"session":"17ad874c253f96dc73ce"},
   hysteria: {
-    "server": "com3x3",
-    "session": "262a69bcf67b4f743155",
     "villages": [
       {
-        "villageId":537313230,
-        "type": 'off'
+        "villageId":537051112,
+        "type": 'off',
+        "villige": 'catas'
       },
-      {
-        "villageId":536690644,
-        "type": 'def'
-      },
-      {
-        "villageId":536788956,
-        "type": 'def'
-      },
-      {
-        "villageId":537018322,
-        "type": 'def'
-      },
-      {
-        "villageId":536887251,
-        "type": 'def'
-      },
-      {
-        "villageId":536887250,
-        "type": 'def'
-      },
-      {
-        "villageId":537149392,
-        "type": 'def'
-      }
     ],
+    "server": "test",
+    "session": "3a91768ef502cb55e708",
   },
-  rascal: {"session": "2d7a2d397c07d8b76d4c"},
+
 };
 
 let sharePayload = {
@@ -3916,18 +4082,13 @@ let sharePayload = {
     "shareParam": 174,//SS id
     "minimumResources": 3000
   },
-  rascal: {
-    "session":users.rascal.session,
-    "serverDomain": "com3x3",
-    "minutes": 15,
-  },
 };
 
 let listPayload = {
-  wahlberg:  {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2679, 2714],"villageId":users.wahlberg.villages[0].villageId},"session": users.wahlberg.session, "serverDomain": "test"},
-  wahlberg2: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2679, 2714],"villageId":users.wahlberg.villages[1].villageId},"session": users.wahlberg.session, "serverDomain": "test"},
-  wahlberg3: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[2679, 2714],"villageId":users.wahlberg.villages[2].villageId},"session": users.wahlberg.session, "serverDomain": "test"},
-  ruslan: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[1900, 2479],"villageId":537051111},"session": 'efe7a8412a1ff6a555c4', "serverDomain": "test"},
+  wahlberg:  {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[3028, 3029, 3030],"villageId":users.wahlberg.villages[0].villageId},"session": users.wahlberg.session, "serverDomain": users.wahlberg.server},
+  wahlberg2: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[3028, 3029, 3030],"villageId":users.wahlberg.villages[1].villageId},"session": users.wahlberg.session, "serverDomain": users.wahlberg.server},
+  wahlberg3: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[3028, 3029, 3030],"villageId":users.wahlberg.villages[2].villageId},"session": users.wahlberg.session, "serverDomain": users.wahlberg.server},
+  ruslan: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[3043, 2402],"villageId":users.ruslan.villages[0]},"session": users.ruslan.session, "serverDomain": users.ruslan.server},
   klimona: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[1900, 2479],"villageId":537083873},"session": '5649c61b718af7f363c3', "serverDomain": "test"},
   mefes: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[1900, 2479],"villageId":537083873},"session": '9f5d1cecd50d4f0f4066', "serverDomain": "test"},
 };
@@ -4468,22 +4629,15 @@ let optionsFL = {
 //   }});
 
 /**
- * Билд войнов
- */
-// autoUnitsBuild('537051121', {3: 14}, {5: 12}, 3600, 200, 'd8efc425263d11d0f4a3');
-// autoUnitsBuild('536756212', {3: 14}, {5: 12}, 3600, 200, 'd8efc425263d11d0f4a3');
-// autoUnitsBuild('536821756', {3: 14}, {5: 12}, 3600, 200, 'ef403b0afd590accf790');
-
-/**
  * хождение по приклам
  */
-repeatDelay(
-  () => {
-    adventureTraveler(users.wahlberg.session, 'test');
+// repeatDelay(
+//   () => {
+//     adventureTraveler(users.wahlberg.session, 'test');
 // //     // adventureTraveler(users.rin.session, 'com1x3');
-  },
-  1000 * 700
-);
+//   },
+//   1000 * 700
+// );
 
 /**
  * Торговцы
@@ -4491,12 +4645,12 @@ repeatDelay(
 
 let merchantPlayers = {
   wahlberg: {
-    params: {percent: 90, villageId: users.wahlberg.villages[0].villageId, playerId: '255'},
-    cred: {session: users.wahlberg.session, serverDomain: 'com3x3'}
+    params: {percent: 90, villageId: users.wahlberg.villages[0].villageId, playerId: '416'},
+    cred: {session: users.wahlberg.session, serverDomain: 'test'}
   },
   wahlberg2: {
-    params: {percent: 90, villageId: users.wahlberg.villages[1].villageId, playerId: '255'},
-    cred: {session: users.wahlberg.session, serverDomain: 'com3x3'}
+    params: {percent: 90, villageId: users.wahlberg.villages[2].villageId, playerId: '416'},
+    cred: {session: users.wahlberg.session, serverDomain: 'test'}
   },
 };
 let merchantPlayers2 = {
@@ -4521,7 +4675,7 @@ let merchantPlayers2 = {
 //      listPayload.ruslan,
 //      listPayload.klimona,
 //     ],
-//     "09july_");
+    // "22july_");
 // }, 100 * 1000);
 
 
@@ -4534,7 +4688,7 @@ let merchantPlayers2 = {
 // createFarmList('60-149zz/', '-45', '0', deathsFilterFrom60To150);
 // // // });
 //   setTimeout(() => {
-//       createFarmList('150zz/', '-45', '0', deathsFilterFrom150);
+//       createFarmList('150zz/', '-25', '4', deathsFilterFrom150);
 //   }, 100 * 1000);
 // }, 7200 * 1000);
 // }, 2400 * 1000)
@@ -4543,30 +4697,19 @@ let merchantPlayers2 = {
  * Фармлисты
  */
 // setTimeout(() => {
-// autoFarmList(1200, 300, listPayload.wahlberg, true, {checkList: true, greenLogs: false});
+
+autoFarmList(600, 300, listPayload.wahlberg, true, {checkList: true, greenLogs: false});
 //
+setTimeout(() => {
+  autoFarmList(600, 300, listPayload.wahlberg2, true, {checkList: false, greenLogs: false});
+}, 1000 * 400);
+
+setTimeout(() => {
+  autoFarmList(600, 300, listPayload.wahlberg3, true, {checkList: false, greenLogs: false});
+}, 1000 * 800);
+// }, 1000 * 7200);
 // setTimeout(() => {
-//   autoFarmList(1200, 300, listPayload.wahlberg2, true, {checkList: false, greenLogs: false});
-// }, 1000 * 400);
-//
-// setTimeout(() => {
-//   autoFarmList(1200, 300, listPayload.wahlberg3, true, {checkList: false, greenLogs: false});
-// }, 1000 * 800);
-//
-//   setTimeout(() => {
-//     autoFarmList(1200, 300, listPayload.wahlberg4, true, {checkList: false, greenLogs: false});
-//   }, 1000 * 650);
-//
-//   setTimeout(() => {
-//     autoFarmList(1200, 300, listPayload.wahlberg5, true, {checkList: false, greenLogs: false});
-//   }, 1000 * 850);
-//
-//   setTimeout(() => {
-//     autoFarmList(1200, 300, listPayload.wahlberg6, true, {checkList: false, greenLogs: false});
-//   }, 1000 * 1050);
-// }, 1000 * 500);
-// setTimeout(() => {
-// autoFarmList(1200, 300, listPayload.admiral1, true, {checkList: true});
+autoFarmList(1200, 300, listPayload.ruslan, true, {checkList: true});
 //
 // setTimeout(() => {
 //   autoFarmList(1200, 300, listPayload.wahlberg2, true, {checkList: false});
@@ -4642,8 +4785,10 @@ let merchantPlayers2 = {
 //   }
 // );
 // shareLogScans(sharePayload.wahlberg, {destKingdomId: '128'});
-// autoUnitsBuild(users.wahlberg, 1200, 0);
-// autoUnitsBuild(users.hysteria, 1200, 0);
+autoUnitsBuild(users.wahlberg, 1200, 0);
+autoUnitsBuild(users.klimona, 1200, 0);
+autoUnitsBuild(users.ruslan, 1200, 0);
+autoUnitsBuild(users.hysteria, 1200, 0);
 // repeatDelay(attackList.bind(this, neutrals, -2, -22, {villageId: users.wahlberg.villages[3].villageId, session: users.wahlberg.session, units: users.wahlberg.scan}), 3600 * 1000 * 6);
 // setTimeout(() => {
 // repeatDelay(attackList.bind(this, getKingdomVillages('9'), 80, 80, {villageId: users.wahlberg.villages[0].villageId, session: users.wahlberg.session, units: users.wahlberg.scan, skip: true}), 3600 * 1000 * 12);
@@ -4691,14 +4836,75 @@ let merchantPlayers2 = {
 // }}));
 
 /**
+ * tribute collector
+ */
+let tributeCollector = async (account) => {
+  // controller: cache, action: get, params: {names: ['Collection:Village:kingdom']}, response.cache[0].data.cache
+  const villages = await travian.getKingdomVillages(account)
+
+
+  let kingdomMembers = await travian.getPlayerAll(account) // controller: player, action: getAll, response.cache
+  kingdomMembers = kingdomMembers.find(x => x.name.startsWith('Kingdom:'))
+  kingdomMembers = kingdomMembers.data.members
+
+  let dukeIds = []
+
+  kingdomMembers.forEach(member => {
+    if (member.isDuke) {
+      dukeIds.push(parseInt(member.playerId))
+    }
+  })
+
+  let destVillageIds = []
+
+  for (let village of villages) {
+    village = village.data
+    if (village.allowTributeCollection !== '1' || parseInt(village.protectionGranted) !== 1 || parseInt(village.tributeCollectorPlayerId) !== account.player_id)
+      continue
+    if (village.tributesRequiredToFetch > sum(village.tributes))
+      continue
+    if (!collect_dukes && dukeIds.includes(parseInt(village.playerId))) // пропуск герцогов, чтобы не собирать с них
+      continue
+
+    destVillageIds.push(parseInt(village.villageId))
+  }
+
+  if (destVillageIds.length > 0) {
+    // controller: troops, action: fetchTributesForVillages, params: {villageId, destVillageIds}
+    await troops.fetchTributesForVillages(account, {villageId, destVillageIds})
+  }
+}
+
+
+/**
  * Operation sender
  */
+let operationSender = async (opt) => {
+  // console.log(opt);
 
-async function operationSender(opt){
+  let villagesInfo = await getVillages(opt).then(villages => {
+    let villagesCollection = {};
+    for (let i = 0; i < villages.cache.length; i++) {
+      let villageInfo = villages.cache[i].data;
+      villagesCollection[villageInfo.villageId] = villageInfo;
+
+    }
+    // console.log(villagesCollection);
+
+    return villagesCollection;
+  });
+
 
   for (let i = 0; i < opt.fakes.length; i++) {
     let fakeOpt = opt.fakes[i];
-    let time = timeBetweenVillage(fakeOpt.x, fakeOpt.y, opt.start.x, opt.start.y, 6, opt.arenaLvl);
+    // console.log(villagesInfo[opt.start.villageId]);
+
+    let time = timeBetweenVillage(
+      villagesInfo[fakeOpt.villageId].coordinates.x,
+      villagesInfo[fakeOpt.villageId].coordinates.y,
+      villagesInfo[opt.start.villageId].coordinates.x,
+      villagesInfo[opt.start.villageId].coordinates.y,
+      opt.movement, opt.arenaLvl);
     //TODO: иногда здесь погрешность в 1 секунду
     let timeFormat  = moment(Math.ceil(time * 3600 * 1000)).utc(0).format('HH:mm:ss');
     //БЕЗ утс(0)
@@ -4714,8 +4920,8 @@ async function operationSender(opt){
     let millisecondsToSend = moment(timeToSend, 'HH:mm:ss').valueOf() - moment().valueOf();
 
     console.log(fakeOpt.x, fakeOpt.y, time, timeFormat, timeToSend, diffTime);
-    console.log(millisecondsToSend);
-    console.log(moment(fakeOpt.arrivalTime, 'HH:mm:ss').format('HH:mm:ss'));
+    // console.log(millisecondsToSend);
+    console.log(timeToSend);
 
     if (millisecondsToSend < 0){
       continue;
@@ -4771,7 +4977,7 @@ async function operationSender(opt){
   }
   for (let i = 0; i < opt.originals.length; i++) {
     let originalOpt = opt.originals[i];
-    let time = timeBetweenVillage(originalOpt.x, originalOpt.y, opt.start.x, opt.start.y, 6, 10);
+    let time = timeBetweenVillage(originalOpt.x, originalOpt.y, opt.start.x, opt.start.y, opt.movement, opt.arenaLvl);
     //TODO: иногда здесь погрешность в 1 секунду
     let timeFormat  = moment(Math.ceil(time * 3600 * 1000)).utc(0).format('HH:mm:ss');
     //БЕЗ утс(0)
@@ -4844,115 +5050,37 @@ async function operationSender(opt){
   }
 }
 
-// operationSender({
-//   start: {villageId: 537444325, x: -27, y: 17},
-//   fakes: [
-//     {villageId: 535478251, x: -21, y: -43, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 535674843, x: -37, y: -37, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 535707615, x: -33, y: -36, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 535740398, x: -18, y: -35, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536166339, x: -61, y: -22, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 535871449, x: -39, y: -31, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536035296, x: -32, y: -26, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536264653, x: -51, y: -19, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536035297, x: -31, y: -26, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536035301, x: -27, y: -26, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536166362, x: -38, y: -22, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536199127, x: -41, y: -21, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536297433, x: -39, y: -18, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536592331, x: -53, y: -9, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536297442, x: -30, y: -18, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536494035, x: -45, y: -12, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536428507, x: -37, y: -14, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 537083847, x: -57, y: 6, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536461276, x: -36, y: -13, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536428513, x: -31, y: -14, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536887244, x: -52, y: 0, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536592353, x: -31, y: -9, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536723430, x: -26, y: -5, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536756198, x: -26, y: -4, arrivalTime: '0:59:54', waves: 1},
-//     {villageId: 536821734, x: -26, y: -2, arrivalTime: '0:59:54', waves: 1},
-//   ],
-//   originals: [
-//     {villageId: 536887273, x: -23, y: 0, arrivalTime: '0:59:54', troops: {
-//         "1": 25000,
-//         "2": 0,
-//         "3": 0,
-//         "4": 0,
-//         "5": 0,
-//         "6": 4800,
-//         "7": 705,
-//         "8": 140,
-//         "9": 0,
-//         "10": 0,
-//         "11": 1},
-//       waves: 1},
-//   ],
-//   fakeTroops: {
-//     "1": 45,
-//     "2": 0,
-//     "3": 0,
-//     "4": 0,
-//     "5": 0,
-//     "6": 0,
-//     "7": 0,
-//     "8": 1,
-//     "9": 0,
-//     "10": 0,
-//     "11": 0
-//   },
-//   session: users.wahlberg.session
-// });
 
 // operationSender({
-//   start: {villageId: 536756184, x: -40, y: -4},
+//   start: {villageId: 537018343, x: -25, y: 4},
 //   fakes: [
-//     {villageId: 535478251, x: -21, y: -43, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 535674862, x: -18, y: -37, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 535707615, x: -29, y: -42, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 535740398, x: -18, y: -35, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 535674843, x: -37, y: -37, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 535773153, x: -31, y: -34, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536035297, x: -31, y: -26, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 535871449, x: -39, y: -31, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536166339, x: -61, y: -22, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536887273, x: -23, y: 0, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 537247689, x: -55, y: 11, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536297442, x: -30, y: -18, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536756198, x: -26, y: -4, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 537083847, x: -57, y: 6, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536166362, x: -38, y: -22, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536199127, x: -41, y: -21, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536428513, x: -31, y: -14, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536264653, x: -51, y: -19, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536330187, x: -53, y: -17, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536592353, x: -31, y: -9, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536297433, x: -39, y: -18, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536494046, x: -34, y: -12, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536428507, x: -37, y: -14, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536461276, x: -36, y: -13, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536887244, x: -52, y: 0, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536592331, x: -53, y: -9, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536494035, x: -45, y: -12, arrivalTime: '2:24:36', waves: 1},
-//     {villageId: 536559571, x: -45, y: -10, arrivalTime: '2:24:36', waves: 1},
+//     {villageId: 536756198, x: -26, y: -4, arrivalTime: '4:10:00', waves: 1},
+//     {villageId: 535674862, x: -20, y: -9, arrivalTime: '4:10:00', waves: 1},
+//     {villageId: 535707615, x: -29, y: -42, arrivalTime: '4:10:00', waves: 1},
+//     {villageId: 535740398, x: -19, y: 0, arrivalTime: '4:10:00', waves: 1},
+//     {villageId: 535674843, x: -14, y: -2, arrivalTime: '4:10:00', waves: 1},
+//     {villageId: 536657912, x: -8, y: -7, arrivalTime: '4:10:00', waves: 1},
+//     {villageId: 536821754, x: -6, y: -2, arrivalTime: '4:10:00', waves: 1},
+//     {villageId: 536592383, x: -1, y: -9, arrivalTime: '4:10:00', waves: 1},
+//     {villageId: 536690693, x: 5, y: -6, arrivalTime: '4:10:00', waves: 1},
 //   ],
 //   originals: [
-//     {villageId: 536264659, x: -45, y: -19, arrivalTime: '2:24:35', troops: {
-//         "1": 9000,
+//     {villageId: 536264659, x: -45, y: -19, arrivalTime: '4:10:00', troops: {
+//         "1": 35,
 //         "2": 0,
 //         "3": 0,
 //         "4": 0,
 //         "5": 0,
-//         "6": 4700,
+//         "6": 0,
 //         "7": 0,
-//         "8": 220,
+//         "8": 1,
 //         "9": 0,
 //         "10": 0,
 //         "11": 0},
 //       waves: 1},
 //   ],
 //   fakeTroops: {
-//     "1": 46,
+//     "1": 35,
 //     "2": 0,
 //     "3": 0,
 //     "4": 0,
@@ -4965,60 +5093,86 @@ async function operationSender(opt){
 //     "11": 0
 //   },
 //   session: users.wahlberg.session,
-//   arenaLvl: 13
+//   arenaLvl: 11
 // });
 
+
 // operationSender({
-//   start: {villageId: 536690644, x: -44, y: -6},
+//   start: {villageId: 537083870},
 //   fakes: [
-//     {villageId: 535478251, x: -21, y: -43, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 535674862, x: -18, y: -37, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 535707615, x: -29, y: -42, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 535740398, x: -18, y: -35, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 535674843, x: -37, y: -37, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 535773153, x: -31, y: -34, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536035297, x: -31, y: -26, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 535871449, x: -39, y: -31, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536166339, x: -61, y: -22, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536887273, x: -23, y: 0, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 537247689, x: -55, y: 11, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536297442, x: -30, y: -18, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536756198, x: -26, y: -4, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 537083847, x: -57, y: 6, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536166362, x: -38, y: -22, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536199127, x: -41, y: -21, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536428513, x: -31, y: -14, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536264653, x: -51, y: -19, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536330187, x: -53, y: -17, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536592353, x: -31, y: -9, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536297433, x: -39, y: -18, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536494046, x: -34, y: -12, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536428507, x: -37, y: -14, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536461276, x: -36, y: -13, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536887244, x: -52, y: 0, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536592331, x: -53, y: -9, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536494035, x: -45, y: -12, arrivalTime: '2:24:35', waves: 5},
-//     {villageId: 536559571, x: -45, y: -10, arrivalTime: '2:24:35', waves: 5},
+//     {villageId: 536756198, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 535674862, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 535740398, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 536821746, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 536657912, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 536821754, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 536592383, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 536690693, arrivalTime: '04:00:00', waves: 1},
 //   ],
 //   originals: [
-//     {villageId: 536264659, x: -45, y: -19, arrivalTime: '2:24:35', troops: {
-//         "1": 0,
-//         "2": 0,
-//         "3": 0,
-//         "4": 0,
-//         "5": 0,
-//         "6": 0,
-//         "7": 0,
-//         "8": 220,
-//         "9": 0,
-//         "10": 0,
-//         "11": 0},
-//       waves: 5},
+//     // {villageId: 536821754, x: -6, y: -2, arrivalTime: '20:00:00', troops: {
+//     //     "1": 45,
+//     //     "2": 0,
+//     //     "3": 0,
+//     //     "4": 0,
+//     //     "5": 0,
+//     //     "6": 0,
+//     //     "7": 0,
+//     //     "8": 1,
+//     //     "9": 0,
+//     //     "10": 0,
+//     //     "11": 0},
+//     //   waves: 1},
+//   ],
+//   fakeTroops: {
+//     "1": 37,
+//     "2": 0,
+//     "3": 0,
+//     "4": 0,
+//     "5": 0,
+//     "6": 0,
+//     "7": 1,
+//     "8": 0,
+//     "9": 0,
+//     "10": 0,
+//     "11": 0
+//   },
+//   movement: 12,
+//   session: users.wahlberg.session,
+//   server: users.wahlberg.server,
+//   arenaLvl: 10
+// });
+// operationSender({
+//   start: {villageId: 537051112},
+//   fakes: [
+//     {villageId: 536756198, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 535674862, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 535740398, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 536821746, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 536657912, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 536821754, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 536592383, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 536690693, arrivalTime: '04:00:00', waves: 1},
+//   ],
+//   originals: [
+//     // {villageId: 536821754, x: -6, y: -2, arrivalTime: '20:00:00', troops: {
+//     //     "1": 0,
+//     //     "2": 0,
+//     //     "3": 35,
+//     //     "4": 0,
+//     //     "5": 0,
+//     //     "6": 0,
+//     //     "7": 0,
+//     //     "8": 1,
+//     //     "9": 0,
+//     //     "10": 0,
+//     //     "11": 0},
+//     //   waves: 1},
 //   ],
 //   fakeTroops: {
 //     "1": 0,
-//     "2": 45,
-//     "3": 0,
+//     "2": 0,
+//     "3": 37,
 //     "4": 0,
 //     "5": 0,
 //     "6": 0,
@@ -5028,52 +5182,91 @@ async function operationSender(opt){
 //     "10": 0,
 //     "11": 0
 //   },
-//   session: '4e0b8d958be35af76693',
-//   arenaLvl: 10
+//   movement: 9,
+//   session: users.hysteria.session,
+//   server: users.hysteria.server,
+//   arenaLvl: 7
 // });
+
 /**
   Hero check
  */
 
+async function getVillages(opt){
+
+  let villages = [];
+  villages.push("Village:" + opt.start.villageId);
+  opt.fakes.forEach((item) => {
+    villages.push("Village:" + item.villageId);
+  });
+  opt.originals.forEach((item) => {
+    villages.push("Village:" + item.villageId);
+  });
+
+  let body = {
+    "controller":"cache",
+    "action":"get",
+    "params": {
+      "names": villages
+    },
+    "session": opt.session
+  };
+
+
+  let payload = {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json;charset=UTF-8'
+    },
+    serverDomain: opt.server,
+    json: true,
+    body: body
+  };
+
+  return httpRequestAsync(payload)
+}
+
+
+async function getVillagesOperation(opt){
+
+  let villages = [];
+  opt.villagesAttacks.forEach((item) => {
+    villages.push("Village:" + item.villageId);
+  });
+
+  opt.villagesHasAttacked.forEach((item) => {
+    villages.push("Village:" + item);
+  });
+
+  let body = {
+    "controller":"cache",
+    "action":"get",
+    "params": {
+      "names": villages
+    },
+    "session": opt.villageChecker.session
+  };
+
+
+  let payload = {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json;charset=UTF-8'
+    },
+    serverDomain: opt.villageChecker.serverDomain,
+    json: true,
+    body: body
+  };
+
+  console.log(body.params);
+
+  return httpRequestAsync(payload)
+}
+
 async function operationChecker(opt){
 
-  async function getVillages(opt){
 
-    let villages = [];
-    opt.villagesAttacks.forEach((item) => {
-      villages.push("Village:" + item.villageId);
-    });
-
-    opt.villagesHasAttacked.forEach((item) => {
-      villages.push("Village:" + item);
-    });
-
-    let body = {
-      "controller":"cache",
-      "action":"get",
-      "params": {
-        "names": villages
-      },
-      "session": opt.villageChecker.session
-    };
-
-
-    let payload = {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json;charset=UTF-8'
-      },
-      serverDomain: opt.villageChecker.serverDomain,
-      json: true,
-      body: body
-    };
-
-    console.log(body.params);
-
-    return httpRequestAsync(payload)
-  }
-
-  let villages = await getVillages(opt);
+  let villages = await getVillagesOperation(opt);
 
   console.log(`diff time: ${Date.now() - villages.time}`);
 
