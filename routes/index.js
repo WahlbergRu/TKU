@@ -1104,10 +1104,10 @@ function getMapInfo(type, token, serverDomain, timeForGame, ownerId) {
           apiData = JSON.parse(body);
           // console.log(JSON.parse(body));
 
-          function oasis() {
+          function oasis(map) {
 
             let oasisArr = [];
-            let oasisObj = apiData.response.map.cells;
+            let oasisObj = map;
             let j = 0;
             for (let i = 0; i < oasisObj.length; i++) {
               if (oasisObj[i].oasis != 0) {
@@ -1422,7 +1422,7 @@ function getMapInfo(type, token, serverDomain, timeForGame, ownerId) {
 
           switch (type) {
             case 'animal':
-              oasis();
+              oasis(apiData.response.map.cells);
               break;
             case 'crop':
               crop(apiData.response.map.cells);
@@ -4697,19 +4697,19 @@ let merchantPlayers2 = {
  * Фармлисты
  */
 // setTimeout(() => {
-
-autoFarmList(600, 300, listPayload.wahlberg, true, {checkList: true, greenLogs: false});
 //
-setTimeout(() => {
-  autoFarmList(600, 300, listPayload.wahlberg2, true, {checkList: false, greenLogs: false});
-}, 1000 * 400);
-
-setTimeout(() => {
-  autoFarmList(600, 300, listPayload.wahlberg3, true, {checkList: false, greenLogs: false});
-}, 1000 * 800);
-// }, 1000 * 7200);
+// autoFarmList(600, 300, listPayload.wahlberg, true, {checkList: true, greenLogs: false});
+// //
 // setTimeout(() => {
-autoFarmList(1200, 300, listPayload.ruslan, true, {checkList: true});
+//   autoFarmList(600, 300, listPayload.wahlberg2, true, {checkList: false, greenLogs: false});
+// }, 1000 * 400);
+//
+// setTimeout(() => {
+//   autoFarmList(600, 300, listPayload.wahlberg3, true, {checkList: false, greenLogs: false});
+// }, 1000 * 800);
+// // }, 1000 * 7200);
+// // setTimeout(() => {
+// autoFarmList(1200, 300, listPayload.ruslan, true, {checkList: true});
 //
 // setTimeout(() => {
 //   autoFarmList(1200, 300, listPayload.wahlberg2, true, {checkList: false});
@@ -4785,10 +4785,10 @@ autoFarmList(1200, 300, listPayload.ruslan, true, {checkList: true});
 //   }
 // );
 // shareLogScans(sharePayload.wahlberg, {destKingdomId: '128'});
-autoUnitsBuild(users.wahlberg, 1200, 0);
-autoUnitsBuild(users.klimona, 1200, 0);
-autoUnitsBuild(users.ruslan, 1200, 0);
-autoUnitsBuild(users.hysteria, 1200, 0);
+// autoUnitsBuild(users.wahlberg, 1200, 0);
+// autoUnitsBuild(users.klimona, 1200, 0);
+// autoUnitsBuild(users.ruslan, 1200, 0);
+// autoUnitsBuild(users.hysteria, 1200, 0);
 // repeatDelay(attackList.bind(this, neutrals, -2, -22, {villageId: users.wahlberg.villages[3].villageId, session: users.wahlberg.session, units: users.wahlberg.scan}), 3600 * 1000 * 6);
 // setTimeout(() => {
 // repeatDelay(attackList.bind(this, getKingdomVillages('9'), 80, 80, {villageId: users.wahlberg.villages[0].villageId, session: users.wahlberg.session, units: users.wahlberg.scan, skip: true}), 3600 * 1000 * 12);
@@ -4919,7 +4919,7 @@ let operationSender = async (opt) => {
     let timeToSend = moment(diffTime).utc(0).format('HH:mm:ss');
     let millisecondsToSend = moment(timeToSend, 'HH:mm:ss').valueOf() - moment().valueOf();
 
-    console.log(fakeOpt.x, fakeOpt.y, time, timeFormat, timeToSend, diffTime);
+    console.log(villagesInfo[fakeOpt.villageId].coordinates.x, villagesInfo[fakeOpt.villageId].coordinates.y, time, timeFormat, timeToSend, diffTime);
     // console.log(millisecondsToSend);
     console.log(timeToSend);
 
@@ -4977,7 +4977,12 @@ let operationSender = async (opt) => {
   }
   for (let i = 0; i < opt.originals.length; i++) {
     let originalOpt = opt.originals[i];
-    let time = timeBetweenVillage(originalOpt.x, originalOpt.y, opt.start.x, opt.start.y, opt.movement, opt.arenaLvl);
+    let time = timeBetweenVillage(
+      villagesInfo[originalOpt.villageId].coordinates.x,
+      villagesInfo[originalOpt.villageId].coordinates.y,
+      villagesInfo[opt.start.villageId].coordinates.x,
+      villagesInfo[opt.start.villageId].coordinates.y,
+      opt.movement, opt.arenaLvl);
     //TODO: иногда здесь погрешность в 1 секунду
     let timeFormat  = moment(Math.ceil(time * 3600 * 1000)).utc(0).format('HH:mm:ss');
     //БЕЗ утс(0)
@@ -4992,7 +4997,15 @@ let operationSender = async (opt) => {
     let timeToSend = moment(diffTime).utc(0).format('HH:mm:ss');
     let millisecondsToSend = moment(timeToSend, 'HH:mm:ss').valueOf() - moment().valueOf();
 
-    console.log(originalOpt.x, originalOpt.y, time, timeFormat, timeToSend, diffTime);
+    console.log(
+      villagesInfo[originalOpt.villageId].coordinates.x,
+      villagesInfo[originalOpt.villageId].coordinates.y,
+      time,
+      timeFormat,
+      timeToSend,
+      diffTime
+    );
+
     console.log(millisecondsToSend);
     console.log(moment(originalOpt.arrivalTime, 'HH:mm:ss').format('HH:mm:ss'));
 
@@ -5012,7 +5025,7 @@ let operationSender = async (opt) => {
             "redeployHero": false,
             "units": originalOpt.troops,
             "spyMission":"resources",
-            "catapultTargets":[99, 99]
+            "catapultTargets":[27, 27]
           },
         "session": opt.session
       };
@@ -5095,84 +5108,87 @@ let operationSender = async (opt) => {
 //   session: users.wahlberg.session,
 //   arenaLvl: 11
 // });
-
-
 // operationSender({
 //   start: {villageId: 537083870},
 //   fakes: [
-//     {villageId: 536756198, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 535674862, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 535740398, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 536821746, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 536657912, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 536821754, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 536592383, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 536690693, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 536002525, arrivalTime: '02:03:00', waves: 1},
+//     {villageId: 536133584, arrivalTime: '02:00:00', waves: 1},
+//     {villageId: 536035286, arrivalTime: '02:07:00', waves: 1},
+//     {villageId: 536362955, arrivalTime: '02:08:00', waves: 1},
+//     {villageId: 536657867, arrivalTime: '02:05:00', waves: 1},
+//     {villageId: 537345998, arrivalTime: '02:15:00', waves: 1},
+//     {villageId: 537247698, arrivalTime: '02:20:00', waves: 1},
+//     {villageId: 536788954, arrivalTime: '02:10:00', waves: 1},
+//     {villageId: 537247703, arrivalTime: '02:06:00', waves: 1},
+//     {villageId: 537214934, arrivalTime: '02:13:00', waves: 1},
 //   ],
 //   originals: [
-//     // {villageId: 536821754, x: -6, y: -2, arrivalTime: '20:00:00', troops: {
-//     //     "1": 45,
-//     //     "2": 0,
-//     //     "3": 0,
-//     //     "4": 0,
-//     //     "5": 0,
-//     //     "6": 0,
-//     //     "7": 0,
-//     //     "8": 1,
-//     //     "9": 0,
-//     //     "10": 0,
-//     //     "11": 0},
-//     //   waves: 1},
+//     {villageId: 536854482, arrivalTime: '02:10:00', troops: {
+//         "1": 36000,
+//         "2": 0,
+//         "3": 0,
+//         "4": 0,
+//         "5": 0,
+//         "6": 5920,
+//         "7": 1225,
+//         "8": 140,
+//         "9": 0,
+//         "10": 0,
+//         "11": 0
+//     },
+//     waves: 1},
 //   ],
 //   fakeTroops: {
-//     "1": 37,
+//     "1": 42,
 //     "2": 0,
 //     "3": 0,
 //     "4": 0,
 //     "5": 0,
 //     "6": 0,
-//     "7": 1,
-//     "8": 0,
+//     "7": 0,
+//     "8": 1,
 //     "9": 0,
 //     "10": 0,
 //     "11": 0
 //   },
-//   movement: 12,
+//   movement: 9,
 //   session: users.wahlberg.session,
 //   server: users.wahlberg.server,
-//   arenaLvl: 10
+//   arenaLvl: 12
 // });
 // operationSender({
 //   start: {villageId: 537051112},
 //   fakes: [
-//     {villageId: 536756198, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 535674862, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 535740398, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 536821746, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 536657912, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 536821754, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 536592383, arrivalTime: '04:00:00', waves: 1},
-//     {villageId: 536690693, arrivalTime: '04:00:00', waves: 1},
+//     {villageId: 536002525, arrivalTime: '02:03:00', waves: 1},
+//     {villageId: 536133584, arrivalTime: '02:00:00', waves: 1},
+//     {villageId: 536035286, arrivalTime: '02:07:00', waves: 1},
+//     {villageId: 536362955, arrivalTime: '02:08:00', waves: 1},
+//     {villageId: 536657867, arrivalTime: '02:05:00', waves: 1},
+//     {villageId: 537345998, arrivalTime: '02:15:00', waves: 1},
+//     {villageId: 537247698, arrivalTime: '02:20:00', waves: 1},
+//     {villageId: 536788954, arrivalTime: '02:10:00', waves: 1},
+//     {villageId: 537247703, arrivalTime: '02:06:00', waves: 1},
+//     {villageId: 537214934, arrivalTime: '02:13:00', waves: 1},
 //   ],
 //   originals: [
-//     // {villageId: 536821754, x: -6, y: -2, arrivalTime: '20:00:00', troops: {
-//     //     "1": 0,
-//     //     "2": 0,
-//     //     "3": 35,
-//     //     "4": 0,
-//     //     "5": 0,
-//     //     "6": 0,
-//     //     "7": 0,
-//     //     "8": 1,
-//     //     "9": 0,
-//     //     "10": 0,
-//     //     "11": 0},
-//     //   waves: 1},
+//     {villageId: 536854482, arrivalTime: '02:10:00', troops: {
+//         "1": 0,
+//         "2": 0,
+//         "3": 42,
+//         "4": 0,
+//         "5": 0,
+//         "6": 0,
+//         "7": 0,
+//         "8": 1,
+//         "9": 0,
+//         "10": 0,
+//         "11": 0},
+//       waves: 1},
 //   ],
 //   fakeTroops: {
 //     "1": 0,
 //     "2": 0,
-//     "3": 37,
+//     "3": 42,
 //     "4": 0,
 //     "5": 0,
 //     "6": 0,
@@ -5185,7 +5201,7 @@ let operationSender = async (opt) => {
 //   movement: 9,
 //   session: users.hysteria.session,
 //   server: users.hysteria.server,
-//   arenaLvl: 7
+//   arenaLvl: 17
 // });
 
 /**
@@ -5225,7 +5241,6 @@ async function getVillages(opt){
 
   return httpRequestAsync(payload)
 }
-
 
 async function getVillagesOperation(opt){
 
@@ -5402,15 +5417,15 @@ let payloadData = {
 /**
  * Крокодилы
  */
-// setInterval(function() {
-//   getMapInfo('animal', token, serverDomain, timeForGame);
-// }, 600000);
-// getMapInfo('animal', token, serverDomain, timeForGame);
+setInterval(function() {
+  getMapInfo('animal', token, serverDomain, timeForGame);
+}, 600000);
+getMapInfo('animal', token, serverDomain, timeForGame);
 
 /**
  * Кроп
  */
-// getMapInfo('crop', token, serverDomain, timeForGame, 416);
+// getMapInfo('crop', token, serverDomain, timeForGame, 289);
 
 /* GET home page. */
 router.get('/animal2/', function (req, res, next) {
