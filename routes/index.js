@@ -63,11 +63,11 @@ function getDistance(xd, yd, xt, yt){
 
 /**
  * Проставляет заголовки из конфига, требуется для защиты
- * @param serverDomain
+ * @param server
  * @param cookie
  * @returns {{content-type: string, Cookie: *, Host: string, Origin: string, Pragma: string, Referer: string, User-Agent: string}}
  */
-function setHttpHeaders(serverDomain, cookie, contentLength, path) {
+function setHttpHeaders(server, cookie, contentLength, path) {
 
   return {
     'Accept': 'application/json, text/plain, */*',
@@ -77,13 +77,13 @@ function setHttpHeaders(serverDomain, cookie, contentLength, path) {
     'Content-Type': 'application/json;charset=UTF-8',
     'Content-Length': contentLength,
     'Cookie': cookie,
-    'Host': serverDomain + '.kingdoms.com',
+    'Host': server + '.kingdoms.com',
     'Pragma': 'no-cache',
     'Sec-Fetch-Dest': 'empty',
     'Sec-Fetch-Mode': 'cors',
     'Sec-Fetch-Site': 'same-origin',
-    'Origin': 'https://' + serverDomain + '.kingdoms.com',
-    'Referer': 'https://' + serverDomain + '.kingdoms.com',
+    'Origin': 'https://' + server + '.kingdoms.com',
+    'Referer': 'https://' + server + '.kingdoms.com',
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36'
   }
 }
@@ -107,9 +107,9 @@ function httpRequest(opt) {
 
   //TODO: разобраться с тем нужно ли body или как
   let options = {
-    headers: setHttpHeaders(opt.serverDomain, opt.cookie || cookie, JSON.stringify(opt.body).length, `/api/?c=${opt.body.controller}&a=${opt.body.action}&${timeForGame}`),
+    headers: setHttpHeaders(opt.server, opt.cookie || cookie, JSON.stringify(opt.body).length, `/api/?c=${opt.body.controller}&a=${opt.body.action}&${timeForGame}`),
     method: opt.method || 'POST',
-    uri: `https://${opt.serverDomain}.kingdoms.com/api/?c=${opt.body.controller}&a=${opt.body.action}&${timeForGame}`,
+    uri: `https://${opt.server}.kingdoms.com/api/?c=${opt.body.controller}&a=${opt.body.action}&${timeForGame}`,
     body: opt.body,
     json: true, // Automatically stringifies the body to JSON,
   };
@@ -155,13 +155,13 @@ async function httpRequestAsync(opt){
 
     //TODO: разобраться с тем нужно ли body или как
     let options = {
-      headers: setHttpHeaders(opt.serverDomain, opt.cookie || cookie, JSON.stringify(opt.body).length, `/api/?c=${opt.body.controller}&a=${opt.body.action}&${timeForGame}`),
+      headers: setHttpHeaders(opt.server, opt.cookie || cookie, JSON.stringify(opt.body).length, `/api/?c=${opt.body.controller}&a=${opt.body.action}&${timeForGame}`),
       method: opt.method || 'GET',
       body: JSON.stringify(opt.body)
     };
 
     return fetch(
-        `https://${opt.serverDomain}.kingdoms.com/api/?c=${opt.body.controller}&a=${opt.body.action}&${timeForGame}`,
+        `https://${opt.server}.kingdoms.com/api/?c=${opt.body.controller}&a=${opt.body.action}&${timeForGame}`,
         options
     ).then((response) => {
         return response.json();
@@ -191,7 +191,7 @@ function autoExtendLists(playerFarmList, filter, coor) {
     method: 'POST',
     json: true,
     body: bodyFL,
-    serverDomain: serverDomain
+    server: server
   };
 
   httpRequest(optionsFL)
@@ -229,7 +229,7 @@ function autoExtendLists(playerFarmList, filter, coor) {
                     method: 'POST',
                     json: true,
                     body: toggleBody,
-                    serverDomain: serverDomain
+                    server: server
                   };
 
                   httpRequest(options)
@@ -319,7 +319,7 @@ function autoExtendLists(playerFarmList, filter, coor) {
                     //             },
                     //             json: true,
                     //             body: toggleBody,
-                    //             serverDomain: serverDomain
+                    //             server: server
                     //         };
                     //
                     //         console.log(toggleBody)
@@ -377,7 +377,7 @@ function autoExtendLists(playerFarmList, filter, coor) {
                                 headers: {
                                   'content-type': 'application/json;charset=UTF-8'
                                 },
-                                serverDomain: serverDomain,
+                                server: server,
                                 json: true,
                                 body: bodyReq
                               };
@@ -494,7 +494,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, optionsParams) {
                 },
                 json: true,
                 body: toggleBody,
-                serverDomain: listPayload.server,
+                server: listPayload.server,
               };
 
               httpRequest(options)
@@ -545,7 +545,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, optionsParams) {
                           method: 'POST',
                           json: true,
                           body: unitBody,
-                          serverDomain: listPayload.server
+                          server: listPayload.server
                         };
 
 
@@ -582,7 +582,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, optionsParams) {
                           method: 'POST',
                           json: true,
                           body: unitBody,
-                          serverDomain: listPayload.server
+                          server: listPayload.server
                         };
 
                         httpRequest(changeUnitOption).then(
@@ -644,7 +644,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, optionsParams) {
                   },
                   json: true,
                   body: toggleBody,
-                  serverDomain: listPayload.server
+                  server: listPayload.server
                 };
 
                 //console.log(options.info)
@@ -670,17 +670,17 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, optionsParams) {
                       loop.next();
                     },
                     (error) => {
-                      console.log(error);
+                      console.log("error " + error);
                     }
                   )
                   .catch((error) => {
-                    console.log(error)
+                    console.log("error " + error);
                   })
               }
             } else if (villageLog.data.lastReport.notificationType == 3) {
               if (debug === 2 || debug === 3) {
                 console.log('red log'.debug)
-              };
+              }
               //TODO: вынести в отдельную функцию
               let toggleBody = {
                 "controller": "farmList",
@@ -699,11 +699,8 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, optionsParams) {
                 },
                 json: true,
                 body: toggleBody,
-                serverDomain: listPayload.server
+                server: listPayload.server
               };
-
-              console.log(options.info)
-
 
               httpRequest(options)
                 .then(
@@ -712,7 +709,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, optionsParams) {
                     return httpRequest(options);
                   },
                   (error) => {
-                    console.log(error);
+                    console.log("error " + error);
                   }
                 )
                 .then(
@@ -725,7 +722,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, optionsParams) {
                     loop.next();
                   },
                   (error) => {
-                    console.log(error);
+                    console.log("error " + error);
                   }
                 )
             } else {
@@ -733,7 +730,9 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, optionsParams) {
             }
           },
           () => {
-            loopList.next();
+            setTimeout( () => {
+              loopList.next();
+            }, 1000 * 2 )
           }
         );
       }
@@ -753,7 +752,7 @@ function checkOnStatus(farmListsResponse, listPayload, now, fn, optionsParams) {
  * @param fixedTime - основное время через которое должно повторяться
  * @param randomTime - случайный разброс, что бы не спалили
  * @param listPayload - запрос который шлётся из ПСа, требуется ТК+
- * @param serverDomain - домен сервера, требуется рефакторинг и вынос этого гавна
+ * @param server - домен сервера, требуется рефакторинг и вынос этого гавна
  * @param init - инцилизировать сразу, или запустить через fixedTime+randomTime
  */
 async function autoFarmList(fixedTime, randomTime, listPayload, optionsParams) {
@@ -775,7 +774,7 @@ async function autoFarmList(fixedTime, randomTime, listPayload, optionsParams) {
 
     let farmListCollection = await httpRequestAsync({
       method: 'POST',
-      serverDomain: listPayload.server,
+      server: listPayload.server,
       body: farmListBody
     })
 
@@ -786,7 +785,7 @@ async function autoFarmList(fixedTime, randomTime, listPayload, optionsParams) {
       //console.log(listPayload);
 
       let options = {
-        serverDomain: listPayload.server,
+        server: listPayload.server,
         body: listPayload
       };
 
@@ -850,7 +849,7 @@ async function autoFarmList(fixedTime, randomTime, listPayload, optionsParams) {
       },
       json: true,
       body: checkBodyObj,
-      serverDomain: listPayload.server
+      server: listPayload.server
     };
 
     //console.log('Сформировали массив фарм листов');
@@ -885,7 +884,6 @@ async function autoFarmList(fixedTime, randomTime, listPayload, optionsParams) {
               setTimeout(() => {
                 // console.log(rand);
                 checkList(listPayload, optionsParams);
-
               }, stopTime);
               workTime = 0;
             } else {
@@ -923,7 +921,7 @@ async function autoFarmList(fixedTime, randomTime, listPayload, optionsParams) {
 function getToken(callback) {
   let options = {
     method: 'GET',
-    uri: `https://${serverDomain}.kingdoms.com/api/external.php?action=requestApiKey&email=allin.nikita@yandex.ru&siteName=borsch&siteUrl=http://borsch-label.com&public=true`,
+    uri: `https://${server}.kingdoms.com/api/external.php?action=requestApiKey&email=allin.nikita@yandex.ru&siteName=borsch&siteUrl=http://borsch-label.com&public=true`,
     json: true // Automatically stringifies the body to JSON
   };
   // console.log(options);
@@ -951,7 +949,7 @@ function getMap(callback) {
         headers: {
           'content-type': 'application/json;charset=UTF-8'
         },
-        uri: `https://${serverDomain}.kingdoms.com/api/external.php?action=getMapData&privateApiKey=${token.response.privateApiKey}`,
+        uri: `https://${server}.kingdoms.com/api/external.php?action=getMapData&privateApiKey=${token.response.privateApiKey}`,
         json: true // Automatically stringifies the body to JSON
       };
 
@@ -964,13 +962,13 @@ function getMap(callback) {
           (body) => {
             // console.log(body);
 
-            const file = `./json/getMap/data${+Date.now()}.json` ;
-
-            fs.writeFile(file, `${JSON.stringify(body)}`, function (err) {
-              if(err) {
-                return console.log(err);
-              }
-            });
+            // const file = `./json/getMap/data${+Date.now()}.json` ;
+            //
+            // fs.writeFile(file, `${JSON.stringify(body)}`, function (err) {
+            //   if(err) {
+            //     return console.log(err);
+            //   }
+            // });
 
             callback(body);
           },
@@ -1022,7 +1020,7 @@ function getPlayers(callback) {
         },
         json: true,
         body: payload,
-        serverDomain: serverDomain
+        server: server
       };
 
 
@@ -1075,25 +1073,25 @@ function getPlayers(callback) {
  * Скрипт требует переработки, ибо код гавно, которому 1.5 года
  * @param type
  * @param token
- * @param serverDomain
+ * @param server
  * @param timeForGame
  */
-function getMapInfo(type, token, serverDomain, timeForGame, ownerId) {
+function getMapInfo(type, token, server, timeForGame, ownerId) {
   type = type || 'animal';
   request
     .get({
       headers: {'content-type': 'application/json;charset=UTF-8'},
-      url: 'https://' + serverDomain + '.kingdoms.com/api/external.php?action=requestApiKey&email=allin.nikita@yandex.ru&siteName=borsch&siteUrl=http://borsch-label.com&public=true'
+      url: 'https://' + server + '.kingdoms.com/api/external.php?action=requestApiKey&email=allin.nikita@yandex.ru&siteName=borsch&siteUrl=http://borsch-label.com&public=true'
     }, (error, response, body) => {
+      console.log('https://' + server + '.kingdoms.com/api/external.php?action=requestApiKey&email=allin.nikita@yandex.ru&siteName=borsch&siteUrl=http://borsch-label.com&public=true');
 
       apiKey = JSON.parse(body);
       // console.log('Получили токен');
-      // console.log(apiKey);
 
       request
         .get({
           headers: {'content-type': 'application/json;charset=UTF-8'},
-          url: 'https://' + serverDomain + '.kingdoms.com/api/external.php?action=getMapData&privateApiKey=' + apiKey.response.privateApiKey
+          url: 'https://' + server + '.kingdoms.com/api/external.php?action=getMapData&privateApiKey=' + apiKey.response.privateApiKey
         },  (error, response, body) => {
           //TODO: холишит блять
           //Переделай, стыдно же людям такое показывать.
@@ -1129,7 +1127,7 @@ function getMapInfo(type, token, serverDomain, timeForGame, ownerId) {
                 headers: {
                   'Content-Type': 'application/json'
                 },
-                url: 'https://' + serverDomain + '.kingdoms.com/api/?c=cache&a=get&' + timeForGame,
+                url: 'https://' + server + '.kingdoms.com/api/?c=cache&a=get&' + timeForGame,
                 body: JSON.stringify(session)
               },  (error, response, body) => {
                 console.log(body);
@@ -1284,7 +1282,7 @@ function getMapInfo(type, token, serverDomain, timeForGame, ownerId) {
                     headers: {
                       'content-type': 'application/json;charset=UTF-8'
                     },
-                    serverDomain: serverDomain,
+                    server: server,
                     json: true,
                     body: listObj
                   };
@@ -1293,7 +1291,7 @@ function getMapInfo(type, token, serverDomain, timeForGame, ownerId) {
                     .then(
                       (body) => {
                         console.log(body)
-                        setTimeout(loop.next, 100);
+                        setTimeout(loop.next, 5436);
                       },
                        (error) => {
                         console.log(error)
@@ -1338,7 +1336,7 @@ function getMapInfo(type, token, serverDomain, timeForGame, ownerId) {
                     headers: {
                       'content-type': 'application/json;charset=UTF-8'
                     },
-                    serverDomain: serverDomain,
+                    server: server,
                     json: true,
                     body: listObj
                   };
@@ -1347,7 +1345,7 @@ function getMapInfo(type, token, serverDomain, timeForGame, ownerId) {
                     .then(
                        (body) => {
                         console.log(body);
-                        setTimeout(loop.next, 100);
+                        setTimeout(loop.next, 5436);
                       },
                        (error) => {
                         console.log(error)
@@ -1390,7 +1388,7 @@ function getMapInfo(type, token, serverDomain, timeForGame, ownerId) {
                     headers: {
                       'content-type': 'application/json;charset=UTF-8'
                     },
-                    serverDomain: serverDomain,
+                    server: server,
                     json: true,
                     body: listObj
                   };
@@ -1400,7 +1398,7 @@ function getMapInfo(type, token, serverDomain, timeForGame, ownerId) {
                     .then(
                        (body) => {
                         console.log(body);
-                        setTimeout(loop.next, 100);
+                        setTimeout(loop.next, 5436);
                       },
                        (error) => {
                         console.log(error)
@@ -1470,7 +1468,7 @@ function autoUnitsBuild(user, fixedTime, randomTime) {
     },
     json: true,
     body: {"controller": "player", "action": "getAll", "params": {deviceDimension: "1920:1080"}, "session": user.session},
-    serverDomain: user.server
+    server: user.server
   };
 
   httpRequest(getAllOptions)
@@ -1524,7 +1522,7 @@ function autoUnitsBuild(user, fixedTime, randomTime) {
                 },
                 "session": user.session
               },
-              serverDomain: user.server
+              server: user.server
             };
 
             httpRequest(getRecruitListOptions).then((body) => {
@@ -1559,7 +1557,7 @@ function autoUnitsBuild(user, fixedTime, randomTime) {
                 },
                 "session":user.session
               },
-              serverDomain: user.server
+              server: user.server
             };
 
             httpRequest(getRecruitListOptions).then((body) => {
@@ -1591,7 +1589,7 @@ function autoUnitsBuild(user, fixedTime, randomTime) {
                 },
                 "session":user.session
               },
-              serverDomain: user.server
+              server: user.server
             };
 
             httpRequest(getRecruitListOptions).then((body) => {
@@ -1622,7 +1620,7 @@ function autoUnitsBuild(user, fixedTime, randomTime) {
                     "params": {"villageId": village.villageId, "locationId": location.barack, "units": units.barack},
                     "session": user.session
                   },
-                  serverDomain: user.server
+                  server: user.server
                 };
                 httpRequest(barackOptions)
                   .then(
@@ -1652,7 +1650,7 @@ function autoUnitsBuild(user, fixedTime, randomTime) {
                     "params": {"villageId": village.villageId, "locationId": location.stable, "units": units.stable},
                     "session": user.session
                   },
-                  serverDomain: user.server
+                  server: user.server
                 };
                 httpRequest(stableOptions)
                   .then(
@@ -1683,7 +1681,7 @@ function autoUnitsBuild(user, fixedTime, randomTime) {
                     "params": {"villageId": village.villageId, "locationId": location.workshop, "units": units.workshop},
                     "session": user.session
                   },
-                  serverDomain: user.server
+                  server: user.server
                 };
                 httpRequest(workshopOptions)
                   .then(
@@ -1734,7 +1732,7 @@ function autoUpgradeUnits(user) {
       },
       json: true,
       body: {"controller": "get", "action": "cache", "params": {names: [`Research:${village}`, `UnitResearchQueue:${village}`]}, "session": user.session},
-      serverDomain: user.server
+      server: user.server
     };
 
 
@@ -1867,7 +1865,7 @@ function addToFarmList(listMassive, villages) {
         headers: {
           'content-type': 'application/json;charset=UTF-8'
         },
-        serverDomain: serverDomain,
+        server: server,
         json: true,
         body: bodyReq
       };
@@ -2166,7 +2164,7 @@ function createFarmList(name, xCor, yCor, filter) {
           headers: {
             'content-type': 'application/json;charset=UTF-8'
           },
-          serverDomain: serverDomain,
+          server: server,
           json: true,
           body: listObj
         };
@@ -2195,7 +2193,7 @@ function createFarmList(name, xCor, yCor, filter) {
                  headers: {
                    'content-type': 'application/json;charset=UTF-8'
                  },
-                 serverDomain: serverDomain,
+                 server: server,
                  json: true,
                  body: listObjEdit
                };
@@ -2239,6 +2237,18 @@ function createFarmList(name, xCor, yCor, filter) {
 }
 
 /**
+ *
+ */
+function getPlayerList(name, xCor, yCor, filter){
+  searchEnemy( (villages) => {
+    // let sortedAllGreyVillages
+    console.log(villages)
+  }, xCor, yCor, filter);
+
+}
+
+
+/**
  * Adventure traveler
  */
 function  adventureTraveler(user) {
@@ -2258,7 +2268,7 @@ function  adventureTraveler(user) {
     headers: {
       'content-type': 'application/json;charset=UTF-8'
     },
-    serverDomain: user.server,
+    server: user.server,
     json: true,
     body: requestPayload
   };
@@ -2284,7 +2294,7 @@ function  adventureTraveler(user) {
  * @param session - ключ, с акка котороого будут слать
  * @param villageId - айди деревни, с которого идёт отсыл
  */
-function heroChecker(villages, count, session, villageId, troops) {
+function heroChecker(villages, count, session, server, villageId, troops) {
 
   asyncLoop(
     count,
@@ -2309,7 +2319,7 @@ function heroChecker(villages, count, session, villageId, troops) {
                 "movementType": 6,
                 "redeployHero": false,
                 "units": troops,
-                "spyMission": "defence"
+                "spyMission": "resources"
               },
             "session": session
           };
@@ -2321,14 +2331,14 @@ function heroChecker(villages, count, session, villageId, troops) {
             headers: {
               'content-type': 'application/json;charset=UTF-8'
             },
-            serverDomain: serverDomain,
+            server: server,
             json: true,
             body: requestPayload
           };
 
           // https://rux3.kingdoms.com/api/?c=troops&a=send&t1486071488668
 
-         let rand = fixedTimeGenerator(60) + randomTimeGenerator(30);
+         let rand = fixedTimeGenerator(120) + randomTimeGenerator(120);
 
           httpRequest(options).then(
             (body) => {
@@ -2422,7 +2432,7 @@ function attackList(filter, xCor, yCor, paramsAttack) {
             headers: {
               'content-type': 'application/json;charset=UTF-8'
             },
-            serverDomain: serverDomain,
+            server: server,
             json: true,
             body: requestPayload
           };
@@ -2431,7 +2441,7 @@ function attackList(filter, xCor, yCor, paramsAttack) {
             headers: {
               'content-type': 'application/json;charset=UTF-8'
             },
-            serverDomain: serverDomain,
+            server: server,
             json: true,
             body: requestPayload2
           };
@@ -2441,7 +2451,7 @@ function attackList(filter, xCor, yCor, paramsAttack) {
             headers: {
               'content-type': 'application/json;charset=UTF-8'
             },
-            serverDomain: serverDomain,
+            server: server,
             json: true,
             body: {
               "controller": "reports",
@@ -2648,16 +2658,6 @@ function merchants(merchantPlayers) {
             autoMerchants(merchantPlayers[player].params, merchantPlayers[player].cred);
         }, i * 1000 * 20)
     }
-
-    setInterval(() => {
-        i = 0;
-        for (let player in merchantPlayers) {
-            i++;
-            setTimeout(() => {
-                autoMerchants(merchantPlayers[player].params, merchantPlayers[player].cred);
-            }, i * 1000 * 20)
-        }
-    }, 1777 * 1000);
 }
 
 /**
@@ -2669,7 +2669,7 @@ function merchants(merchantPlayers) {
  *
  * @param cred
  * @param cred.session - уникальный индификатор
- * @param cred.serverDomain - сервер
+ * @param cred.server - сервер
  */
 
 //TODO: check on ===
@@ -2684,7 +2684,7 @@ function autoMerchants(params, cred) {
             },
             "session": cred.session
         },
-        serverDomain: cred.serverDomain
+        server: cred.server
     };
 
     httpRequest(options)
@@ -2763,7 +2763,7 @@ function sendTradesForResources(params, cred) {
                 },
                 "session": cred.session
             },
-            serverDomain: cred.serverDomain
+            server: cred.server
         };
 
         switch (params.minResource) {
@@ -2840,7 +2840,7 @@ function sendTradesForCrop(params, cred) {
                 },
                 "session": cred.session
             },
-            serverDomain: cred.serverDomain
+            server: cred.server
         };
 
         switch (params.maxResource) {
@@ -2921,7 +2921,7 @@ async function copyLists(donor, to, listName) {
             },
             json: true,
             body: toggleBody,
-            serverDomain: donor.server
+            server: donor.server
         };
         await httpRequestAsync(options).then(
             (body) => {
@@ -2970,11 +2970,14 @@ async function copyLists(donor, to, listName) {
             },
             json: true,
             body: toggleBody,
-            serverDomain: to.server
+            server: to.server
         };
+
+        console.log(options);
 
         await httpRequestAsync(options).then(
             (body) => {
+              console.log(body)
                 createdListIds.push(body.cache[0].data.cache[0].data.listId);
                 // console.log("Created list:");
                 // console.log(body.cache[0].data.cache[0].data);
@@ -2995,7 +2998,7 @@ async function copyLists(donor, to, listName) {
                     },
                     json: true,
                     body: toggleBody,
-                    serverDomain: to.server
+                    server: to.server
                 };
                 httpRequest(options).then(
                     (body) => {
@@ -3030,7 +3033,7 @@ async function copyLists(donor, to, listName) {
             },
             json: true,
             body: toggleBody,
-            serverDomain: to.server
+            server: to.server
         };
 
       // console.log(createdListIds);
@@ -3107,7 +3110,7 @@ async function growNewVillage(payloadData) {
       },
       "session": token
     },
-    serverDomain: payload.serverDomain
+    server: payload.server
   };
   httpRequest(options).then(async (body) => {
     let villageWhichGrow = body.cache.find(x => x.name == "Player:" + playerId).data.villages.find(x => x.villageId == villageWhichGrowId);
@@ -3140,7 +3143,7 @@ async function growNewVillage(payloadData) {
                 },
                 "session": token
               },
-              serverDomain: payload.serverDomain
+              server: payload.server
             };
             httpRequest(options).then(body => {
               console.log("Warehouse building started");
@@ -3193,7 +3196,7 @@ async function growNewVillage(payloadData) {
                     },
                     "session": token
                   },
-                  serverDomain: payload.serverDomain
+                  server: payload.server
                 };
                 httpRequest(options).then(body => {
                   console.log("Granary building up started");
@@ -3265,7 +3268,7 @@ async function growNewVillage(payloadData) {
                       },
                       "session": token
                     },
-                    serverDomain: payload.serverDomain
+                    server: payload.server
                   };
                   httpRequest(options).then(body => {
                     console.log("Slot building started");
@@ -3307,7 +3310,7 @@ async function growNewVillage(payloadData) {
                         },
                         "session": token
                       },
-                      serverDomain: payload.serverDomain
+                      server: payload.server
                     };
                     httpRequest(options).then(body => {
                       console.log("Slot building started");
@@ -3364,7 +3367,7 @@ async function growNewVillage(payloadData) {
                         },
                         "session": token
                       },
-                      serverDomain: payload.serverDomain
+                      server: payload.server
                     };
                     httpRequest(options).then(body => {
                       console.log("Slot building started");
@@ -3404,7 +3407,7 @@ async function growNewVillage(payloadData) {
                           },
                           "session": token
                         },
-                        serverDomain: payload.serverDomain
+                        server: payload.server
                       };
                       httpRequest(options).then(body => {
                         console.log("Slot building started");
@@ -3456,7 +3459,7 @@ async function growNewVillage(payloadData) {
                 },
                 "session": token
               },
-              serverDomain: payload.serverDomain
+              server: payload.server
             };
             httpRequest(options).then(body => {
               console.log("Granary building started");
@@ -3495,7 +3498,7 @@ async function growNewVillage(payloadData) {
             },
             "session": token
           },
-          serverDomain: payload.serverDomain
+          server: payload.server
         };
         httpRequest(options).then(body => {
           console.log("Warehouse building started");
@@ -3636,7 +3639,7 @@ async function sendResourcesForGrowing(villageWhichGrow, merchants, villageToGro
                   "sourceVillageId": villageWhichGrow.villageId
                 }, "session": token
               },
-              serverDomain: serverDomain
+              server: server
             };
 
             httpRequest(sendOptions).then(async (body) => {
@@ -3689,7 +3692,7 @@ function checkIfEnoughResources(required, exist) {
     required['4'] <= exist['4'];
 }
 
-function getWWRanking(session, serverDomain){
+function getWWRanking(session, server){
   let rankingOptions = {
     method: 'POST',
     headers: {
@@ -3702,7 +3705,7 @@ function getWWRanking(session, serverDomain){
       "params":{"start":0,"end":9,"rankingType":"ranking_WorldWonder"},
       "session":session
     },
-    serverDomain: serverDomain
+    server: server
   };
 
   let wwLevels = {};
@@ -3712,48 +3715,74 @@ function getWWRanking(session, serverDomain){
       .then(ranking => ranking.response.results)
       .then(
       (rankings) => {
-        console.log(rankings);
-        console.log(wwLevels);
+        // console.log(rankings);
+        // console.log(wwLevels);
         let i = 0;
         for (let ww of rankings){
           if (!wwLevels[ww.villageId]) {
             wwLevels[ww.villageId] = ww.lvl;
-            // for (let wwId in wwLevels) {}
-            let text = `${ww.name} [village:${ww.villageId}] - level: ${ww.level}`;
-            console.log(text);
-            setTimeout(() => {
-              fetch(
-                'https://discordapp.com/api/webhooks/726578015391187014/sr7QN-GzonfSP2UtPmeEYKq7JgLyos55ViivhnDXKXtHyCGeVUXqfCpsv2COi7p24oG6',
-                {
-                  method: 'POST',
-                  body: JSON.stringify({content: text}),
-                  headers: { 'Content-Type': 'application/json' }
-                }
-              )
-                .then(data => {
-                  console.log('Отправлено в дискорд');
-                })}, 1000 * i
-            );
-          }
 
-          for (let wwId in wwLevels) {
-            if (wwLevels[ww.villageId] !== ww.lvl && wwId === ww.villageId ) {
-              wwLevels[ww.villageId] = ww.lvl;
-              let text = `${ww.name} [village:${ww.villageId}] - level: ${ww.level}`;
-              setTimeout(() => {
-                fetch(
-                  'https://discordapp.com/api/webhooks/726578015391187014/sr7QN-GzonfSP2UtPmeEYKq7JgLyos55ViivhnDXKXtHyCGeVUXqfCpsv2COi7p24oG6',
-                  {
-                    method: 'POST',
-                    body: JSON.stringify({content: text}),
-                    headers: { 'Content-Type': 'application/json' }
-                  }
-                )
+            let villagesOptions = {
+              method: 'POST',
+              headers: {
+                'content-type': 'application/json;charset=UTF-8'
+              },
+              json: true,
+              body: {
+                "controller":"cache",
+                "action":"get",
+                "params":{
+                  "names":[
+                    `Village:${ww.villageId}`
+                  ]
+                },
+                "session": session
+              },
+              server: server
+            };
+
+            // console.log(villagesOptions)
+
+            setTimeout(() => {
+              httpRequest(villagesOptions)
+                .then(ranking => ranking.cache[0].data)
+                .then(village => {
+                  // for (let wwId in wwLevels) {}
+                  let text = `${ww.name} [village:${ww.villageId}] - level: ${ww.level} - population: ${village.population}`;
+                  console.log(text);
+                  fetch(
+                    'https://discord.com/api/webhooks/777608275557875712/FCg4UUANz15cW1nkD-hLUmRTf_G50vUwRxCxM1XCLQfHtOkK6A6gihoz0ZrAcFydmLjP',
+                    {
+                      method: 'POST',
+                      body: JSON.stringify({content: text}),
+                      headers: { 'Content-Type': 'application/json' }
+                    }
+                  )
                   .then(data => {
                     console.log('Отправлено в дискорд');
-                  })}, 1000 * i)
-            }
+                  });
+                })
+            }, 1000 * i)
           }
+
+          // for (let wwId in wwLevels) {
+          //   if (wwLevels[ww.villageId] !== ww.lvl && wwId === ww.villageId ) {
+          //     wwLevels[ww.villageId] = ww.lvl;
+          //     let text = `${ww.name} [village:${ww.villageId}] - level: ${ww.level}`;
+          //     setTimeout(() => {
+          //       fetch(
+          //         'https://discord.com/api/webhooks/777608275557875712/FCg4UUANz15cW1nkD-hLUmRTf_G50vUwRxCxM1XCLQfHtOkK6A6gihoz0ZrAcFydmLjP',
+          //         {
+          //           method: 'POST',
+          //           body: JSON.stringify({content: text}),
+          //           headers: { 'Content-Type': 'application/json' }
+          //         }
+          //       )
+          //         .then(data => {
+          //           console.log('Отправлено в дискорд');
+          //         })}, 1000 * i)
+          //   }
+          // }
 
           i++;
         }
@@ -3764,7 +3793,7 @@ function getWWRanking(session, serverDomain){
   // https://discordapp.com/api/webhooks/726578015391187014/sr7QN-GzonfSP2UtPmeEYKq7JgLyos55ViivhnDXKXtHyCGeVUXqfCpsv2COi7p24oG6
 }
 
-// getWWRanking('02166dd1e08a51d14787', 'com1nx3');
+// getWWRanking('30e5b51e899e1f467727', 'com1x3');
 
 /**
  * Шейр скан
@@ -3782,7 +3811,7 @@ async function shareScans(payloadData) {
       headers: {
         'content-type': 'application/json;charset=UTF-8'
       },
-      serverDomain: payloadData.serverDomain,
+      server: payloadData.server,
       json: true,
       body: {
         "controller": "reports",
@@ -3819,7 +3848,7 @@ async function shareScans(payloadData) {
       headers: {
         'content-type': 'application/json;charset=UTF-8'
       },
-      serverDomain: payloadData.serverDomain,
+      server: payloadData.server,
       json: true,
       body: {
         "controller": "reports",
@@ -3878,7 +3907,7 @@ async function shareScans(payloadData) {
             headers: {
               'content-type': 'application/json;charset=UTF-8'
             },
-            serverDomain: payloadData.serverDomain,
+            server: payloadData.server,
             json: true,
             body: {
               "controller": "reports",
@@ -3924,7 +3953,7 @@ async function shareLogScans(payloadData, options) {
       headers: {
         'content-type': 'application/json;charset=UTF-8'
       },
-      serverDomain: payloadData.serverDomain,
+      server: payloadData.server,
       json: true,
       body: {
         "controller": "reports",
@@ -4007,198 +4036,46 @@ function sleep(ms) {
 
 let users = {
   wahlberg: {
-    "server": "com4",
-    "session":"40fe14183625271feb7d",
+    "server": "com1x3",
+    "session":"5b815ab7f10991c117b2",
     "villages": [
       {
-        "villageId":537051116,
+        "villageId":537149452,
         "type": 'off'
       },
       {
-        "villageId":536985575,
-        "type": 'off'
-      }
-    ],
-    scan: {
-      "1": 0,
-      "2": 0,
-      "3": 1,
-      "4": 0,
-      "5": 0,
-      "6": 0,
-      "7": 0,
-      "8": 0,
-      "9": 0,
-      "10": 0,
-      "11": 0
-    }
-  },
-  jjungle: {
-    "server": "com4",
-    "session":"f908d12a1e6ac9475ea7",
-    "villages": [
-      {
-        "villageId":537149407,
+        "villageId":537116686,
         "type": 'off'
       },
       {
-        "villageId":537247727,
+        "villageId":535609336,
         "type": 'off'
       },
-    ],
-    scan: {
-      "1": 0,
-      "2": 0,
-      "3": 0,
-      "4": 1,
-      "5": 0,
-      "6": 0,
-      "7": 0,
-      "8": 0,
-      "9": 0,
-      "10": 0,
-      "11": 0
-    }
-  },
-  ruslan: {
-    "server": "com4",
-    "session":"0db370f6f54f30b607a4",
-    "villages": [
       {
-        "villageId":537051115,
-        "type": 'off'
-      }
-    ],
-    scan: {
-      "1": 0,
-      "2": 0,
-      "3": 1,
-      "4": 0,
-      "5": 0,
-      "6": 0,
-      "7": 0,
-      "8": 0,
-      "9": 0,
-      "10": 0,
-      "11": 0
-    }
-  },
-  pikt: {
-    "server": "com4",
-    "session":"37519ffb9555d161e19f",
-    "villages": [
-      {
-        "villageId":537083873,
-        "type": 'off'
-      }
-    ],
-    scan: {
-      "1": 0,
-      "2": 0,
-      "3": 1,
-      "4": 0,
-      "5": 0,
-      "6": 0,
-      "7": 0,
-      "8": 0,
-      "9": 0,
-      "10": 0,
-      "11": 0
-    }
-  },
-  rin: {
-    "server": "com4",
-    "session":"5cffbace99833d421e9f",
-    "villages": [
-      {
-        "villageId":537018343,
-        "type": 'def'
-      },
-      {
-        "villageId":536952811,
-        "type": 'res'
-      },
-
-    ],
-    scan: {
-      "1": 0,
-      "2": 0,
-      "3": 1,
-      "4": 0,
-      "5": 0,
-      "6": 0,
-      "7": 0,
-      "8": 0,
-      "9": 0,
-      "10": 0,
-      "11": 0
-    }
-  },
-  serge: {
-    "server": "com4",
-    "session":"52af3f71bb92c3897901",
-    "villages": [
-      {
-        "villageId":537051109,
+        "villageId":536854541,
         "type": 'def'
       }
     ],
-  },
-  andrew: {
-    "server": "com4",
-    "session":"6ed89affc770ab4eba9e",
-    "villages": [
-      {
-        "villageId":537051110,
-        "type": 'off'
-      },
-      {
-        "villageId":537542618,
-        "type": 'off'
-      },
-      {
-        "villageId":537083879,
-        "type": 'off'
-      },
-      {
-        "villageId":537444326,
-        "type": 'off'
-      },
-    ],
-  },
-  lncky: {
-    "server": "com4",
-    "session":"f4c4d8e412f6229b6038"
-  },
-  starlord: {
-    "server": "com4",
-    "session":"1820f329c1019cad1d0b"
-  }
-};
-
-let sharePayload = {
-  wahlberg: {
-    "session":users.wahlberg.session,
-    "serverDomain": "com3x3",
-    "minutes": 15,
-    "shareParam": 174,//SS id
-    "minimumResources": 3000
+    scan: {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0
+    }
   },
 };
 
 let listPayload = {
-  wahlberg:  {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[4873, 4874, 4875, 4876, 4877, 4878, 4879],"villageId":users.wahlberg.villages[0].villageId},"session": users.wahlberg.session, "server": users.wahlberg.server},
-  wahlberg2:  {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.wahlberg.villages[1].villageId},"session": users.wahlberg.session, "serverDomain": users.wahlberg.server},
-  jjungle:  {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.jjungle.villages[0].villageId},"session": users.jjungle.session, "serverDomain": users.jjungle.server},
-  jjungle2:  {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.jjungle.villages[1].villageId},"session": users.jjungle.session, "serverDomain": users.jjungle.server},
-  ruslan: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.ruslan.villages[0].villageId},"session": users.ruslan.session, "serverDomain": users.ruslan.server},
-  pikt: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.pikt.villages[0].villageId},"session": users.pikt.session, "serverDomain": users.pikt.server},
-  andrew: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.andrew.villages[0].villageId},"session": users.andrew.session, "serverDomain": users.andrew.server},
-  andrew2: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.andrew.villages[1].villageId},"session": users.andrew.session, "serverDomain": users.andrew.server},
-  andrew3: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.andrew.villages[2].villageId},"session": users.andrew.session, "serverDomain": users.andrew.server},
-  andrew4: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.andrew.villages[3].villageId},"session": users.andrew.session, "serverDomain": users.andrew.server},
-  serge: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.serge.villages[0].villageId},"session": users.serge.session, "serverDomain": users.serge.server},
-  rin: {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.rin.villages[0].villageId},"session": users.rin.session, "serverDomain": users.rin.server},
+  wahlberg:  {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.wahlberg.villages[0].villageId},"session": users.wahlberg.session, "server": users.wahlberg.server},
+  wahlberg2:  {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.wahlberg.villages[1].villageId},"session": users.wahlberg.session, "server": users.wahlberg.server},
+  wahlberg3:  {"controller":"troops","action":"startFarmListRaid","params":{"listIds":[],"villageId":users.wahlberg.villages[2].villageId},"session": users.wahlberg.session, "server": users.wahlberg.server},
 };
 
 
@@ -4214,7 +4091,7 @@ let apiData = {
 let apiKey = {};
 let timeForGame = 't' + Date.now();
 let token = userDate.token;
-let serverDomain = userDate.serverDomain;
+let server = userDate.server;
 // node ./bin/wwwY
 //different = {less, equal, more}
 //value = value
@@ -4444,11 +4321,11 @@ let kingdomsFilters2 = {
 };
 
 //Purge-1
-let kingdomsFilters3 = {
+let vacationFilter = {
   players: {
-    kingdomId: {
+    vacationState: {
       different: "equal",
-      value: "252"
+      value: "1"
     },
     active: {
       different: "equal",
@@ -4563,7 +4440,7 @@ let doom = {
 
 
 // let repeatFn = function(fn){
-//   getMapInfo('crop', token, serverDomain, timeForGame);
+//   getMapInfo('crop', token, server, timeForGame);
 //   setTimeout(fn, 600000);
 // };
 // let troops = {
@@ -4613,7 +4490,7 @@ let optionsFL = {
     },
     "session":"490dd9471747ac65e1d8"
   },
-  serverDomain: 'test'
+  server: 'test'
 };
 
 // setTimeout(() => {
@@ -4780,16 +4657,20 @@ let optionsFL = {
 
 let merchantPlayers = {
   wahlberg: {
-    params: {percent: 90, villageId: users.wahlberg.villages[0].villageId, playerId: '289'},
-    cred: {session: users.wahlberg.session, serverDomain: users.wahlberg.server},
+    params: {percent: 90, villageId: users.wahlberg.villages[0].villageId, playerId: '502'},
+    cred: {session: users.wahlberg.session, server: users.wahlberg.server},
   },
   wahlberg2: {
-    params: {percent: 90, villageId: users.wahlberg.villages[1].villageId, playerId: '289'},
-    cred: {session: users.wahlberg.session, serverDomain: users.wahlberg.server},
+    params: {percent: 90, villageId: users.wahlberg.villages[1].villageId, playerId: '502'},
+    cred: {session: users.wahlberg.session, server: users.wahlberg.server},
   },
-  jjungle: {
-    params: {percent: 90, villageId: users.jjungle.villages[0].villageId, playerId: '387'},
-    cred: {session: users.jjungle.session, serverDomain: users.jjungle.server},
+  wahlberg3: {
+    params: {percent: 90, villageId: users.wahlberg.villages[2].villageId, playerId: '502'},
+    cred: {session: users.wahlberg.session, server: users.wahlberg.server},
+  },
+  wahlberg4: {
+    params: {percent: 90, villageId: users.wahlberg.villages[3].villageId, playerId: '502'},
+    cred: {session: users.wahlberg.session, server: users.wahlberg.server},
   }
 };
 /**
@@ -4807,7 +4688,7 @@ let merchantPlayers = {
 //      listPayload.andrew,
 //      listPayload.serge,
 //      listPayload.lncky,
-//      users.starlord,
+//      users.lncky
 //     ],
 //     "19sept_");
 // }, 300 * 1000);
@@ -4817,11 +4698,11 @@ let merchantPlayers = {
  * Добавления юнитов по улсовиям
 */
 // setTimeout(() => {
-//   setTimeout(() => {
-// createFarmList('neut/', '-25', '4', neutrals);
-// // // // // });
 // setTimeout(() => {
-//     createFarmList('150zz/', '-25', '4', deathsFilterFrom150);
+//   createFarmList('neut/', '12', '8', neutrals);
+// });
+// setTimeout(() => {
+//     createFarmList('150zz/', '12', '8', deathsFilterFrom150);
 // }, 100 * 1000);
 // setTimeout(() => {
 //   createFarmList('60-149zz/', '-25', '4', deathsFilterFrom60To150);
@@ -4832,39 +4713,68 @@ let merchantPlayers = {
 /**
  * Фармлисты
  */
-
-autoFarmList(1200, 300, listPayload.wahlberg, {checkList: true, greenLogs: false})
-  .then(() => {
-    console.log('Фармлист запущен');
-  });
-
-setTimeout(() => {
-  autoFarmList(1200, 300, listPayload.wahlberg2, {checkList: false, greenLogs: false, prefix: '!!'})
-    .then(() => {
-      console.log('Фармлист запущен');
-    });
-}, 1000 * 400);
-
-setTimeout(() => {
-  autoFarmList(1200, 300, listPayload.jjungle, {checkList: true, greenLogs: false})
-    .then(() => {
-      console.log('Фармлист запущен');
-    });
-}, 1000 * 200);
+//
+// setTimeout(() => {
+//   autoFarmList(1500, 600, listPayload.wahlberg, {checkList: true, greenLogs: false})
+//     .then(() => {
+//       console.log('Фармлист запущен');
+//     });
+//
+//   setTimeout(() => {
+//     autoFarmList(1500, 600, listPayload.wahlberg2, {checkList: true, greenLogs: false})
+//       .then(() => {
+//         console.log('Фармлист запущен');
+//       });
+//   }, 1000 * 400);
+//
+//   setTimeout(() => {
+//     autoFarmList(1500, 600, listPayload.wahlberg3, {checkList: false, greenLogs: false})
+//       .then(() => {
+//         console.log('Фармлист запущен');
+//       });
+//   }, 1000 * 600);
+// }, 1000 * 3600);
+//
+// setTimeout(() => {
+//   autoFarmList(1200, 300, listPayload.jjungle, {checkList: true, greenLogs: false})
+//     .then(() => {
+//       console.log('Фармлист запущен');
+//     });
+// }, 1000 * 200);
+//
+// setTimeout(() => {
+//   autoFarmList(1200, 300, listPayload.jjungle2, {checkList: true, greenLogs: false})
+//     .then(() => {
+//       console.log('Фармлист запущен');
+//     });
+// }, 1000 * 250);
 // // }, 1000 * 7200);
-setTimeout(() => {
-  autoFarmList(1200, 300, listPayload.ruslan, {checkList: true, greenLogs: false})
-    .then(() => {
-      console.log('Фармлист запущен');
-    });
-}, 1000 * 800);
-
-setTimeout(() => {
-  autoFarmList(1200, 300, listPayload.serge, {checkList: true, greenLogs: false})
-    .then(() => {
-      console.log('Фармлист запущен');
-    });
-}, 1000 * 400);
+// setTimeout(() => {
+//   autoFarmList(1200, 300, listPayload.ruslan, {checkList: true, greenLogs: false})
+//     .then(() => {
+//       console.log('Фармлист запущен');
+//     });
+// }, 1000 * 800);
+//
+// setTimeout(() => {
+//   autoFarmList(1200, 300, listPayload.serge, {checkList: true, greenLogs: false})
+//     .then(() => {
+//       console.log('Фармлист запущен');
+//     });
+// }, 1000 * 400);
+// setTimeout(() => {
+//   autoFarmList(1200, 300, listPayload.pikt, {checkList: true, greenLogs: false})
+//     .then(() => {
+//       console.log('Фармлист запущен');
+//     });
+// }, 1000 * 350);
+// //
+// setTimeout(() => {
+//   autoFarmList(1200, 300, listPayload.rin, {checkList: true, greenLogs: false})
+//     .then(() => {
+//       console.log('Фармлист запущен');
+//     });
+// }, 1000 * 650);
 
 
 // setTimeout(() => {
@@ -4896,24 +4806,13 @@ setTimeout(() => {
 // }, 1000 * 550);
 
 
-setTimeout(() => {
-  autoFarmList(1200, 300, listPayload.pikt, {checkList: true, greenLogs: false})
-    .then(() => {
-      console.log('Фармлист запущен');
-    });
-}, 1000 * 350);
-//
-setTimeout(() => {
-  autoFarmList(1200, 300, listPayload.rin, {checkList: true, greenLogs: false})
-    .then(() => {
-      console.log('Фармлист запущен');
-    });
-}, 1000 * 650);
 
 /**
  * Торговцы
  */
-merchants(merchantPlayers);
+// repeatDelay(() => {
+//   merchants(merchantPlayers);
+// }, 7200);
 // merchants(merchantPlayers2);
 // shareLogScans(sharePayload.wahlberg);
 // shareScans(sharePayload.wahlberg);
@@ -4963,7 +4862,7 @@ merchants(merchantPlayers);
 //   }
 // );
 // shareLogScans(sharePayload.wahlberg, {destKingdomId: '128'});
-// autoUnitsBuild(users.wahlberg, 1200, 0);
+// autoUnitsBuild(users.wahlberg, 3600, 1200);
 // autoUnitsBuild(users.klimona, 1200, 0);
 // autoUnitsBuild(users.ruslan, 1200, 0);
 // autoUnitsBuild(users.hysteria, 1200, 0);
@@ -5127,7 +5026,7 @@ let operationSender = async (opt) => {
         headers: {
           'content-type': 'application/json;charset=UTF-8'
         },
-        serverDomain: serverDomain,
+        server: server,
         json: true,
         body: requestPayload
       };
@@ -5213,7 +5112,7 @@ let operationSender = async (opt) => {
         headers: {
           'content-type': 'application/json;charset=UTF-8'
         },
-        serverDomain: serverDomain,
+        server: server,
         json: true,
         body: requestPayload
       };
@@ -5410,7 +5309,7 @@ async function getVillages(opt){
     headers: {
       'content-type': 'application/json;charset=UTF-8'
     },
-    serverDomain: opt.server,
+    server: opt.server,
     json: true,
     body: body
   };
@@ -5444,7 +5343,7 @@ async function getVillagesOperation(opt){
     headers: {
       'content-type': 'application/json;charset=UTF-8'
     },
-    serverDomain: opt.villageChecker.serverDomain,
+    server: opt.villageChecker.server,
     json: true,
     body: body
   };
@@ -5517,7 +5416,7 @@ async function operationChecker(opt){
 //   ],
 //   villageChecker: {
 //     villageId: '536166393',
-//     serverDomain: 'ru1x3',
+//     server: 'ru1x3',
 //     session: users.wahlberg.session,
 //   }
 // });
@@ -5536,11 +5435,11 @@ async function operationChecker(opt){
 //     "10": 0,
 //     "11": 0
 //   });
-// heroChecker([536166423], 35, users.wahlberg.session, 536166393,{
+// heroChecker([535642086], 150, 'f37a32199de46c0cbc7b', users.wahlberg.server, 535445464,{
 //   "1": 0,
 //   "2": 0,
-//   "3": 1,
-//   "4": 0,
+//   "3": 0,
+//   "4": 1,
 //   "5": 0,
 //   "6": 0,
 //   "7": 0,
@@ -5562,26 +5461,38 @@ async function operationChecker(opt){
 //   "10": 0,
 //   "11": 0
 // });
-// heroChecker([535838712], 100, "f192292c4346c1fead7a", 537247743);
+// heroChecker([535052261], 1031, "f9e624d06fc3e94696bd", "com1x3", 536068080, {
+//   "1": 0,
+//   "2": 0,
+//   "3": 1,
+//   "4": 0,
+//   "5": 0,
+//   "6": 0,
+//   "7": 0,
+//   "8": 0,
+//   "9": 0,
+//   "10": 0,
+//   "11": 0
+// });
 
 /**
  * autobuild
- * @type {{villageWhichGrowId: number, villageToGrowId: number, percentWarehouse: number, slotsLvlCap: number, warehouse: number, granary: number, token: string, playerId: number, serverDomain: string}}
+ * @type {{villageWhichGrowId: number, villageToGrowId: number, percentWarehouse: number, slotsLvlCap: number, warehouse: number, granary: number, token: string, playerId: number, server: string}}
  */
 
-let payloadData = {
-  villageWhichGrowId: 537018343, // деревня, откуда шлём ресы (если надо, чтобы деревня росла на своём чвр - указать деревню, которую растим)
-  villageToGrowId: 536952811, // деревня, которую растим
-  percentWarehouse: 0, // процент содержания склада, если хоть один рес меньше процента - торгаши не шлются
-  slotsLvlCap: 10, // уровень полей
-  warehouse: 9, // уровень склада
-  granary: 8, // уровень амбара
-  token: users.rin.session,
-  playerId: 966,
-  serverDomain: 'com4'
-};
+// let payloadData = {
+//   villageWhichGrowId: 537018343, // деревня, откуда шлём ресы (если надо, чтобы деревня росла на своём чвр - указать деревню, которую растим)
+//   villageToGrowId: 536952811, // деревня, которую растим
+//   percentWarehouse: 0, // процент содержания склада, если хоть один рес меньше процента - торгаши не шлются
+//   slotsLvlCap: 10, // уровень полей
+//   warehouse: 9, // уровень склада
+//   granary: 8, // уровень амбара
+//   token: users.rin.session,
+//   playerId: 966,
+//   server: 'com4'
+// };
 
-growNewVillage(payloadData);
+// growNewVillage(payloadData);
 
 
 /**
@@ -5593,15 +5504,15 @@ growNewVillage(payloadData);
 /**
  * Крокодилы
  */
-// setInterval(function() {
-//   getMapInfo('animal', token, serverDomain, timeForGame);
-// }, 600000);
-// getMapInfo('animal', token, serverDomain, timeForGame);
+setInterval(function() {
+  getMapInfo('animal', token, server, timeForGame);
+}, 600000);
+getMapInfo('animal', token, server, timeForGame);
 
 /**
  * Кроп
  */
-// getMapInfo('crop', token, serverDomain, timeForGame, 289);
+// getMapInfo('crop', token, server, timeForGame, 502);
 
 /* GET home page. */
 router.get('/animal2/', function (req, res, next) {
@@ -5613,7 +5524,6 @@ router.get('/animal2/', function (req, res, next) {
     alliances: apiData.alliances,
     map: JSON.stringify(apiData.map)
   });
-
 });
 
 router.get('/animal/', function (req, res, next) {
